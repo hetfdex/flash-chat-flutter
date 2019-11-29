@@ -20,7 +20,7 @@ class Gallery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const int view =
-        3; //0 == Homeview, 1 == LoginView, 2 == RegisterView, 3 == ChatView
+        0; //0 == Homeview, 1 == LoginView, 2 == RegisterView, 3 == ChatView
 
     if (view == 0) {
       return HomeView(
