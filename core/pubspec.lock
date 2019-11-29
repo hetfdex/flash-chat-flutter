@@ -57,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.14.11"
+  components:
+    dependency: transitive
+    description:
+      path: "../components"
+      relative: true
+    source: path
+    version: "1.0.0"
   dbcrypt:
     dependency: "direct main"
     description:
@@ -98,20 +105,6 @@ packages:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
-  flash_chat_views:
-    dependency: "direct main"
-    description:
-      path: "../views"
-      relative: true
-    source: path
-    version: "1.0.0"
-  flash_chat_widgets:
-    dependency: transitive
-    description:
-      path: "../widgets"
-      relative: true
-    source: path
     version: "1.0.0"
   flutter:
     dependency: transitive
@@ -275,6 +268,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
+  views:
+    dependency: "direct main"
+    description:
+      path: "../views"
+      relative: true
+    source: path
+    version: "1.0.0"
 sdks:
   dart: ">=2.2.2 <3.0.0"
   flutter: ">=1.9.1+hotfix.5 <2.0.0"

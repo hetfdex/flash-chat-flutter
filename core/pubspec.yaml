@@ -8,7 +8,7 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
-  flash_chat_views:
+  views:
     path: ../views
   bloc: ^2.0.0
   flutter_bloc: ^2.1.1
@@ -25,4 +25,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^4.1.1
+
+flutter:
+  uses-material-design: true
   
