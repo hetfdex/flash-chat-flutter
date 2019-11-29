@@ -9,13 +9,13 @@ class AuthenticationView extends StatelessWidget {
   /// Constructs the authentication view widget
   const AuthenticationView(
       {@required this.isLoading,
-      @required this.authenticateButtonText,
+      @required this.authenticationButtonText,
       @required this.authenticationButtonOnPressed,
       @required this.cancelButtonOnPressed,
       @required this.emailInputFieldOnChanged,
       @required this.passwordInputFieldOnChanged})
       : assert(isLoading != null),
-        assert(authenticateButtonText != null),
+        assert(authenticationButtonText != null),
         assert(authenticationButtonOnPressed != null),
         assert(cancelButtonOnPressed != null),
         assert(emailInputFieldOnChanged != null),
@@ -25,7 +25,7 @@ class AuthenticationView extends StatelessWidget {
   final bool isLoading;
 
   /// The text on the authentication button
-  final String authenticateButtonText;
+  final String authenticationButtonText;
 
   /// The function called when the authentication button is pressed
   final Function authenticationButtonOnPressed;
@@ -77,7 +77,7 @@ class AuthenticationView extends StatelessWidget {
                 height: 24.0,
               ),
               RoundedButton(
-                text: authenticateButtonText,
+                text: authenticationButtonText,
                 color: primaryColor,
                 onPressed: authenticationButtonOnPressed,
               ),
