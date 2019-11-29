@@ -1,23 +1,28 @@
 import 'package:flash_chat_widgets/helpers/constants.dart';
 import 'package:flutter/material.dart';
 
+/// An input field widget
 class InputField extends StatelessWidget {
+  /// Contructs the input field widget
   const InputField(
       {@required this.keyboardType,
       @required this.onChanged,
       @required this.obscureText,
-      @required this.hintText})
+      this.hintText})
       : assert(keyboardType != null),
         assert(onChanged != null),
-        assert(obscureText != null),
-        assert(hintText != null);
+        assert(obscureText != null);
 
+  /// The type of keyboard to display
   final TextInputType keyboardType;
 
+  /// The function called when the text field's value changes
   final Function onChanged;
 
+  /// Whether to hide the text being edited
   final bool obscureText;
 
+  /// Hint of the type of input expected
   final String hintText;
 
   @override
