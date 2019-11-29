@@ -1,0 +1,21 @@
+name: flash_chat_widgets
+description: A widget library for the flash chat app.
+version: 1.0.0
+author: Jose Pereira
+homepage: www.github.com/hetfdex
+
+environment:
+  sdk: ">=2.2.2 <3.0.0"
+
+dependencies:
+  animated_text_kit: ^1.3.1
+  modal_progress_hud: ^0.1.3
+  effective_dart: ^1.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+  - images/
