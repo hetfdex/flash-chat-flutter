@@ -13,3 +13,6 @@ dependencies:
   views:
     path: ../
   effective_dart: ^1.1.1
+
+flutter:
+  uses-material-design: true
