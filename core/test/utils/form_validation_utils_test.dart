@@ -4,33 +4,33 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('isValidEmail', () {
     test('valid email returns true', () {
-      const String validEmail = 'test@email.com';
+      const validEmail = 'test@email.com';
 
-      final bool result = isValidEmail(validEmail);
+      final result = isValidEmail(validEmail);
 
       assert(result == true);
     });
 
     test('invalid email returns false', () {
-      const String invalidEmail = 'test';
+      const invalidEmail = 'test';
 
-      final bool result = isValidEmail(invalidEmail);
-
-      assert(result == false);
-    });
-
-    test('invalid email returns false', () {
-      const String invalidEmail = 'test@test';
-
-      final bool result = isValidEmail(invalidEmail);
+      final result = isValidEmail(invalidEmail);
 
       assert(result == false);
     });
 
     test('invalid email returns false', () {
-      const String invalidEmail = '@test.com';
+      const invalidEmail = 'test@test';
 
-      final bool result = isValidEmail(invalidEmail);
+      final result = isValidEmail(invalidEmail);
+
+      assert(result == false);
+    });
+
+    test('invalid email returns false', () {
+      const invalidEmail = '@test.com';
+
+      final result = isValidEmail(invalidEmail);
 
       assert(result == false);
     });
@@ -38,15 +38,15 @@ void main() {
     test('null email returns false', () {
       const String nullEmail = null;
 
-      final bool result = isValidEmail(nullEmail);
+      final result = isValidEmail(nullEmail);
 
       assert(result == false);
     });
 
     test('empty email returns false', () {
-      const String emptyEmail = '';
+      const emptyEmail = '';
 
-      final bool result = isValidEmail(emptyEmail);
+      final result = isValidEmail(emptyEmail);
 
       assert(result == false);
     });
@@ -54,33 +54,33 @@ void main() {
 
   group('isValidPassword', () {
     test('valid password returns true', () {
-      const String validPassword = 'Abcde12345@';
+      const validPassword = 'Abcde12345@';
 
-      final bool result = isValidPassword(validPassword);
+      final result = isValidPassword(validPassword);
 
       assert(result == true);
     });
 
     test('invalid password returns false', () {
-      const String invalidPassword = 'abcde';
+      const invalidPassword = 'abcde';
 
-      final bool result = isValidPassword(invalidPassword);
-
-      assert(result == false);
-    });
-
-    test('invalid password returns false', () {
-      const String invalidPassword = '12345';
-
-      final bool result = isValidPassword(invalidPassword);
+      final result = isValidPassword(invalidPassword);
 
       assert(result == false);
     });
 
     test('invalid password returns false', () {
-      const String invalidPassword = '@€£!';
+      const invalidPassword = '12345';
 
-      final bool result = isValidPassword(invalidPassword);
+      final result = isValidPassword(invalidPassword);
+
+      assert(result == false);
+    });
+
+    test('invalid password returns false', () {
+      const invalidPassword = '@€£!';
+
+      final result = isValidPassword(invalidPassword);
 
       assert(result == false);
     });
@@ -88,15 +88,15 @@ void main() {
     test('null password returns false', () {
       const String nullPassword = null;
 
-      final bool result = isValidPassword(nullPassword);
+      final result = isValidPassword(nullPassword);
 
       assert(result == false);
     });
 
     test('empty password returns false', () {
-      const String emptyPassword = '';
+      const emptyPassword = '';
 
-      final bool result = isValidPassword(emptyPassword);
+      final result = isValidPassword(emptyPassword);
 
       assert(result == false);
     });

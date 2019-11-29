@@ -13,11 +13,11 @@ class AuthenticationMock extends Mock implements AuthenticationBloc {}
 class FirebaseUserMock extends Mock implements FirebaseUser {}
 
 void main() {
-  const String emptyField = '';
-  const String invalidEmail = 'email';
-  const String validEmail = 'email@email.com';
-  const String invalidPassword = 'password';
-  const String validPassword = 'Abcde12345@';
+  const emptyField = '';
+  const invalidEmail = 'email';
+  const validEmail = 'email@email.com';
+  const invalidPassword = 'password';
+  const validPassword = 'Abcde12345@';
 
   final FirebaseUser firebaseUser = FirebaseUserMock();
 
@@ -39,7 +39,7 @@ void main() {
     test('null userRepository throws error', () {
       try {
         LoginBloc(null, authenticationBloc);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is AssertionError);
       }
     });
@@ -47,7 +47,7 @@ void main() {
     test('null authenticationBloc throws error', () {
       try {
         LoginBloc(userRepository, null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is AssertionError);
       }
     });
@@ -61,7 +61,7 @@ void main() {
     test(
         'emits [LoginInitial, LoginFillInProgress] when email and password are empty',
         () {
-      final List<LoginState> expectedResponse = <LoginState>[
+      final expectedResponse = <LoginState>[
         LoginInitial(),
         LoginFillInProgress(),
       ];
@@ -75,7 +75,7 @@ void main() {
     });
 
     test('emits [LoginInitial, LoginFillInProgress] when email is empty', () {
-      final List<LoginState> expectedResponse = <LoginState>[
+      final expectedResponse = <LoginState>[
         LoginInitial(),
         LoginFillInProgress(),
       ];
@@ -90,7 +90,7 @@ void main() {
 
     test('emits [LoginInitial, LoginFillInProgress] when password is empty',
         () {
-      final List<LoginState> expectedResponse = <LoginState>[
+      final expectedResponse = <LoginState>[
         LoginInitial(),
         LoginFillInProgress(),
       ];
@@ -104,7 +104,7 @@ void main() {
     });
 
     test('emits [LoginInitial, LoginFillInProgress] when email is invalid', () {
-      final List<LoginState> expectedResponse = <LoginState>[
+      final expectedResponse = <LoginState>[
         LoginInitial(),
         LoginFillInProgress(),
       ];
@@ -119,7 +119,7 @@ void main() {
 
     test('emits [LoginInitial, LoginFillInProgress] when password is invalid',
         () {
-      final List<LoginState> expectedResponse = <LoginState>[
+      final expectedResponse = <LoginState>[
         LoginInitial(),
         LoginFillInProgress(),
       ];
@@ -135,7 +135,7 @@ void main() {
     test(
         'emits [LoginInitial, LoginFillSuccess] when email and password are valid',
         () {
-      final List<LoginState> expectedResponse = <LoginState>[
+      final expectedResponse = <LoginState>[
         LoginInitial(),
         LoginFillSuccess(),
       ];
@@ -153,7 +153,7 @@ void main() {
     test(
         'emits [LoginInitial, LoginValidateInProgress, LoginInitial] when email and password are valid',
         () {
-      final List<LoginState> expectedResponse = <LoginState>[
+      final expectedResponse = <LoginState>[
         LoginInitial(),
         LoginValidateInProgress(),
         LoginInitial(),

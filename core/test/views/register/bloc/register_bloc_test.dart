@@ -13,11 +13,11 @@ class AuthenticationMock extends Mock implements AuthenticationBloc {}
 class FirebaseUserMock extends Mock implements FirebaseUser {}
 
 void main() {
-  const String emptyField = '';
-  const String invalidEmail = 'email';
-  const String validEmail = 'email@email.com';
-  const String invalidPassword = 'password';
-  const String validPassword = 'Abcde12345@';
+  const emptyField = '';
+  const invalidEmail = 'email';
+  const validEmail = 'email@email.com';
+  const invalidPassword = 'password';
+  const validPassword = 'Abcde12345@';
 
   final FirebaseUser firebaseUser = FirebaseUserMock();
 
@@ -39,7 +39,7 @@ void main() {
     test('null userRepository throws error', () {
       try {
         RegisterBloc(null, authenticationBloc);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is AssertionError);
       }
     });
@@ -47,7 +47,7 @@ void main() {
     test('null athenticationBloc throws error', () {
       try {
         RegisterBloc(userRepository, null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is AssertionError);
       }
     });
@@ -61,7 +61,7 @@ void main() {
     test(
         'emits [RegisterInitial, RegisterFillInProgress] when email and password are empty',
         () {
-      final List<RegisterState> expectedResponse = <RegisterState>[
+      final expectedResponse = <RegisterState>[
         RegisterInitial(),
         RegisterFillInProgress(),
       ];
@@ -76,7 +76,7 @@ void main() {
 
     test('emits [RegisterInitial, RegisterFillInProgress] when email is empty',
         () {
-      final List<RegisterState> expectedResponse = <RegisterState>[
+      final expectedResponse = <RegisterState>[
         RegisterInitial(),
         RegisterFillInProgress(),
       ];
@@ -92,7 +92,7 @@ void main() {
     test(
         'emits [RegisterInitial, RegisterFillInProgress] when password is empty',
         () {
-      final List<RegisterState> expectedResponse = <RegisterState>[
+      final expectedResponse = <RegisterState>[
         RegisterInitial(),
         RegisterFillInProgress(),
       ];
@@ -108,7 +108,7 @@ void main() {
     test(
         'emits [RegisterInitial, RegisterFillInProgress] when email is invalid',
         () {
-      final List<RegisterState> expectedResponse = <RegisterState>[
+      final expectedResponse = <RegisterState>[
         RegisterInitial(),
         RegisterFillInProgress(),
       ];
@@ -124,7 +124,7 @@ void main() {
     test(
         'emits [RegisterInitial, RegisterFillInProgress] when password is invalid',
         () {
-      final List<RegisterState> expectedResponse = <RegisterState>[
+      final expectedResponse = <RegisterState>[
         RegisterInitial(),
         RegisterFillInProgress(),
       ];
@@ -140,7 +140,7 @@ void main() {
     test(
         'emits [RegisterInitial, RegisterFillSuccess] when email and password are valid',
         () {
-      final List<RegisterState> expectedResponse = <RegisterState>[
+      final expectedResponse = <RegisterState>[
         RegisterInitial(),
         RegisterFillSuccess(),
       ];
@@ -158,7 +158,7 @@ void main() {
     test(
         'emits [RegisterInitial, RegisterValidateInProgress, RegisterInitial] when email and password are valid',
         () {
-      final List<RegisterState> expectedResponse = <RegisterState>[
+      final expectedResponse = <RegisterState>[
         RegisterInitial(),
         RegisterValidateInProgress(),
         RegisterInitial(),

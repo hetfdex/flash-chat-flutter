@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat_core/authentication/bloc/bloc.dart';
 import 'package:flash_chat_core/repositories/user_repository.dart';
 import 'package:flash_chat_core/utils/form_validation_utils.dart';
@@ -40,7 +39,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) async* {
     yield RegisterValidateInProgress();
     try {
-      final FirebaseUser user = await _userRepository.register(
+      final user = await _userRepository.register(
         event.email,
         event.password,
       );
@@ -48,7 +47,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       _authenticationBloc.add(LoggedIn(user));
 
       yield RegisterInitial();
-    } catch (e) {
+    } on Object catch (_) {
       rethrow;
     }
   }

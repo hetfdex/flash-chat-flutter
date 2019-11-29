@@ -26,7 +26,7 @@ void main() {
     test('null userRepository throws error', () {
       try {
         AuthenticationBloc(null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is AssertionError);
       }
     });
@@ -40,7 +40,7 @@ void main() {
     test(
         'emits [Initial, ValidateSuccess] when UserRepository returns valid user',
         () {
-      final List<AuthenticationState> expectedResponse = <AuthenticationState>[
+      final expectedResponse = <AuthenticationState>[
         Initial(),
         ValidateSuccess(),
       ];
@@ -59,7 +59,7 @@ void main() {
     test(
         'emits [Initial, ValidateFailure] when userRepository returns null user',
         () {
-      final List<AuthenticationState> expectedResponse = <AuthenticationState>[
+      final expectedResponse = <AuthenticationState>[
         Initial(),
         ValidateFailure(),
       ];
@@ -79,7 +79,7 @@ void main() {
   group('LoggedIn', () {
     test('emits [Initial, ValidateSuccess] when userRepository returns user',
         () {
-      final List<AuthenticationState> expectedResponse = <AuthenticationState>[
+      final expectedResponse = <AuthenticationState>[
         Initial(),
         ValidateSuccess(),
       ];
@@ -98,7 +98,7 @@ void main() {
   group('LoggedOut', () {
     test('emits [Initial, ValidateFailure] when logout request is successful',
         () {
-      final List<AuthenticationState> expectedResponse = <AuthenticationState>[
+      final expectedResponse = <AuthenticationState>[
         Initial(),
         ValidateFailure(),
       ];

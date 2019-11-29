@@ -11,9 +11,9 @@ String _password;
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final LoginBloc _loginBloc = BlocProvider.of<LoginBloc>(context);
+    final _loginBloc = BlocProvider.of<LoginBloc>(context);
 
-    final HomeBloc _homeBloc = BlocProvider.of<HomeBloc>(context);
+    final _homeBloc = BlocProvider.of<HomeBloc>(context);
 
     return AuthenticationView(
         isLoading: false,

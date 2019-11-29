@@ -14,9 +14,9 @@ class FirebaseUserMock extends Mock implements FirebaseUser {}
 class AuthResultMock extends Mock implements AuthResult {}
 
 void main() {
-  const String email = 'email';
-  const String password = 'password';
-  const String exception = 'exception';
+  const email = 'email';
+  const password = 'password';
+  const exception = 'exception';
 
   FirebaseAuth firebaseAuth;
 
@@ -65,7 +65,7 @@ void main() {
     test('null firebaseAuth throws error', () {
       try {
         UserRepository(null, secureStorageUtils);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is AssertionError);
       }
     });
@@ -73,14 +73,13 @@ void main() {
     test('null secureStorageUtils throws error', () {
       try {
         UserRepository(firebaseAuth, null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is AssertionError);
       }
     });
 
     test('null firebaseAuth throws error', () {
-      final UserRepository userRepository =
-          UserRepository(firebaseAuth, secureStorageUtils);
+      final userRepository = UserRepository(firebaseAuth, secureStorageUtils);
 
       expect(userRepository, isNotNull);
     });
@@ -88,7 +87,7 @@ void main() {
 
   group('user', () {
     test('returns user', () async {
-      final FirebaseUser result = await userRepository.user;
+      final result = await userRepository.user;
 
       expect(result, user);
     });
@@ -96,8 +95,7 @@ void main() {
 
   group('register', () {
     test('returns user', () async {
-      final FirebaseUser result =
-          await userRepository.register(email, password);
+      final result = await userRepository.register(email, password);
 
       expect(result, user);
     });
@@ -105,7 +103,7 @@ void main() {
     test('throws error', () async {
       try {
         await userRepository.register(exception, password);
-      } catch (error) {
+      } on Object catch (error) {
         expect(error, startsWith('User Register Failed:'));
       }
     });
@@ -113,7 +111,7 @@ void main() {
 
   group('login', () {
     test('returns user', () async {
-      final FirebaseUser result = await userRepository.login(email, password);
+      final result = await userRepository.login(email, password);
 
       expect(result, user);
     });
@@ -121,7 +119,7 @@ void main() {
     test('throws error', () async {
       try {
         await userRepository.login(exception, password);
-      } catch (error) {
+      } on Object catch (error) {
         expect(error, startsWith('User Login Failed:'));
       }
     });
@@ -139,7 +137,7 @@ void main() {
 
       try {
         await userRepository.logout();
-      } catch (error) {
+      } on Object catch (error) {
         expect(error, startsWith('User Logout Failed:'));
       }
     });

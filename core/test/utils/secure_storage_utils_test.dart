@@ -6,15 +6,14 @@ import 'package:mockito/mockito.dart';
 class MockFlutterStorage extends Mock implements FlutterSecureStorage {}
 
 void main() {
-  const String salt = 'salt';
-  const String email = 'email';
-  const String publicKey = 'publicKey';
-  const String privateKey = 'privateKey';
+  const salt = 'salt';
+  const email = 'email';
+  const publicKey = 'publicKey';
+  const privateKey = 'privateKey';
 
   final FlutterSecureStorage _flutterSecureStorage = MockFlutterStorage();
 
-  final SecureStorageUtils _secureStorageUtils =
-      SecureStorageUtils(_flutterSecureStorage);
+  final _secureStorageUtils = SecureStorageUtils(_flutterSecureStorage);
 
   when(_flutterSecureStorage.read(key: 'flash-chat-salt-email'))
       .thenAnswer((_) => Future<String>.value(salt));
@@ -27,8 +26,7 @@ void main() {
 
   group('constructor', () {
     test('constructs valid instance if given storage is not null', () {
-      final SecureStorageUtils secureStorageUtils =
-          SecureStorageUtils(_flutterSecureStorage);
+      final secureStorageUtils = SecureStorageUtils(_flutterSecureStorage);
 
       assert(secureStorageUtils is SecureStorageUtils);
       expect(secureStorageUtils, isNotNull);
@@ -37,7 +35,7 @@ void main() {
     test('constructs invalid instance if given storage is null', () {
       try {
         SecureStorageUtils(null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is AssertionError);
       }
     });
@@ -45,7 +43,7 @@ void main() {
 
   group('getSalt', () {
     test('valid email gets salt', () async {
-      final String result = await _secureStorageUtils.getSalt(email);
+      final result = await _secureStorageUtils.getSalt(email);
 
       expect(result, salt);
     });
@@ -53,7 +51,7 @@ void main() {
     test('null email throws error', () async {
       try {
         await _secureStorageUtils.getSalt(null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -61,7 +59,7 @@ void main() {
     test('empty email throws error', () async {
       try {
         await _secureStorageUtils.getSalt('');
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -78,7 +76,7 @@ void main() {
     test('null email throws error', () async {
       try {
         await _secureStorageUtils.setSalt(salt, null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -86,7 +84,7 @@ void main() {
     test('empty email throws error', () async {
       try {
         await _secureStorageUtils.setSalt(salt, '');
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -94,7 +92,7 @@ void main() {
     test('null salt throws error', () async {
       try {
         await _secureStorageUtils.setSalt(null, email);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -102,7 +100,7 @@ void main() {
     test('empty salt throws error', () async {
       try {
         await _secureStorageUtils.setSalt('', email);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -110,7 +108,7 @@ void main() {
 
   group('getPublicKey', () {
     test('valid email gets publicKey', () async {
-      final String publicKey = await _secureStorageUtils.getPublicKey(email);
+      final publicKey = await _secureStorageUtils.getPublicKey(email);
 
       expect(publicKey, publicKey);
     });
@@ -118,7 +116,7 @@ void main() {
     test('null email throws error', () async {
       try {
         await _secureStorageUtils.getPublicKey(null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -126,7 +124,7 @@ void main() {
     test('empty email throws error', () async {
       try {
         await _secureStorageUtils.getPublicKey('');
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -134,7 +132,7 @@ void main() {
 
   group('getPrivateKey', () {
     test('valid email gets privateKey', () async {
-      final String privateKey = await _secureStorageUtils.getPrivateKey(email);
+      final privateKey = await _secureStorageUtils.getPrivateKey(email);
 
       expect(privateKey, privateKey);
     });
@@ -142,7 +140,7 @@ void main() {
     test('null email throws error', () async {
       try {
         await _secureStorageUtils.getPrivateKey(null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -150,7 +148,7 @@ void main() {
     test('empty email throws error', () async {
       try {
         await _secureStorageUtils.getPrivateKey('');
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -170,7 +168,7 @@ void main() {
     test('null publicKey throws error', () async {
       try {
         await _secureStorageUtils.setKeyPair(null, privateKey, email);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -178,7 +176,7 @@ void main() {
     test('empty publicKey throws error', () async {
       try {
         await _secureStorageUtils.setKeyPair('', privateKey, email);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -186,7 +184,7 @@ void main() {
     test('null privateKey throws error', () async {
       try {
         await _secureStorageUtils.setKeyPair(publicKey, null, email);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -194,7 +192,7 @@ void main() {
     test('empty privateKey throws error', () async {
       try {
         await _secureStorageUtils.setKeyPair(publicKey, '', email);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -202,7 +200,7 @@ void main() {
     test('null email throws error', () async {
       try {
         await _secureStorageUtils.setKeyPair(publicKey, privateKey, null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -210,7 +208,7 @@ void main() {
     test('empty email throws error', () async {
       try {
         await _secureStorageUtils.setKeyPair(publicKey, privateKey, '');
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });

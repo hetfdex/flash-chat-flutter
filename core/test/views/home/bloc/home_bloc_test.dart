@@ -14,7 +14,7 @@ void main() {
 
   group('LoginButtonPressed', () {
     test('emits [HomeActive, LoginActive]', () {
-      final List<HomeState> expectedResponse = <HomeState>[
+      final expectedResponse = <HomeState>[
         HomeActive(),
         LoginActive(),
       ];
@@ -30,7 +30,7 @@ void main() {
 
   group('RegisterButtonPressed', () {
     test('emits [HomeActive, RegisterActive]', () {
-      final List<HomeState> expectedResponse = <HomeState>[
+      final expectedResponse = <HomeState>[
         HomeActive(),
         RegisterActive(),
       ];
@@ -45,7 +45,7 @@ void main() {
   });
   group('CancelButtonPressed', () {
     test('emits [HomeActive, LoginActive, HomeActive]', () {
-      final List<HomeState> expectedResponse = <HomeState>[
+      final expectedResponse = <HomeState>[
         HomeActive(),
         LoginActive(),
         HomeActive(),
@@ -61,7 +61,7 @@ void main() {
     });
 
     test('emits [HomeActive, RegisterActive, HomeActive]', () {
-      final List<HomeState> expectedResponse = <HomeState>[
+      final expectedResponse = <HomeState>[
         HomeActive(),
         RegisterActive(),
         HomeActive(),

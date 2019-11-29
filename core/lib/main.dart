@@ -18,30 +18,25 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 Future<void> main() async {
   BlocSupervisor.delegate = DebuggerBlocDelegate();
 
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final firebaseAuth = FirebaseAuth.instance;
 
-  final Firestore firestore = Firestore.instance;
+  final firestore = Firestore.instance;
 
-  const FlutterSecureStorage flutterSecureStorage = FlutterSecureStorage();
+  const flutterSecureStorage = FlutterSecureStorage();
 
-  final SecureStorageUtils secureStorageUtils =
-      SecureStorageUtils(flutterSecureStorage);
+  final secureStorageUtils = SecureStorageUtils(flutterSecureStorage);
 
-  final UserRepository userRepository =
-      UserRepository(firebaseAuth, secureStorageUtils);
+  final userRepository = UserRepository(firebaseAuth, secureStorageUtils);
 
-  final DocumentRepository documentRepository =
-      DocumentRepository(firestore, secureStorageUtils);
+  final documentRepository = DocumentRepository(firestore, secureStorageUtils);
 
-  final AuthenticationBloc authenticationBloc =
-      AuthenticationBloc(userRepository);
+  final authenticationBloc = AuthenticationBloc(userRepository);
 
-  final HomeBloc homeBloc = HomeBloc();
+  final homeBloc = HomeBloc();
 
-  final LoginBloc loginBloc = LoginBloc(userRepository, authenticationBloc);
+  final loginBloc = LoginBloc(userRepository, authenticationBloc);
 
-  final RegisterBloc registerBloc =
-      RegisterBloc(userRepository, authenticationBloc);
+  final registerBloc = RegisterBloc(userRepository, authenticationBloc);
 
   await SystemChrome.setPreferredOrientations(
       <DeviceOrientation>[DeviceOrientation.portraitUp]);
@@ -58,16 +53,16 @@ Future<void> main() async {
     child: MultiBlocProvider(
       providers: <BlocProvider<Bloc<dynamic, dynamic>>>[
         BlocProvider<HomeBloc>(
-          builder: (BuildContext context) => homeBloc,
+          create: (BuildContext context) => homeBloc,
         ),
         BlocProvider<LoginBloc>(
-          builder: (BuildContext context) => loginBloc,
+          create: (BuildContext context) => loginBloc,
         ),
         BlocProvider<RegisterBloc>(
-          builder: (BuildContext context) => registerBloc,
+          create: (BuildContext context) => registerBloc,
         ),
         BlocProvider<AuthenticationBloc>(
-          builder: (BuildContext context) => authenticationBloc,
+          create: (BuildContext context) => authenticationBloc,
         ),
       ],
       child: FlashChatApp(),

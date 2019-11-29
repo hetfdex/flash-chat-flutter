@@ -4,15 +4,15 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('LoginButtonPressed', () {
     test('should return correct string override', () {
-      const String expectedString = 'LoginButtonPressed';
+      const expectedString = 'LoginButtonPressed';
 
-      final LoginButtonPressed loginButtonPressed = LoginButtonPressed();
+      final loginButtonPressed = LoginButtonPressed();
 
       expect(loginButtonPressed.toString(), expectedString);
     });
 
     test('props returns null', () {
-      final LoginButtonPressed loginButtonPressed = LoginButtonPressed();
+      final loginButtonPressed = LoginButtonPressed();
 
       expect(loginButtonPressed.props, null);
     });
@@ -20,17 +20,15 @@ void main() {
 
   group('RegisterButtonPressed', () {
     test('should return correct string override', () {
-      const String expectedString = 'RegisterButtonPressed';
+      const expectedString = 'RegisterButtonPressed';
 
-      final RegisterButtonPressed registerButtonPressed =
-          RegisterButtonPressed();
+      final registerButtonPressed = RegisterButtonPressed();
 
       expect(registerButtonPressed.toString(), expectedString);
     });
 
     test('props returns null', () {
-      final RegisterButtonPressed registerButtonPressed =
-          RegisterButtonPressed();
+      final registerButtonPressed = RegisterButtonPressed();
 
       expect(registerButtonPressed.props, null);
     });
@@ -38,15 +36,15 @@ void main() {
 
   group('CancelButtonPressed', () {
     test('should return correct string override', () {
-      const String expectedString = 'CancelButtonPressed';
+      const expectedString = 'CancelButtonPressed';
 
-      final CancelButtonPressed registerButtonPressed = CancelButtonPressed();
+      final registerButtonPressed = CancelButtonPressed();
 
       expect(registerButtonPressed.toString(), expectedString);
     });
 
     test('props returns null', () {
-      final CancelButtonPressed registerButtonPressed = CancelButtonPressed();
+      final registerButtonPressed = CancelButtonPressed();
 
       expect(registerButtonPressed.props, null);
     });

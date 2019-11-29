@@ -3,7 +3,6 @@ import 'package:flash_chat_core/utils/hash_utils.dart';
 import 'package:flash_chat_core/utils/pem_utils.dart';
 import 'package:flash_chat_core/utils/rsa_utils.dart';
 import 'package:flash_chat_core/utils/secure_storage_utils.dart';
-import 'package:pointycastle/api.dart';
 
 abstract class IUserRepository {
   Future<FirebaseUser> get user;
@@ -30,11 +29,10 @@ class UserRepository extends IUserRepository {
   @override
   Future<FirebaseUser> register(String email, String password) async {
     try {
-      final String encryptedPassword = encryptPassword(password, null);
+      final encryptedPassword = encryptPassword(password, null);
 
-      final AuthResult authResult =
-          await _firebaseAuth.createUserWithEmailAndPassword(
-              email: email, password: encryptedPassword);
+      final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: encryptedPassword);
 
       if (authResult != null) {
         await _setupKeyPair(email);
@@ -42,7 +40,7 @@ class UserRepository extends IUserRepository {
         return authResult.user;
       }
       return null;
-    } catch (e) {
+    } on Object catch (e) {
       throw 'User Register Failed: $e';
     }
   }
@@ -50,19 +48,18 @@ class UserRepository extends IUserRepository {
   @override
   Future<FirebaseUser> login(String email, String password) async {
     try {
-      final String salt = await _secureStorageUtils.getSalt(email);
+      final salt = await _secureStorageUtils.getSalt(email);
 
-      final String encryptedPassword = encryptPassword(password, salt);
+      final encryptedPassword = encryptPassword(password, salt);
 
-      final AuthResult authResult =
-          await _firebaseAuth.signInWithEmailAndPassword(
-              email: email, password: encryptedPassword);
+      final authResult = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: encryptedPassword);
 
       if (authResult != null) {
         return authResult.user;
       }
       return null;
-    } catch (e) {
+    } on Object catch (e) {
       throw 'User Login Failed: $e';
     }
   }
@@ -71,17 +68,17 @@ class UserRepository extends IUserRepository {
   Future<void> logout() {
     try {
       return _firebaseAuth.signOut();
-    } catch (e) {
+    } on Object catch (e) {
       throw 'User Logout Failed: $e';
     }
   }
 
   Future<void> _setupKeyPair(String email) async {
-    final AsymmetricKeyPair<PublicKey, PrivateKey> keyPair = generateKeyPair();
+    final keyPair = generateKeyPair();
 
-    final String publicKeyPem = publicKeyToPem(keyPair.publicKey);
+    final publicKeyPem = publicKeyToPem(keyPair.publicKey);
 
-    final String privateKeyPem = privateKeyToPem(keyPair.privateKey);
+    final privateKeyPem = privateKeyToPem(keyPair.privateKey);
 
     _secureStorageUtils.setKeyPair(privateKeyPem, publicKeyPem, email);
   }

@@ -13,11 +13,11 @@ String encryptMessage(String message, RSAPrivateKey privateKey) {
     throw ArgumentError('privateKey must not be null or empty');
   }
 
-  final RSAEngine rsaEngine = RSAEngine();
+  final rsaEngine = RSAEngine();
 
   rsaEngine.init(true, PrivateKeyParameter<RSAPrivateKey>(privateKey));
 
-  final Uint8List encryptedMessage =
+  final encryptedMessage =
       rsaEngine.process(Uint8List.fromList(message.codeUnits));
 
   return String.fromCharCodes(encryptedMessage);
@@ -32,11 +32,11 @@ String decryptMessage(String message, RSAPublicKey publicKey) {
     throw ArgumentError('publicKey must not be null or empty');
   }
 
-  final RSAEngine rsaEngine = RSAEngine();
+  final rsaEngine = RSAEngine();
 
   rsaEngine.init(false, PublicKeyParameter<RSAPublicKey>(publicKey));
 
-  final Uint8List decryptedMessage =
+  final decryptedMessage =
       rsaEngine.process(Uint8List.fromList(message.codeUnits));
 
   return String.fromCharCodes(decryptedMessage);
@@ -48,14 +48,13 @@ AsymmetricKeyPair<PublicKey, PrivateKey> generateKeyPair() {
 
 AsymmetricKeyPair<PublicKey, PrivateKey> _generateKeyPair(
     SecureRandom secureRandom) {
-  final RSAKeyGeneratorParameters rsaKeyGeneratorParameters =
+  final rsaKeyGeneratorParameters =
       RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 5);
 
-  final ParametersWithRandom<CipherParameters> parametersWithRandom =
-      ParametersWithRandom<CipherParameters>(
-          rsaKeyGeneratorParameters, secureRandom);
+  final parametersWithRandom = ParametersWithRandom<CipherParameters>(
+      rsaKeyGeneratorParameters, secureRandom);
 
-  final RSAKeyGenerator rsaKeyGenerator = RSAKeyGenerator();
+  final rsaKeyGenerator = RSAKeyGenerator();
 
   rsaKeyGenerator.init(parametersWithRandom);
 
@@ -63,13 +62,13 @@ AsymmetricKeyPair<PublicKey, PrivateKey> _generateKeyPair(
 }
 
 SecureRandom _getSecureRandom() {
-  final FortunaRandom fortunaRandom = FortunaRandom();
+  final fortunaRandom = FortunaRandom();
 
-  final Random random = Random.secure();
+  final random = Random.secure();
 
-  final List<int> seeds = <int>[];
+  final seeds = <int>[];
 
-  for (int i = 0; i < 32; i++) {
+  for (var i = 0; i < 32; i++) {
     seeds.add(random.nextInt(255));
   }
 

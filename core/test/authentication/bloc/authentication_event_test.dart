@@ -10,15 +10,15 @@ void main() {
 
   group('AppStarted', () {
     test('should return correct string override', () {
-      const String expectedString = 'AppStarted';
+      const expectedString = 'AppStarted';
 
-      final AppStarted appStarted = AppStarted();
+      final appStarted = AppStarted();
 
       expect(appStarted.toString(), expectedString);
     });
 
     test('props returns null', () {
-      final AppStarted appStarted = AppStarted();
+      final appStarted = AppStarted();
 
       expect(appStarted.props, null);
     });
@@ -26,30 +26,30 @@ void main() {
 
   group('LoggedIn', () {
     test('should return correct string override', () {
-      final String expectedString = 'LoggedIn: $user';
+      final expectedString = 'LoggedIn: $user';
 
-      final LoggedIn loggedIn = LoggedIn(user);
+      final loggedIn = LoggedIn(user);
 
       expect(loggedIn.toString(), expectedString);
     });
 
     test('props returns user', () {
-      final LoggedIn loginChanged = LoggedIn(user);
+      final loginChanged = LoggedIn(user);
 
       expect(loginChanged.props, <Object>[user]);
     });
 
     group('LoggedOut', () {
       test('should return correct string override', () {
-        const String expectedString = 'LoggedOut';
+        const expectedString = 'LoggedOut';
 
-        final LoggedOut loggedOut = LoggedOut();
+        final loggedOut = LoggedOut();
 
         expect(loggedOut.toString(), expectedString);
       });
 
       test('props returns null', () {
-        final LoggedOut loggedOut = LoggedOut();
+        final loggedOut = LoggedOut();
 
         expect(loggedOut.props, null);
       });

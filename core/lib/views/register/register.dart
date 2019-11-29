@@ -11,9 +11,9 @@ String _password;
 class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final RegisterBloc _registerBloc = BlocProvider.of<RegisterBloc>(context);
+    final _registerBloc = BlocProvider.of<RegisterBloc>(context);
 
-    final HomeBloc _homeBloc = BlocProvider.of<HomeBloc>(context);
+    final _homeBloc = BlocProvider.of<HomeBloc>(context);
 
     return AuthenticationView(
         isLoading: false,

@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pointycastle/export.dart';
 
 void main() {
-  const String message = 'message';
+  const message = 'message';
 
   AsymmetricKeyPair<PublicKey, PrivateKey> keyPair;
 
@@ -33,7 +33,7 @@ void main() {
     test('null message throws error', () {
       try {
         encryptedMessage = encryptMessage(null, keyPair.privateKey);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -41,7 +41,7 @@ void main() {
     test('empty message throws error', () {
       try {
         encryptedMessage = encryptMessage('', keyPair.privateKey);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -49,7 +49,7 @@ void main() {
     test('null privateKey throws error', () {
       try {
         encryptedMessage = encryptMessage(message, null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -57,7 +57,7 @@ void main() {
 
   group('decryptMessage', () {
     test('valid message and publicKey decrypts message', () {
-      final String result = decryptMessage(encryptedMessage, keyPair.publicKey);
+      final result = decryptMessage(encryptedMessage, keyPair.publicKey);
 
       assert(result is String);
       expect(result, message);
@@ -66,7 +66,7 @@ void main() {
     test('null message throws error', () {
       try {
         encryptedMessage = decryptMessage(null, keyPair.publicKey);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -74,7 +74,7 @@ void main() {
     test('empty message throws error', () {
       try {
         encryptedMessage = decryptMessage('', keyPair.publicKey);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
@@ -82,7 +82,7 @@ void main() {
     test('null privateKey throws error', () {
       try {
         encryptedMessage = decryptMessage(message, null);
-      } catch (error) {
+      } on Object catch (error) {
         assert(error is ArgumentError);
       }
     });
