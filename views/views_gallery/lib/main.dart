@@ -1,12 +1,13 @@
 import 'dart:async';
-import 'package:flash_chat_views/views/authentication_view.dart';
-import 'package:flash_chat_views/views/chat_view.dart';
-import 'package:flash_chat_views/views/home_view.dart';
+import 'package:views/views/authentication_view.dart';
+import 'package:views/views/chat_view.dart';
+import 'package:views/views/home_view.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(ViewsGallery());
 
-class MyApp extends StatelessWidget {
+/// The views gallery entry point
+class ViewsGallery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,11 +17,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// A gallery for views
 class Gallery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const int view =
-        0; //0 == Homeview, 1 == LoginView, 2 == RegisterView, 3 == ChatView
+    const view =
+        3; //0 == Homeview, 1 == LoginView, 2 == RegisterView, 3 == ChatView
 
     if (view == 0) {
       return HomeView(
@@ -28,7 +30,7 @@ class Gallery extends StatelessWidget {
     } else if (view == 1) {
       return AuthenticationView(
           isLoading: false,
-          authenticateButtonText: 'Login',
+          authenticationButtonText: 'Login',
           authenticationButtonOnPressed: () {},
           cancelButtonOnPressed: () {},
           emailInputFieldOnChanged: (String v) {},
@@ -36,21 +38,19 @@ class Gallery extends StatelessWidget {
     } else if (view == 2) {
       return AuthenticationView(
           isLoading: true,
-          authenticateButtonText: 'Register',
+          authenticationButtonText: 'Register',
           authenticationButtonOnPressed: () {},
           cancelButtonOnPressed: () {},
           emailInputFieldOnChanged: (String v) {},
           passwordInputFieldOnChanged: (String v) {});
     } else if (view == 3) {
-      final StreamController<String> streamController =
-          StreamController<String>();
+      final streamController = StreamController<String>();
 
-      final Stream<String> stream = streamController.stream;
+      final stream = streamController.stream;
 
-      final Function(BuildContext, AsyncSnapshot<dynamic>) builder =
-          (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+      builder(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         return Container();
-      };
+      }
 
       return ChatView(
           closeButtonOnPressed: () {},
