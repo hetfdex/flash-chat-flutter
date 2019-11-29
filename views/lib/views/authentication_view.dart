@@ -51,9 +51,13 @@ class AuthenticationView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Container(
-                height: 200.0,
-                child: Image.asset('images/logo.png'),
+              Flexible(
+                child: Container(
+                  height: 200.0,
+                  child: Image.asset(
+                    'packages/views/images/logo.png',
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 48.0,

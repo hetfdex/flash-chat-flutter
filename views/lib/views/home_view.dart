@@ -31,12 +31,16 @@ class HomeView extends StatelessWidget {
             Row(
               children: <Widget>[
                 Image.asset(
-                  'images/logo.png',
-                  scale: 60.0,
+                  'packages/views/images/logo.png',
+                  scale: 10.0,
                 ),
                 TypewriterAnimatedText(
                   text: <String>['Flash Chat'],
                   durationSeconds: 10,
+                  textStyle: TextStyle(
+                    fontSize: 45.0,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ],
             ),
