@@ -1,4 +1,4 @@
-name: flash_chat_views_gallery
+name: views_gallery
 description: A gallery for the flash chat app views library.
 version: 1.0.0
 author: Jose Pereira
@@ -10,6 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flash_chat_views:
+  views:
     path: ../
   effective_dart: ^1.1.1

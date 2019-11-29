@@ -1,4 +1,4 @@
-name: flash_chat_views
+name: views
 description: A views library for the flash chat app.
 version: 1.0.0
 author: Jose Pereira
@@ -8,10 +8,14 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
-  flash_chat_widgets:
-    path: ../widgets
+  components:
+    path: ../components
   effective_dart: ^1.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
+flutter:
+  assets:
+  - images/
