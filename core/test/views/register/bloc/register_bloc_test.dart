@@ -71,7 +71,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      registerBloc.dispatch(RegisterChanged(emptyField, emptyField));
+      registerBloc.add(RegisterChanged(emptyField, emptyField));
     });
 
     test('emits [RegisterInitial, RegisterFillInProgress] when email is empty',
@@ -86,7 +86,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      registerBloc.dispatch(RegisterChanged(emptyField, invalidPassword));
+      registerBloc.add(RegisterChanged(emptyField, invalidPassword));
     });
 
     test(
@@ -102,7 +102,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      registerBloc.dispatch(RegisterChanged(invalidEmail, emptyField));
+      registerBloc.add(RegisterChanged(invalidEmail, emptyField));
     });
 
     test(
@@ -118,7 +118,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      registerBloc.dispatch(RegisterChanged(invalidEmail, validPassword));
+      registerBloc.add(RegisterChanged(invalidEmail, validPassword));
     });
 
     test(
@@ -134,7 +134,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      registerBloc.dispatch(RegisterChanged(validEmail, invalidPassword));
+      registerBloc.add(RegisterChanged(validEmail, invalidPassword));
     });
 
     test(
@@ -150,7 +150,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      registerBloc.dispatch(RegisterChanged(validEmail, validPassword));
+      registerBloc.add(RegisterChanged(validEmail, validPassword));
     });
   });
 
@@ -175,10 +175,10 @@ void main() {
         registerBloc.state,
         emitsInOrder(expectedResponse),
       ).then((_) {
-        verify(authenticationBloc.dispatch(LoggedIn(firebaseUser))).called(1);
+        verify(authenticationBloc.add(LoggedIn(firebaseUser))).called(1);
       });
 
-      registerBloc.dispatch(RegisterSubmitted(
+      registerBloc.add(RegisterSubmitted(
         validEmail,
         validPassword,
       ));

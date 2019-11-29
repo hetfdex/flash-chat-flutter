@@ -45,7 +45,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         event.password,
       );
 
-      _authenticationBloc.dispatch(LoggedIn(user));
+      _authenticationBloc.add(LoggedIn(user));
 
       yield RegisterInitial();
     } catch (e) {

@@ -71,7 +71,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      loginBloc.dispatch(LoginChanged(emptyField, emptyField));
+      loginBloc.add(LoginChanged(emptyField, emptyField));
     });
 
     test('emits [LoginInitial, LoginFillInProgress] when email is empty', () {
@@ -85,7 +85,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      loginBloc.dispatch(LoginChanged(emptyField, invalidPassword));
+      loginBloc.add(LoginChanged(emptyField, invalidPassword));
     });
 
     test('emits [LoginInitial, LoginFillInProgress] when password is empty',
@@ -100,7 +100,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      loginBloc.dispatch(LoginChanged(invalidEmail, emptyField));
+      loginBloc.add(LoginChanged(invalidEmail, emptyField));
     });
 
     test('emits [LoginInitial, LoginFillInProgress] when email is invalid', () {
@@ -114,7 +114,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      loginBloc.dispatch(LoginChanged(invalidEmail, validPassword));
+      loginBloc.add(LoginChanged(invalidEmail, validPassword));
     });
 
     test('emits [LoginInitial, LoginFillInProgress] when password is invalid',
@@ -129,7 +129,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      loginBloc.dispatch(LoginChanged(validEmail, invalidPassword));
+      loginBloc.add(LoginChanged(validEmail, invalidPassword));
     });
 
     test(
@@ -145,7 +145,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      loginBloc.dispatch(LoginChanged(validEmail, validPassword));
+      loginBloc.add(LoginChanged(validEmail, validPassword));
     });
   });
 
@@ -170,10 +170,10 @@ void main() {
         loginBloc.state,
         emitsInOrder(expectedResponse),
       ).then((_) {
-        verify(authenticationBloc.dispatch(LoggedIn(firebaseUser))).called(1);
+        verify(authenticationBloc.add(LoggedIn(firebaseUser))).called(1);
       });
 
-      loginBloc.dispatch(LoginSubmitted(
+      loginBloc.add(LoginSubmitted(
         validEmail,
         validPassword,
       ));

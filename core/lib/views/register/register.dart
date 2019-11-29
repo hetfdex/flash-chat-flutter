@@ -1,7 +1,7 @@
 import 'package:flash_chat_core/views/home/bloc/home_bloc.dart';
 import 'package:flash_chat_core/views/home/bloc/home_event.dart';
 import 'package:flash_chat_core/views/register/bloc/bloc.dart';
-import 'package:flash_chat_views/views/authentication_view.dart';
+import 'package:views/views/authentication_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,14 +17,14 @@ class Register extends StatelessWidget {
 
     return AuthenticationView(
         isLoading: false,
-        authenticateButtonText: 'Register',
+        authenticationButtonText: 'Register',
         authenticationButtonOnPressed: () {
-          if (_registerBloc.currentState == RegisterFillSuccess()) {
-            _registerBloc.dispatch(RegisterSubmitted(_email, _password));
+          if (_registerBloc.state == RegisterFillSuccess()) {
+            _registerBloc.add(RegisterSubmitted(_email, _password));
           }
         },
         cancelButtonOnPressed: () {
-          _homeBloc.dispatch(CancelButtonPressed());
+          _homeBloc.add(CancelButtonPressed());
         },
         emailInputFieldOnChanged: (String v) {
           _email = v;
@@ -39,6 +39,6 @@ class Register extends StatelessWidget {
   }
 
   void registerFieldOnChanged(RegisterBloc _registerBloc) {
-    _registerBloc.dispatch(RegisterChanged(_email, _password));
+    _registerBloc.add(RegisterChanged(_email, _password));
   }
 }

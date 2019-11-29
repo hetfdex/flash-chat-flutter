@@ -1,7 +1,7 @@
 import 'package:flash_chat_core/views/home/bloc/home_bloc.dart';
 import 'package:flash_chat_core/views/home/bloc/home_event.dart';
 import 'package:flash_chat_core/views/login/bloc/bloc.dart';
-import 'package:flash_chat_views/views/authentication_view.dart';
+import 'package:views/views/authentication_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,14 +17,14 @@ class Login extends StatelessWidget {
 
     return AuthenticationView(
         isLoading: false,
-        authenticateButtonText: 'Login',
+        authenticationButtonText: 'Login',
         authenticationButtonOnPressed: () {
-          if (_loginBloc.currentState == LoginFillSuccess()) {
-            _loginBloc.dispatch(LoginSubmitted(_email, _password));
+          if (_loginBloc.state == LoginFillSuccess()) {
+            _loginBloc.add(LoginSubmitted(_email, _password));
           }
         },
         cancelButtonOnPressed: () {
-          _homeBloc.dispatch(CancelButtonPressed());
+          _homeBloc.add(CancelButtonPressed());
         },
         emailInputFieldOnChanged: (String v) {
           _email = v;
@@ -39,6 +39,6 @@ class Login extends StatelessWidget {
   }
 
   void loginFieldOnChanged(LoginBloc _loginBloc) {
-    _loginBloc.dispatch(LoginChanged(_email, _password));
+    _loginBloc.add(LoginChanged(_email, _password));
   }
 }

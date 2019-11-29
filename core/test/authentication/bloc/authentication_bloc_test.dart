@@ -53,7 +53,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      authenticationBloc.dispatch(AppStarted());
+      authenticationBloc.add(AppStarted());
     });
 
     test(
@@ -72,7 +72,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      authenticationBloc.dispatch(AppStarted());
+      authenticationBloc.add(AppStarted());
     });
   });
 
@@ -91,7 +91,7 @@ void main() {
         authenticationBloc.state,
         emitsInOrder(expectedResponse),
       );
-      authenticationBloc.dispatch(LoggedIn(user));
+      authenticationBloc.add(LoggedIn(user));
     });
   });
 
@@ -108,7 +108,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      authenticationBloc.dispatch(LoggedOut());
+      authenticationBloc.add(LoggedOut());
     });
   });
 }

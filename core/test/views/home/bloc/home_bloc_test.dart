@@ -24,7 +24,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      homeBloc.dispatch(LoginButtonPressed());
+      homeBloc.add(LoginButtonPressed());
     });
   });
 
@@ -40,7 +40,7 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      homeBloc.dispatch(RegisterButtonPressed());
+      homeBloc.add(RegisterButtonPressed());
     });
   });
   group('CancelButtonPressed', () {
@@ -56,8 +56,8 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      homeBloc.dispatch(LoginButtonPressed());
-      homeBloc.dispatch(CancelButtonPressed());
+      homeBloc.add(LoginButtonPressed());
+      homeBloc.add(CancelButtonPressed());
     });
 
     test('emits [HomeActive, RegisterActive, HomeActive]', () {
@@ -72,8 +72,8 @@ void main() {
         emitsInOrder(expectedResponse),
       );
 
-      homeBloc.dispatch(RegisterButtonPressed());
-      homeBloc.dispatch(CancelButtonPressed());
+      homeBloc.add(RegisterButtonPressed());
+      homeBloc.add(CancelButtonPressed());
     });
   });
 }
