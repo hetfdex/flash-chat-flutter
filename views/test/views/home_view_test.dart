@@ -1,89 +1,84 @@
-import 'package:flash_chat_views/views/home_view.dart';
-import 'package:flash_chat_widgets/components/image_growth_animation.dart';
-import 'package:flash_chat_widgets/components/rounded_button.dart';
-import 'package:flash_chat_widgets/components/typewriter_animated_text.dart';
+import 'package:views/views/home_view.dart';
+import 'package:components/components/rounded_button.dart';
+import 'package:components/components/typewriter_animated_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class HomeViewWrapper extends StatelessWidget {
   const HomeViewWrapper(
-      this._loginButtonOnPressed, this._registerButtonOnPressed);
+      {this.loginButtonOnPressed, this.registerButtonOnPressed});
 
-  final Function _loginButtonOnPressed;
-  final Function _registerButtonOnPressed;
+  final Function loginButtonOnPressed;
+
+  final Function registerButtonOnPressed;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'HomeViewTest',
       home: HomeView(
-        loginButtonOnPressed: _loginButtonOnPressed,
-        registerButtonOnPressed: _registerButtonOnPressed,
+        loginButtonOnPressed: loginButtonOnPressed,
+        registerButtonOnPressed: registerButtonOnPressed,
       ),
     );
   }
 }
 
 void main() {
-  bool loginButtonWasPressed = false;
-  bool registerButtonWasPressed = false;
+  var loginButtonWasPressed = false;
+  var registerButtonWasPressed = false;
 
-  final Function loginButtonOnPressed = () {
+  loginButtonOnPressed() {
     loginButtonWasPressed = true;
-  };
+  }
 
-  final Function registerButtonOnPressed = () {
+  registerButtonOnPressed() {
     registerButtonWasPressed = true;
-  };
+  }
 
   Widget buildHomeView(
-    Function loginButtonOnPressed,
-    Function registerButtonOnPressed,
-  ) =>
-      HomeViewWrapper(loginButtonOnPressed, registerButtonOnPressed);
+          {Function loginButtonOnPressed, Function registerButtonOnPressed}) =>
+      HomeViewWrapper(
+          loginButtonOnPressed: loginButtonOnPressed,
+          registerButtonOnPressed: registerButtonOnPressed);
 
   group('constructor', () {
     test('null loginButtonOnPressed throws error', () {
-      try {
-        HomeView(
-          loginButtonOnPressed: null,
-          registerButtonOnPressed: registerButtonOnPressed,
-        );
-      } catch (error) {
-        assert(error is AssertionError);
-      }
+      expect(
+          () => HomeView(
+                loginButtonOnPressed: null,
+                registerButtonOnPressed: registerButtonOnPressed,
+              ),
+          throwsAssertionError);
     });
 
     test('null registerButtonOnPressed throws error', () {
-      try {
-        HomeView(
-          loginButtonOnPressed: loginButtonOnPressed,
-          registerButtonOnPressed: null,
-        );
-      } catch (error) {
-        assert(error is AssertionError);
-      }
+      expect(
+          () => HomeView(
+                loginButtonOnPressed: loginButtonOnPressed,
+                registerButtonOnPressed: null,
+              ),
+          throwsAssertionError);
     });
   });
 
   testWidgets('builds view widget', (WidgetTester tester) async {
     await tester.pumpWidget(buildHomeView(
-      loginButtonOnPressed,
-      registerButtonOnPressed,
+      loginButtonOnPressed: loginButtonOnPressed,
+      registerButtonOnPressed: registerButtonOnPressed,
     ));
 
     await tester.pump();
 
     expect(find.byType(HomeView), findsOneWidget);
     expect(find.byType(RoundedButton), findsNWidgets(2));
-    expect(find.byType(ImageGrowthAnimation), findsOneWidget);
     expect(find.byType(TypewriterAnimatedText), findsOneWidget);
   });
 
   testWidgets('login tap calls onPressed', (WidgetTester tester) async {
     await tester.pumpWidget(buildHomeView(
-      loginButtonOnPressed,
-      registerButtonOnPressed,
+      loginButtonOnPressed: loginButtonOnPressed,
+      registerButtonOnPressed: registerButtonOnPressed,
     ));
 
     await tester.pump();
@@ -97,8 +92,8 @@ void main() {
 
   testWidgets('register tap calls onPressed', (WidgetTester tester) async {
     await tester.pumpWidget(buildHomeView(
-      loginButtonOnPressed,
-      registerButtonOnPressed,
+      loginButtonOnPressed: loginButtonOnPressed,
+      registerButtonOnPressed: registerButtonOnPressed,
     ));
 
     await tester.pump();

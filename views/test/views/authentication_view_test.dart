@@ -1,194 +1,191 @@
-import 'package:flash_chat_views/views/authentication_view.dart';
-import 'package:flash_chat_widgets/components/input_field.dart';
-import 'package:flash_chat_widgets/components/loading_animation.dart';
-import 'package:flash_chat_widgets/components/rounded_button.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:views/views/authentication_view.dart';
+import 'package:components/components/input_field.dart';
+import 'package:components/components/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class AuthenticationViewWrapper extends StatelessWidget {
   const AuthenticationViewWrapper(
-      this._isLoading,
-      this._authenticationButtonText,
-      this._authenticationButtonOnPressed,
-      this._cancelButtonOnPressed,
-      this._emailInputFieldOnChanged,
-      this._passwordInputFieldOnChanged);
+      {this.isLoading,
+      this.authenticationButtonText,
+      this.authenticationButtonOnPressed,
+      this.cancelButtonOnPressed,
+      this.emailInputFieldOnChanged,
+      this.passwordInputFieldOnChanged});
 
-  final bool _isLoading;
+  final bool isLoading;
 
-  final String _authenticationButtonText;
+  final String authenticationButtonText;
 
-  final Function _authenticationButtonOnPressed;
-  final Function _cancelButtonOnPressed;
-  final Function _emailInputFieldOnChanged;
-  final Function _passwordInputFieldOnChanged;
+  final Function authenticationButtonOnPressed;
+
+  final Function cancelButtonOnPressed;
+
+  final Function emailInputFieldOnChanged;
+
+  final Function passwordInputFieldOnChanged;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AuthenticationViewTest',
       home: AuthenticationView(
-          isLoading: _isLoading,
-          authenticateButtonText: _authenticationButtonText,
-          authenticationButtonOnPressed: _authenticationButtonOnPressed,
-          cancelButtonOnPressed: _cancelButtonOnPressed,
-          emailInputFieldOnChanged: _emailInputFieldOnChanged,
-          passwordInputFieldOnChanged: _passwordInputFieldOnChanged),
+          isLoading: isLoading,
+          authenticationButtonText: authenticationButtonText,
+          authenticationButtonOnPressed: authenticationButtonOnPressed,
+          cancelButtonOnPressed: cancelButtonOnPressed,
+          emailInputFieldOnChanged: emailInputFieldOnChanged,
+          passwordInputFieldOnChanged: passwordInputFieldOnChanged),
     );
   }
 }
 
 void main() {
-  const String authenticateButtonText = 'authenticateButtonText';
+  const authenticationButtonText = 'authenticationButtonText';
 
   String emailInput;
   String passwordInput;
 
-  bool authenticationButtonWasPressed = false;
-  bool cancelButtonWasPressed = false;
+  var authenticationButtonWasPressed = false;
+  var cancelButtonWasPressed = false;
 
-  final Function authenticationButtonOnPressed = () {
+  authenticationButtonOnPressed() {
     authenticationButtonWasPressed = true;
-  };
-  final Function cancelButtonOnPressed = () {
+  }
+
+  cancelButtonOnPressed() {
     cancelButtonWasPressed = true;
-  };
-  final Function emailInputFieldOnChanged = (String v) {
+  }
+
+  emailInputFieldOnChanged(String v) {
     emailInput = v;
-  };
-  final Function passwordInputFieldOnChanged = (String v) {
+  }
+
+  passwordInputFieldOnChanged(String v) {
     passwordInput = v;
-  };
+  }
+
+  loadingAnimationIsActive(Widget widget) =>
+      widget is ModalProgressHUD && widget.inAsyncCall;
 
   Widget buildAuthenticationView(
-          bool isLoading,
-          String authenticateButtonText,
-          Function authenticateButtonOnPressed,
+          {bool isLoading,
+          String authenticationButtonText,
+          Function authenticationButtonOnPressed,
           Function cancelButtonOnPressed,
           Function emailInputFieldOnChanged,
-          Function passwordInputFieldOnChanged) =>
+          Function passwordInputFieldOnChanged}) =>
       AuthenticationViewWrapper(
-          isLoading,
-          authenticateButtonText,
-          authenticateButtonOnPressed,
-          cancelButtonOnPressed,
-          emailInputFieldOnChanged,
-          passwordInputFieldOnChanged);
+          isLoading: isLoading,
+          authenticationButtonText: authenticationButtonText,
+          authenticationButtonOnPressed: authenticationButtonOnPressed,
+          cancelButtonOnPressed: cancelButtonOnPressed,
+          emailInputFieldOnChanged: emailInputFieldOnChanged,
+          passwordInputFieldOnChanged: passwordInputFieldOnChanged);
 
   group('constructor', () {
     test('null isLoading throws error', () {
-      try {
-        AuthenticationView(
-            isLoading: null,
-            authenticateButtonText: authenticateButtonText,
-            authenticationButtonOnPressed: authenticationButtonOnPressed,
-            cancelButtonOnPressed: cancelButtonOnPressed,
-            emailInputFieldOnChanged: emailInputFieldOnChanged,
-            passwordInputFieldOnChanged: passwordInputFieldOnChanged);
-      } catch (error) {
-        assert(error is AssertionError);
-      }
+      expect(
+          () => AuthenticationView(
+              isLoading: null,
+              authenticationButtonText: authenticationButtonText,
+              authenticationButtonOnPressed: authenticationButtonOnPressed,
+              cancelButtonOnPressed: cancelButtonOnPressed,
+              emailInputFieldOnChanged: emailInputFieldOnChanged,
+              passwordInputFieldOnChanged: passwordInputFieldOnChanged),
+          throwsAssertionError);
     });
-    test('null authenticateButtonText throws error', () {
-      try {
-        AuthenticationView(
-            isLoading: false,
-            authenticateButtonText: null,
-            authenticationButtonOnPressed: authenticationButtonOnPressed,
-            cancelButtonOnPressed: cancelButtonOnPressed,
-            emailInputFieldOnChanged: emailInputFieldOnChanged,
-            passwordInputFieldOnChanged: passwordInputFieldOnChanged);
-      } catch (error) {
-        assert(error is AssertionError);
-      }
+    test('null authenticationButtonText throws error', () {
+      expect(
+          () => AuthenticationView(
+              isLoading: false,
+              authenticationButtonText: null,
+              authenticationButtonOnPressed: authenticationButtonOnPressed,
+              cancelButtonOnPressed: cancelButtonOnPressed,
+              emailInputFieldOnChanged: emailInputFieldOnChanged,
+              passwordInputFieldOnChanged: passwordInputFieldOnChanged),
+          throwsAssertionError);
     });
 
     test('null authenticationButtonOnPressed throws error', () {
-      try {
-        AuthenticationView(
-            isLoading: false,
-            authenticateButtonText: authenticateButtonText,
-            authenticationButtonOnPressed: null,
-            cancelButtonOnPressed: cancelButtonOnPressed,
-            emailInputFieldOnChanged: emailInputFieldOnChanged,
-            passwordInputFieldOnChanged: passwordInputFieldOnChanged);
-      } catch (error) {
-        assert(error is AssertionError);
-      }
+      expect(
+          () => AuthenticationView(
+              isLoading: false,
+              authenticationButtonText: authenticationButtonText,
+              authenticationButtonOnPressed: null,
+              cancelButtonOnPressed: cancelButtonOnPressed,
+              emailInputFieldOnChanged: emailInputFieldOnChanged,
+              passwordInputFieldOnChanged: passwordInputFieldOnChanged),
+          throwsAssertionError);
     });
     test('null cancelButtonOnPressed throws error', () {
-      try {
-        AuthenticationView(
-            isLoading: false,
-            authenticateButtonText: authenticateButtonText,
-            authenticationButtonOnPressed: authenticationButtonOnPressed,
-            cancelButtonOnPressed: null,
-            emailInputFieldOnChanged: emailInputFieldOnChanged,
-            passwordInputFieldOnChanged: passwordInputFieldOnChanged);
-      } catch (error) {
-        assert(error is AssertionError);
-      }
+      expect(
+          () => AuthenticationView(
+              isLoading: false,
+              authenticationButtonText: authenticationButtonText,
+              authenticationButtonOnPressed: authenticationButtonOnPressed,
+              cancelButtonOnPressed: null,
+              emailInputFieldOnChanged: emailInputFieldOnChanged,
+              passwordInputFieldOnChanged: passwordInputFieldOnChanged),
+          throwsAssertionError);
     });
     test('null emailInputFieldOnChanged throws error', () {
-      try {
-        AuthenticationView(
-            isLoading: false,
-            authenticateButtonText: authenticateButtonText,
-            authenticationButtonOnPressed: authenticationButtonOnPressed,
-            cancelButtonOnPressed: cancelButtonOnPressed,
-            emailInputFieldOnChanged: null,
-            passwordInputFieldOnChanged: passwordInputFieldOnChanged);
-      } catch (error) {
-        assert(error is AssertionError);
-      }
+      expect(
+          () => AuthenticationView(
+              isLoading: false,
+              authenticationButtonText: authenticationButtonText,
+              authenticationButtonOnPressed: authenticationButtonOnPressed,
+              cancelButtonOnPressed: cancelButtonOnPressed,
+              emailInputFieldOnChanged: null,
+              passwordInputFieldOnChanged: passwordInputFieldOnChanged),
+          throwsAssertionError);
     });
 
     test('null passwordInputFieldOnChanged throws error', () {
-      try {
-        AuthenticationView(
-            isLoading: false,
-            authenticateButtonText: authenticateButtonText,
-            authenticationButtonOnPressed: authenticationButtonOnPressed,
-            cancelButtonOnPressed: cancelButtonOnPressed,
-            emailInputFieldOnChanged: emailInputFieldOnChanged,
-            passwordInputFieldOnChanged: null);
-      } catch (error) {
-        assert(error is AssertionError);
-      }
+      expect(
+          () => AuthenticationView(
+              isLoading: false,
+              authenticationButtonText: authenticationButtonText,
+              authenticationButtonOnPressed: authenticationButtonOnPressed,
+              cancelButtonOnPressed: cancelButtonOnPressed,
+              emailInputFieldOnChanged: emailInputFieldOnChanged,
+              passwordInputFieldOnChanged: null),
+          throwsAssertionError);
     });
   });
 
   testWidgets('builds view widget', (WidgetTester tester) async {
     await tester.pumpWidget(buildAuthenticationView(
-        false,
-        authenticateButtonText,
-        authenticationButtonOnPressed,
-        cancelButtonOnPressed,
-        emailInputFieldOnChanged,
-        passwordInputFieldOnChanged));
+        isLoading: false,
+        authenticationButtonText: authenticationButtonText,
+        authenticationButtonOnPressed: authenticationButtonOnPressed,
+        cancelButtonOnPressed: cancelButtonOnPressed,
+        emailInputFieldOnChanged: emailInputFieldOnChanged,
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
 
     await tester.pump();
 
     expect(find.byType(AuthenticationView), findsOneWidget);
-    expect(find.byType(LoadingAnimation), findsOneWidget);
-    expect(find.byType(Hero), findsOneWidget);
+    expect(find.byType(ModalProgressHUD), findsOneWidget);
+    expect(find.byType(Image), findsOneWidget);
     expect(find.byType(InputField), findsNWidgets(2));
     expect(find.byType(RoundedButton), findsNWidgets(2));
   });
 
-  testWidgets('authenticateButton tap calls onPressed',
+  testWidgets('authenticationButton tap calls onPressed',
       (WidgetTester tester) async {
     await tester.pumpWidget(buildAuthenticationView(
-        false,
-        authenticateButtonText,
-        authenticationButtonOnPressed,
-        cancelButtonOnPressed,
-        emailInputFieldOnChanged,
-        passwordInputFieldOnChanged));
+        isLoading: false,
+        authenticationButtonText: authenticationButtonText,
+        authenticationButtonOnPressed: authenticationButtonOnPressed,
+        cancelButtonOnPressed: cancelButtonOnPressed,
+        emailInputFieldOnChanged: emailInputFieldOnChanged,
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
 
     await tester.pump();
 
-    await tester.tap(find.text(authenticateButtonText));
+    await tester.tap(find.text(authenticationButtonText));
 
     await tester.pump();
 
@@ -196,19 +193,17 @@ void main() {
   });
 
   testWidgets('cancelButton tap calls onPressed', (WidgetTester tester) async {
-    const String cancelButtonText = 'Cancel';
-
     await tester.pumpWidget(buildAuthenticationView(
-        false,
-        authenticateButtonText,
-        authenticationButtonOnPressed,
-        cancelButtonOnPressed,
-        emailInputFieldOnChanged,
-        passwordInputFieldOnChanged));
+        isLoading: false,
+        authenticationButtonText: authenticationButtonText,
+        authenticationButtonOnPressed: authenticationButtonOnPressed,
+        cancelButtonOnPressed: cancelButtonOnPressed,
+        emailInputFieldOnChanged: emailInputFieldOnChanged,
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
 
     await tester.pump();
 
-    await tester.tap(find.text(cancelButtonText));
+    await tester.tap(find.text('Cancel'));
 
     await tester.pump();
 
@@ -216,18 +211,18 @@ void main() {
   });
 
   testWidgets('email input calls onChanged', (WidgetTester tester) async {
-    final WidgetPredicate emailInputField = (Widget widget) =>
+    emailInputField(Widget widget) =>
         widget is InputField && widget.hintText == 'Enter email';
 
-    const String emailInputText = 'emailInputText';
+    const emailInputText = 'emailInputText';
 
     await tester.pumpWidget(buildAuthenticationView(
-        false,
-        authenticateButtonText,
-        authenticationButtonOnPressed,
-        cancelButtonOnPressed,
-        emailInputFieldOnChanged,
-        passwordInputFieldOnChanged));
+        isLoading: false,
+        authenticationButtonText: authenticationButtonText,
+        authenticationButtonOnPressed: authenticationButtonOnPressed,
+        cancelButtonOnPressed: cancelButtonOnPressed,
+        emailInputFieldOnChanged: emailInputFieldOnChanged,
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
 
     await tester.pump();
 
@@ -236,64 +231,58 @@ void main() {
 
     await tester.pump();
 
-    assert(emailInput == emailInputText);
+    expect(emailInput, emailInputText);
   });
 
   testWidgets('password input calls onChanged', (WidgetTester tester) async {
-    final WidgetPredicate passwordInputField = (Widget widget) =>
+    passwordInputField(Widget widget) =>
         widget is InputField && widget.hintText == 'Enter password';
 
-    const String passwordInputTest = 'passwordInputTest';
+    const passwordInputText = 'passwordInputText';
 
     await tester.pumpWidget(buildAuthenticationView(
-        false,
-        authenticateButtonText,
-        authenticationButtonOnPressed,
-        cancelButtonOnPressed,
-        emailInputFieldOnChanged,
-        passwordInputFieldOnChanged));
+        isLoading: false,
+        authenticationButtonText: authenticationButtonText,
+        authenticationButtonOnPressed: authenticationButtonOnPressed,
+        cancelButtonOnPressed: cancelButtonOnPressed,
+        emailInputFieldOnChanged: emailInputFieldOnChanged,
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
 
     await tester.pump();
 
     await tester.enterText(
-        find.byWidgetPredicate(passwordInputField), passwordInputTest);
+        find.byWidgetPredicate(passwordInputField), passwordInputText);
 
     await tester.pump();
 
-    assert(passwordInput == passwordInputTest);
+    expect(passwordInput, passwordInputText);
   });
 
   testWidgets('isLoading is false', (WidgetTester tester) async {
-    final WidgetPredicate loadingAnimation = (Widget widget) =>
-        widget is LoadingAnimation && widget.isLoading == false;
-
     await tester.pumpWidget(buildAuthenticationView(
-        false,
-        authenticateButtonText,
-        authenticationButtonOnPressed,
-        cancelButtonOnPressed,
-        emailInputFieldOnChanged,
-        passwordInputFieldOnChanged));
+        isLoading: false,
+        authenticationButtonText: authenticationButtonText,
+        authenticationButtonOnPressed: authenticationButtonOnPressed,
+        cancelButtonOnPressed: cancelButtonOnPressed,
+        emailInputFieldOnChanged: emailInputFieldOnChanged,
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
 
     await tester.pump();
 
-    expect(find.byWidgetPredicate(loadingAnimation), findsOneWidget);
+    expect(find.byWidgetPredicate(loadingAnimationIsActive), findsNothing);
   });
 
   testWidgets('isLoading is true', (WidgetTester tester) async {
-    final WidgetPredicate loadingAnimation = (Widget widget) =>
-        widget is LoadingAnimation && widget.isLoading == true;
-
     await tester.pumpWidget(buildAuthenticationView(
-        true,
-        authenticateButtonText,
-        authenticationButtonOnPressed,
-        cancelButtonOnPressed,
-        emailInputFieldOnChanged,
-        passwordInputFieldOnChanged));
+        isLoading: true,
+        authenticationButtonText: authenticationButtonText,
+        authenticationButtonOnPressed: authenticationButtonOnPressed,
+        cancelButtonOnPressed: cancelButtonOnPressed,
+        emailInputFieldOnChanged: emailInputFieldOnChanged,
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
 
     await tester.pump();
 
-    expect(find.byWidgetPredicate(loadingAnimation), findsOneWidget);
+    expect(find.byWidgetPredicate(loadingAnimationIsActive), findsOneWidget);
   });
 }
