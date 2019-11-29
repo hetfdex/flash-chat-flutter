@@ -1,42 +1,22 @@
-import 'package:flash_chat_widgets/components/image_growth_animation.dart';
-import 'package:flash_chat_widgets/components/rounded_button.dart';
-import 'package:flash_chat_widgets/components/typewriter_animated_text.dart';
-import 'package:flash_chat_widgets/helpers/constants.dart';
+import 'package:components/components/rounded_button.dart';
+import 'package:components/components/typewriter_animated_text.dart';
+import 'package:components/helpers/constants.dart';
 import 'package:flutter/material.dart';
 
-class HomeView extends StatefulWidget {
+/// The home view widget
+class HomeView extends StatelessWidget {
+  /// Constructs the home view widget
   const HomeView({
     @required this.loginButtonOnPressed,
     @required this.registerButtonOnPressed,
   })  : assert(loginButtonOnPressed != null),
         assert(registerButtonOnPressed != null);
 
+  /// The function called when the login button is pressed
   final Function loginButtonOnPressed;
+
+  /// The function called when the register button is pressed
   final Function registerButtonOnPressed;
-
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView>
-    with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-
-  CurvedAnimation _curvedAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _animateLogoTitle();
-  }
-
-  @override
-  void dispose() {
-    _animationController?.dispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +30,10 @@ class _HomeViewState extends State<HomeView>
           children: <Widget>[
             Row(
               children: <Widget>[
-                ImageGrowthAnimation(
-                    image: logoImage,
-                    tag: logoAnimationTag,
-                    animationValue: _curvedAnimation.value),
+                Image.asset('images/logo.png'),
                 TypewriterAnimatedText(
-                  text: homeTitleText,
-                  durationSeconds: titleTextDurationSeconds,
+                  text: <String>['Flash Chat'],
+                  durationSeconds: 10,
                 ),
               ],
             ),
@@ -65,29 +42,15 @@ class _HomeViewState extends State<HomeView>
             ),
             RoundedButton(
                 text: 'Login',
-                color: okButtonColor,
-                onPressed: widget.loginButtonOnPressed),
+                color: primaryColor,
+                onPressed: loginButtonOnPressed),
             RoundedButton(
                 text: 'Register',
-                color: cancelButtonColor,
-                onPressed: widget.registerButtonOnPressed),
+                color: secondaryColor,
+                onPressed: registerButtonOnPressed),
           ],
         ),
       ),
     );
-  }
-
-  void _animateLogoTitle() {
-    _animationController = AnimationController(
-        duration: Duration(seconds: logoAnimationDurationSeconds), vsync: this);
-
-    _curvedAnimation = CurvedAnimation(
-        parent: _animationController, curve: logoAnimationCurve);
-
-    _animationController.addListener(() {
-      setState(() {});
-    });
-
-    _animationController.forward();
   }
 }

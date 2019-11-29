@@ -1,9 +1,10 @@
-import 'package:flash_chat_widgets/components/message_stream_builder.dart';
-import 'package:flash_chat_widgets/components/message_writer.dart';
-import 'package:flash_chat_widgets/components/top_bar.dart';
+import 'package:components/components/message_writer.dart';
+import 'package:components/components/top_bar.dart';
 import 'package:flutter/material.dart';
 
-class ChatView extends StatefulWidget {
+/// The chat view widget
+class ChatView extends StatelessWidget {
+  /// Constructs the chat view widget
   const ChatView(
       {@required this.closeButtonOnPressed,
       @required this.messageInputFieldOnChanged,
@@ -18,43 +19,44 @@ class ChatView extends StatefulWidget {
         assert(messageBuilder != null),
         assert(textEditingController != null);
 
+  /// The function called when the close button is pressed
   final Function closeButtonOnPressed;
 
+  /// The function called when the input field is changed
   final Function messageInputFieldOnChanged;
 
+  /// The function called when the send button is pressed
   final Function sendButtonOnPressed;
 
+  /// The stream of message
   final Stream<dynamic> messageStream;
 
+  /// The function called when to build the messages
   final Function(BuildContext, AsyncSnapshot<dynamic>) messageBuilder;
 
+  /// The text editing controller
   final TextEditingController textEditingController;
-
-  @override
-  _ChatViewState createState() => _ChatViewState();
-}
-
-class _ChatViewState extends State<ChatView> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TopBar(closeButtonOnPressed: widget.closeButtonOnPressed),
+      appBar: TopBar(
+        onPressed: closeButtonOnPressed,
+        titleText: '⚡️Chat',
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            MessageStreamBuilder(
-                stream: widget.messageStream, builder: widget.messageBuilder),
+            StreamBuilder<dynamic>(
+              stream: messageStream,
+              builder: messageBuilder,
+            ),
             MessageWriter(
-                textEditingController: widget.textEditingController,
-                messageInputFieldOnChanged: widget.messageInputFieldOnChanged,
-                sendButtonOnPressed: widget.sendButtonOnPressed),
+                textEditingController: textEditingController,
+                onChanged: messageInputFieldOnChanged,
+                onPressed: sendButtonOnPressed),
           ],
         ),
       ),
