@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Decoration for authentication input fields
 const InputDecoration authenticationInputFieldDecoration = InputDecoration(
   hintText: 'Enter a value',
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -16,37 +17,35 @@ const InputDecoration authenticationInputFieldDecoration = InputDecoration(
   ),
 );
 
+/// Decoration for message input fields
 const InputDecoration messageInputFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   hintText: 'Type your message here',
   border: InputBorder.none,
 );
 
+/// Decoration for message containers
 const BoxDecoration messageContainerBoxDecoration = BoxDecoration(
   border: Border(
     top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
   ),
 );
 
+/// Style for send button texts
 const TextStyle sendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,
   fontWeight: FontWeight.bold,
   fontSize: 18.0,
 );
 
-const String chatTitleText = '⚡️Chat';
+/// Style for the home title
+const TextStyle homeTitleTextStyle = TextStyle(
+  fontSize: 45.0,
+  fontWeight: FontWeight.w900,
+);
 
-const List<String> homeTitleText = <String>['Flash Chat'];
+/// Color for primary elements
+const Color primaryColor = Colors.lightBlueAccent;
 
-const String logoAnimationTag = 'logo';
-
-final Image logoImage =
-    Image.asset('packages/flash_chat_widgets/images/logo.png');
-
-const int titleTextDurationSeconds = 10;
-const int logoAnimationDurationSeconds = 4;
-
-const Curve logoAnimationCurve = Curves.easeInOut;
-
-const Color okButtonColor = Colors.lightBlueAccent;
-const Color cancelButtonColor = Colors.blueAccent;
+/// Color for secondary elements
+const Color secondaryColor = Colors.blueAccent;

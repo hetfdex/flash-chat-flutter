@@ -1,23 +1,31 @@
-import 'package:flash_chat_widgets/helpers/constants.dart';
+import 'package:components/helpers/constants.dart';
 import 'package:flutter/material.dart';
 
 /// A top bar widget
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   /// Constructs the top bar widget
-  const TopBar({@required this.onPressed}) : assert(onPressed != null);
+  const TopBar({@required this.onPressed, @required this.titleText})
+      : assert(onPressed != null),
+        assert(titleText != null);
 
   /// The function called when the close button is pressed
   final Function onPressed;
+
+  /// The title text
+  final String titleText;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       leading: null,
       actions: <Widget>[
-        IconButton(icon: Icon(Icons.close), onPressed: onPressed),
+        IconButton(
+          icon: Icon(Icons.close),
+          onPressed: onPressed,
+        ),
       ],
-      title: Text(chatTitleText),
-      backgroundColor: okButtonColor,
+      title: Text(titleText),
+      backgroundColor: primaryColor,
     );
   }
 

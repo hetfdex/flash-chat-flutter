@@ -1,5 +1,5 @@
-name: flash_chat_widgets_gallery
-description: A gallery for the flash chat app widget library.
+name: components_gallery
+description: A gallery for the flash chat app components library.
 version: 1.0.0
 author: Jose Pereira
 homepage: www.github.com/hetfdex
@@ -10,7 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flash_chat_widgets:
+  components:
     path: ../
   effective_dart: ^1.1.1
 
+flutter:
+  uses-material-design: true

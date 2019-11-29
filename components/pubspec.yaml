@@ -1,5 +1,5 @@
-name: flash_chat_widgets
-description: A widget library for the flash chat app.
+name: components
+description: A components library for the flash chat app.
 version: 1.0.0
 author: Jose Pereira
 homepage: www.github.com/hetfdex

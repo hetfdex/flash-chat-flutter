@@ -1,4 +1,4 @@
-import 'package:flash_chat_widgets/helpers/constants.dart';
+import 'package:components/helpers/constants.dart';
 import 'package:flutter/material.dart';
 
 /// A message writting widget
