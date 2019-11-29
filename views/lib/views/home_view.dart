@@ -30,7 +30,10 @@ class HomeView extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Image.asset('images/logo.png'),
+                Image.asset(
+                  'images/logo.png',
+                  scale: 60.0,
+                ),
                 TypewriterAnimatedText(
                   text: <String>['Flash Chat'],
                   durationSeconds: 10,
