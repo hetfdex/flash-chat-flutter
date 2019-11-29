@@ -121,7 +121,7 @@ void main() {
 
       await tester.pump();
 
-      assert(wasChanged == testInput);
+      expect(wasChanged, testInput);
     });
   });
 }
