@@ -42,8 +42,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     yield LoginValidateInProgress();
     try {
       final user = await _userRepository.login(
-        event.email,
-        event.password,
+        email: event.email,
+        password: event.password,
       );
 
       _authenticationBloc.add(LoggedIn(user));

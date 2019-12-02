@@ -42,8 +42,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     yield RegisterValidateInProgress();
     try {
       final user = await _userRepository.register(
-        event.email,
-        event.password,
+        email: event.email,
+        password: event.password,
       );
 
       _authenticationBloc.add(LoggedIn(user));

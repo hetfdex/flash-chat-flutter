@@ -10,10 +10,10 @@ abstract class IUserRepository {
   Future<FirebaseUser> get user;
 
   /// Registers a uses
-  Future<FirebaseUser> register(String email, String password);
+  Future<FirebaseUser> register({String email, String password});
 
   /// Logs a user in
-  Future<FirebaseUser> login(String email, String password);
+  Future<FirebaseUser> login({String email, String password});
 
   /// Logs a user out
   Future<void> logout();
@@ -34,7 +34,7 @@ class UserRepository extends IUserRepository {
   Future<FirebaseUser> get user => _firebaseAuth.currentUser();
 
   @override
-  Future<FirebaseUser> register(String email, String password) async {
+  Future<FirebaseUser> register({String email, String password}) async {
     try {
       final encryptedPassword = encryptPassword(password, null);
 
@@ -53,7 +53,7 @@ class UserRepository extends IUserRepository {
   }
 
   @override
-  Future<FirebaseUser> login(String email, String password) async {
+  Future<FirebaseUser> login({String email, String password}) async {
     try {
       final salt = await _secureStorageUtils.getSalt(email);
 

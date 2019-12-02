@@ -15,7 +15,7 @@ class DocumentRepository extends IDocumentRepository {
 
   final SecureStorageUtils _secureStorageUtils;
 
-  Future<void> _addPublicKeyToFirestore(String email) async {
+  Future<void> _addPublicKeyToFirestore({String email}) async {
     final publicKeyPem = await _secureStorageUtils.getPublicKey(email);
 
     final data = <String, String>{

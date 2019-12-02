@@ -138,8 +138,8 @@ void main() {
       build: () {
         when(
           userRepository.login(
-            validEmail,
-            validPassword,
+            email: validEmail,
+            password: validPassword,
           ),
         ).thenAnswer((_) => Future<FirebaseUser>.value(firebaseUser));
 
@@ -161,8 +161,8 @@ void main() {
       build: () {
         when(
           userRepository.login(
-            invalidEmail,
-            invalidPassword,
+            email: invalidEmail,
+            password: invalidPassword,
           ),
         ).thenAnswer((_) => Future.error(error));
 

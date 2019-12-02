@@ -95,14 +95,15 @@ void main() {
 
   group('register', () {
     test('returns user', () async {
-      final result = await userRepository.register(email, password);
+      final result =
+          await userRepository.register(email: email, password: password);
 
       expect(result, user);
     });
 
     test('throws error', () async {
       try {
-        await userRepository.register(exception, password);
+        await userRepository.register(email: exception, password: password);
       } on Object catch (error) {
         expect(error, startsWith('User Register Failed:'));
       }
@@ -111,14 +112,15 @@ void main() {
 
   group('login', () {
     test('returns user', () async {
-      final result = await userRepository.login(email, password);
+      final result =
+          await userRepository.login(email: email, password: password);
 
       expect(result, user);
     });
 
     test('throws error', () async {
       try {
-        await userRepository.login(exception, password);
+        await userRepository.login(email: exception, password: password);
       } on Object catch (error) {
         expect(error, startsWith('User Login Failed:'));
       }
