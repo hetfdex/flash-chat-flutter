@@ -38,11 +38,11 @@ void main() {
 
   group('constructor', () {
     test('null userRepository throws error', () {
-      expect(() => LoginBloc(null, authenticationBloc), isAssertionError);
+      expect(() => LoginBloc(null, authenticationBloc), throwsAssertionError);
     });
 
     test('null authenticationBloc throws error', () {
-      expect(() => LoginBloc(userRepository, null), isAssertionError);
+      expect(() => LoginBloc(userRepository, null), throwsAssertionError);
     });
   });
 
