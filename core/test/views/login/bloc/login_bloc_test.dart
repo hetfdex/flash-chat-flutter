@@ -1,3 +1,4 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat_core/authentication/bloc/bloc.dart';
 import 'package:flash_chat_core/authentication/bloc/authentication_bloc.dart';
@@ -37,19 +38,11 @@ void main() {
 
   group('constructor', () {
     test('null userRepository throws error', () {
-      try {
-        LoginBloc(null, authenticationBloc);
-      } on Object catch (error) {
-        assert(error is AssertionError);
-      }
+      expect(() => LoginBloc(null, authenticationBloc), isAssertionError);
     });
 
     test('null authenticationBloc throws error', () {
-      try {
-        LoginBloc(userRepository, null);
-      } on Object catch (error) {
-        assert(error is AssertionError);
-      }
+      expect(() => LoginBloc(userRepository, null), isAssertionError);
     });
   });
 
@@ -58,125 +51,103 @@ void main() {
   });
 
   group('LoginChanged', () {
-    test(
-        'emits [LoginInitial, LoginFillInProgress] when email and password are empty',
-        () {
-      final expectedResponse = <LoginState>[
+    blocTest(
+      'emits [LoginInitial, LoginFillInProgress] when email and password are empty',
+      build: () {
+        return loginBloc;
+      },
+      act: (loginBloc) => loginBloc.add(LoginChanged(emptyField, emptyField)),
+      expect: [
         LoginInitial(),
         LoginFillInProgress(),
-      ];
+      ],
+    );
 
-      expectLater(
-        loginBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      loginBloc.add(LoginChanged(emptyField, emptyField));
-    });
-
-    test('emits [LoginInitial, LoginFillInProgress] when email is empty', () {
-      final expectedResponse = <LoginState>[
+    blocTest(
+      'emits [LoginInitial, LoginFillInProgress] when email is empty',
+      build: () {
+        return loginBloc;
+      },
+      act: (loginBloc) =>
+          loginBloc.add(LoginChanged(emptyField, invalidPassword)),
+      expect: [
         LoginInitial(),
         LoginFillInProgress(),
-      ];
+      ],
+    );
 
-      expectLater(
-        loginBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      loginBloc.add(LoginChanged(emptyField, invalidPassword));
-    });
-
-    test('emits [LoginInitial, LoginFillInProgress] when password is empty',
-        () {
-      final expectedResponse = <LoginState>[
+    blocTest(
+      'emits [LoginInitial, LoginFillInProgress] when password is empty',
+      build: () {
+        return loginBloc;
+      },
+      act: (loginBloc) => loginBloc.add(LoginChanged(invalidEmail, emptyField)),
+      expect: [
         LoginInitial(),
         LoginFillInProgress(),
-      ];
+      ],
+    );
 
-      expectLater(
-        loginBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      loginBloc.add(LoginChanged(invalidEmail, emptyField));
-    });
-
-    test('emits [LoginInitial, LoginFillInProgress] when email is invalid', () {
-      final expectedResponse = <LoginState>[
+    blocTest(
+      'emits [LoginInitial, LoginFillInProgress] when email is invalid',
+      build: () {
+        return loginBloc;
+      },
+      act: (loginBloc) =>
+          loginBloc.add(LoginChanged(invalidEmail, validPassword)),
+      expect: [
         LoginInitial(),
         LoginFillInProgress(),
-      ];
+      ],
+    );
 
-      expectLater(
-        loginBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      loginBloc.add(LoginChanged(invalidEmail, validPassword));
-    });
-
-    test('emits [LoginInitial, LoginFillInProgress] when password is invalid',
-        () {
-      final expectedResponse = <LoginState>[
+    blocTest(
+      'emits [LoginInitial, LoginFillInProgress] when password is invalid',
+      build: () {
+        return loginBloc;
+      },
+      act: (loginBloc) =>
+          loginBloc.add(LoginChanged(validEmail, invalidPassword)),
+      expect: [
         LoginInitial(),
         LoginFillInProgress(),
-      ];
+      ],
+    );
 
-      expectLater(
-        loginBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      loginBloc.add(LoginChanged(validEmail, invalidPassword));
-    });
-
-    test(
-        'emits [LoginInitial, LoginFillSuccess] when email and password are valid',
-        () {
-      final expectedResponse = <LoginState>[
+    blocTest(
+      'emits [LoginInitial, LoginFillSuccess] when email and password are valid',
+      build: () {
+        return loginBloc;
+      },
+      act: (loginBloc) =>
+          loginBloc.add(LoginChanged(validEmail, validPassword)),
+      expect: [
         LoginInitial(),
         LoginFillSuccess(),
-      ];
-
-      expectLater(
-        loginBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      loginBloc.add(LoginChanged(validEmail, validPassword));
-    });
+      ],
+    );
   });
 
-  group('const LoginSubmitted', () {
-    test(
-        'emits [LoginInitial, LoginValidateInProgress, LoginInitial] when email and password are valid',
-        () {
-      final expectedResponse = <LoginState>[
+  group('LoginSubmitted', () {
+    blocTest(
+      'emits [LoginInitial, LoginValidateInProgress, LoginInitial] when email and password are valid',
+      build: () {
+        when(
+          userRepository.login(
+            validEmail,
+            validPassword,
+          ),
+        ).thenAnswer((_) => Future<FirebaseUser>.value(firebaseUser));
+
+        return loginBloc;
+      },
+      act: (loginBloc) =>
+          loginBloc.add(LoginSubmitted(validEmail, validPassword)),
+      expect: [
         LoginInitial(),
         LoginValidateInProgress(),
         LoginInitial(),
-      ];
-
-      when(
-        userRepository.login(
-          validEmail,
-          validPassword,
-        ),
-      ).thenAnswer((_) => Future<FirebaseUser>.value(firebaseUser));
-
-      expectLater(
-        loginBloc.state,
-        emitsInOrder(expectedResponse),
-      ).then((_) {
-        verify(authenticationBloc.add(LoggedIn(firebaseUser))).called(1);
-      });
-
-      loginBloc.add(LoginSubmitted(
-        validEmail,
-        validPassword,
-      ));
-    });
+      ],
+    );
   });
 }

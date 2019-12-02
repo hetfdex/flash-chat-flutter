@@ -1,3 +1,4 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat_core/authentication/bloc/bloc.dart';
 import 'package:flash_chat_core/authentication/bloc/authentication_bloc.dart';
@@ -37,19 +38,11 @@ void main() {
 
   group('constructor', () {
     test('null userRepository throws error', () {
-      try {
-        RegisterBloc(null, authenticationBloc);
-      } on Object catch (error) {
-        assert(error is AssertionError);
-      }
+      expect(() => RegisterBloc(null, authenticationBloc), isAssertionError);
     });
 
-    test('null athenticationBloc throws error', () {
-      try {
-        RegisterBloc(userRepository, null);
-      } on Object catch (error) {
-        assert(error is AssertionError);
-      }
+    test('null authenticationBloc throws error', () {
+      expect(() => RegisterBloc(userRepository, null), isAssertionError);
     });
   });
 
@@ -58,130 +51,105 @@ void main() {
   });
 
   group('RegisterChanged', () {
-    test(
-        'emits [RegisterInitial, RegisterFillInProgress] when email and password are empty',
-        () {
-      final expectedResponse = <RegisterState>[
+    blocTest(
+      'emits [RegisterInitial, RegisterFillInProgress] when email and password are empty',
+      build: () {
+        return registerBloc;
+      },
+      act: (registerBlock) =>
+          registerBlock.add(RegisterChanged(emptyField, emptyField)),
+      expect: [
         RegisterInitial(),
         RegisterFillInProgress(),
-      ];
+      ],
+    );
 
-      expectLater(
-        registerBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      registerBloc.add(RegisterChanged(emptyField, emptyField));
-    });
-
-    test('emits [RegisterInitial, RegisterFillInProgress] when email is empty',
-        () {
-      final expectedResponse = <RegisterState>[
+    blocTest(
+      'emits [RegisterInitial, RegisterFillInProgress] when email is empty',
+      build: () {
+        return registerBloc;
+      },
+      act: (registerBlock) =>
+          registerBlock.add(RegisterChanged(emptyField, invalidPassword)),
+      expect: [
         RegisterInitial(),
         RegisterFillInProgress(),
-      ];
+      ],
+    );
 
-      expectLater(
-        registerBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      registerBloc.add(RegisterChanged(emptyField, invalidPassword));
-    });
-
-    test(
-        'emits [RegisterInitial, RegisterFillInProgress] when password is empty',
-        () {
-      final expectedResponse = <RegisterState>[
+    blocTest(
+      'emits [RegisterInitial, RegisterFillInProgress] when password is empty',
+      build: () {
+        return registerBloc;
+      },
+      act: (registerBlock) =>
+          registerBlock.add(RegisterChanged(invalidEmail, emptyField)),
+      expect: [
         RegisterInitial(),
         RegisterFillInProgress(),
-      ];
+      ],
+    );
 
-      expectLater(
-        registerBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      registerBloc.add(RegisterChanged(invalidEmail, emptyField));
-    });
-
-    test(
-        'emits [RegisterInitial, RegisterFillInProgress] when email is invalid',
-        () {
-      final expectedResponse = <RegisterState>[
+    blocTest(
+      'emits [RegisterInitial, RegisterFillInProgress] when email is invalid',
+      build: () {
+        return registerBloc;
+      },
+      act: (registerBlock) =>
+          registerBlock.add(RegisterChanged(invalidEmail, validPassword)),
+      expect: [
         RegisterInitial(),
         RegisterFillInProgress(),
-      ];
+      ],
+    );
 
-      expectLater(
-        registerBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      registerBloc.add(RegisterChanged(invalidEmail, validPassword));
-    });
-
-    test(
-        'emits [RegisterInitial, RegisterFillInProgress] when password is invalid',
-        () {
-      final expectedResponse = <RegisterState>[
+    blocTest(
+      'emits [RegisterInitial, RegisterFillInProgress] when password is invalid',
+      build: () {
+        return registerBloc;
+      },
+      act: (registerBlock) =>
+          registerBlock.add(RegisterChanged(validEmail, invalidPassword)),
+      expect: [
         RegisterInitial(),
         RegisterFillInProgress(),
-      ];
+      ],
+    );
 
-      expectLater(
-        registerBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      registerBloc.add(RegisterChanged(validEmail, invalidPassword));
-    });
-
-    test(
-        'emits [RegisterInitial, RegisterFillSuccess] when email and password are valid',
-        () {
-      final expectedResponse = <RegisterState>[
+    blocTest(
+      'emits [RegisterInitial, RegisterFillSuccess] when email and password are valid',
+      build: () {
+        return registerBloc;
+      },
+      act: (registerBlock) =>
+          registerBlock.add(RegisterChanged(validEmail, validPassword)),
+      expect: [
         RegisterInitial(),
         RegisterFillSuccess(),
-      ];
-
-      expectLater(
-        registerBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      registerBloc.add(RegisterChanged(validEmail, validPassword));
-    });
+      ],
+    );
   });
 
-  group('const RegisterSubmitted', () {
-    test(
-        'emits [RegisterInitial, RegisterValidateInProgress, RegisterInitial] when email and password are valid',
-        () {
-      final expectedResponse = <RegisterState>[
+  group('RegisterSubmitted', () {
+    blocTest(
+      'emits [RegisterInitial, RegisterValidateInProgress, RegisterInitial] when email and password are valid',
+      build: () {
+        when(
+          userRepository.login(
+            validEmail,
+            validPassword,
+          ),
+        ).thenAnswer((_) => Future<FirebaseUser>.value(firebaseUser));
+
+        return registerBloc;
+      },
+      act: (registerBlock) =>
+          registerBlock.add(RegisterSubmitted(validEmail, validPassword)),
+      expect: [
         RegisterInitial(),
         RegisterValidateInProgress(),
         RegisterInitial(),
-      ];
-
-      when(
-        userRepository.register(
-          validEmail,
-          validPassword,
-        ),
-      ).thenAnswer((_) => Future<FirebaseUser>.value(firebaseUser));
-
-      expectLater(
-        registerBloc.state,
-        emitsInOrder(expectedResponse),
-      ).then((_) {
-        verify(authenticationBloc.add(LoggedIn(firebaseUser))).called(1);
-      });
-
-      registerBloc.add(RegisterSubmitted(
-        validEmail,
-        validPassword,
-      ));
-    });
+      ],
+    );
   });
 }

@@ -1,3 +1,4 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flash_chat_core/views/home/bloc/bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -13,67 +14,67 @@ void main() {
   });
 
   group('LoginButtonPressed', () {
-    test('emits [HomeActive, LoginActive]', () {
-      final expectedResponse = <HomeState>[
+    blocTest(
+      'emits [HomeActive, LoginActive]',
+      build: () {
+        return homeBloc;
+      },
+      act: (homeBloc) => homeBloc.add(LoginButtonPressed()),
+      expect: [
         HomeActive(),
         LoginActive(),
-      ];
-
-      expectLater(
-        homeBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      homeBloc.add(LoginButtonPressed());
-    });
+      ],
+    );
   });
 
   group('RegisterButtonPressed', () {
-    test('emits [HomeActive, RegisterActive]', () {
-      final expectedResponse = <HomeState>[
+    blocTest(
+      'emits [HomeActive, RegisterActive]',
+      build: () {
+        return homeBloc;
+      },
+      act: (homeBloc) => homeBloc.add(RegisterButtonPressed()),
+      expect: [
         HomeActive(),
         RegisterActive(),
-      ];
-
-      expectLater(
-        homeBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      homeBloc.add(RegisterButtonPressed());
-    });
+      ],
+    );
   });
   group('CancelButtonPressed', () {
-    test('emits [HomeActive, LoginActive, HomeActive]', () {
-      final expectedResponse = <HomeState>[
+    blocTest(
+      'emits [HomeActive, LoginActive, HomeActive]',
+      build: () {
+        return homeBloc;
+      },
+      act: (homeBloc) {
+        homeBloc.add(LoginButtonPressed());
+        homeBloc.add(CancelButtonPressed());
+
+        return;
+      },
+      expect: [
         HomeActive(),
         LoginActive(),
         HomeActive(),
-      ];
+      ],
+    );
 
-      expectLater(
-        homeBloc.state,
-        emitsInOrder(expectedResponse),
-      );
+    blocTest(
+      'emits [HomeActive, RegisterActive, HomeActive]',
+      build: () {
+        return homeBloc;
+      },
+      act: (homeBloc) {
+        homeBloc.add(RegisterButtonPressed());
+        homeBloc.add(CancelButtonPressed());
 
-      homeBloc.add(LoginButtonPressed());
-      homeBloc.add(CancelButtonPressed());
-    });
-
-    test('emits [HomeActive, RegisterActive, HomeActive]', () {
-      final expectedResponse = <HomeState>[
+        return;
+      },
+      expect: [
         HomeActive(),
         RegisterActive(),
         HomeActive(),
-      ];
-
-      expectLater(
-        homeBloc.state,
-        emitsInOrder(expectedResponse),
-      );
-
-      homeBloc.add(RegisterButtonPressed());
-      homeBloc.add(CancelButtonPressed());
-    });
+      ],
+    );
   });
 }
