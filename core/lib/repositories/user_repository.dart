@@ -35,6 +35,14 @@ class UserRepository extends IUserRepository {
 
   @override
   Future<FirebaseUser> register({String email, String password}) async {
+    if (email == null && email == '') {
+      throw ArgumentError('email must not be null or empty');
+    }
+
+    if (password == null && password == '') {
+      throw ArgumentError('password must not be null or empty');
+    }
+
     try {
       final encryptedPassword = encryptPassword(password, null);
 
@@ -54,6 +62,14 @@ class UserRepository extends IUserRepository {
 
   @override
   Future<FirebaseUser> login({String email, String password}) async {
+    if (email == null && email == '') {
+      throw ArgumentError('email must not be null or empty');
+    }
+
+    if (password == null && password == '') {
+      throw ArgumentError('password must not be null or empty');
+    }
+
     try {
       final salt = await _secureStorageUtils.getSalt(email);
 
