@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 /// The authentication states
-@immutable
 abstract class AuthenticationState extends Equatable {
+  /// Constructs the authentication state
+  const AuthenticationState();
+
   @override
   List<Object> get props => null;
 }

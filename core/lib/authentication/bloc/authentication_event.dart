@@ -1,10 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meta/meta.dart';
 
 /// The authentication events
-@immutable
-abstract class AuthenticationEvent extends Equatable {}
+abstract class AuthenticationEvent extends Equatable {
+  /// Constructs the authentication event
+  const AuthenticationEvent();
+}
 
 /// The app started event
 class AppStarted extends AuthenticationEvent {

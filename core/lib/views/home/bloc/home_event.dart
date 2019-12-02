@@ -3,7 +3,10 @@ import 'package:meta/meta.dart';
 
 /// The home events
 @immutable
-abstract class HomeEvent extends Equatable {}
+abstract class HomeEvent extends Equatable {
+  /// Constructs the home event
+  const HomeEvent();
+}
 
 /// The login button pressed event
 class LoginButtonPressed extends HomeEvent {
