@@ -127,7 +127,7 @@ void main() {
           loginBloc.add(LoginChanged(validEmail, validPassword)),
       expect: [
         LoginInitial(),
-        LoginFillSuccess(),
+        LoginFillSuccess(null),
       ],
     );
   });
@@ -151,6 +151,29 @@ void main() {
         LoginInitial(),
         LoginValidateInProgress(),
         LoginInitial(),
+      ],
+    );
+
+    final error = Error();
+
+    blocTest(
+      'emits [LoginInitial, LoginValidateInProgress, LoginFormFillSuccess] on caught error',
+      build: () {
+        when(
+          userRepository.login(
+            invalidEmail,
+            invalidPassword,
+          ),
+        ).thenAnswer((_) => Future.error(error));
+
+        return loginBloc;
+      },
+      act: (loginBlock) =>
+          loginBlock.add(LoginSubmitted(invalidEmail, invalidPassword)),
+      expect: [
+        LoginInitial(),
+        LoginValidateInProgress(),
+        LoginFillSuccess(error),
       ],
     );
   });

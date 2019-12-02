@@ -130,7 +130,7 @@ void main() {
           registerBlock.add(RegisterChanged(validEmail, validPassword)),
       expect: [
         RegisterInitial(),
-        RegisterFillSuccess(),
+        RegisterFillSuccess(null),
       ],
     );
   });
@@ -154,6 +154,29 @@ void main() {
         RegisterInitial(),
         RegisterValidateInProgress(),
         RegisterInitial(),
+      ],
+    );
+
+    final error = Error();
+
+    blocTest(
+      'emits [RegisterInitial, RegisterValidateInProgress, LoginFormFillSuccess] on caught error',
+      build: () {
+        when(
+          userRepository.register(
+            invalidEmail,
+            invalidPassword,
+          ),
+        ).thenAnswer((_) => Future.error(error));
+
+        return registerBloc;
+      },
+      act: (registerBlock) =>
+          registerBlock.add(RegisterSubmitted(invalidEmail, invalidPassword)),
+      expect: [
+        RegisterInitial(),
+        RegisterValidateInProgress(),
+        RegisterFillSuccess(error),
       ],
     );
   });
