@@ -4,17 +4,24 @@ import 'package:flash_chat_core/utils/pem_utils.dart';
 import 'package:flash_chat_core/utils/rsa_utils.dart';
 import 'package:flash_chat_core/utils/secure_storage_utils.dart';
 
+/// The user repository interface
 abstract class IUserRepository {
+  /// Returns the user
   Future<FirebaseUser> get user;
 
+  /// Registers a uses
   Future<FirebaseUser> register(String email, String password);
 
+  /// Logs a user in
   Future<FirebaseUser> login(String email, String password);
 
+  /// Logs a user out
   Future<void> logout();
 }
 
+/// The user repository implementation
 class UserRepository extends IUserRepository {
+  /// Constructs the user repository
   UserRepository(this._firebaseAuth, this._secureStorageUtils)
       : assert(_firebaseAuth != null),
         assert(_secureStorageUtils != null);

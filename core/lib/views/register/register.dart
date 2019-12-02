@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 String _email;
 String _password;
 
+/// The register view implementation
 class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -29,16 +30,16 @@ class Register extends StatelessWidget {
         emailInputFieldOnChanged: (String v) {
           _email = v;
 
-          registerFieldOnChanged(_registerBloc);
+          _registerFieldOnChanged(_registerBloc);
         },
         passwordInputFieldOnChanged: (String v) {
           _password = v;
 
-          registerFieldOnChanged(_registerBloc);
+          _registerFieldOnChanged(_registerBloc);
         });
   }
 
-  void registerFieldOnChanged(RegisterBloc _registerBloc) {
+  void _registerFieldOnChanged(RegisterBloc _registerBloc) {
     _registerBloc.add(RegisterChanged(_email, _password));
   }
 }

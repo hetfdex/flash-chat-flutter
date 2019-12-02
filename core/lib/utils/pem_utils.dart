@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:asn1lib/asn1lib.dart';
 import 'package:pointycastle/pointycastle.dart';
 
+/// Converts a pem string to an rsa public key
 RSAPublicKey pemToPublicKey(String pem) {
   if (pem == null) {
     throw ArgumentError('pem must not be null or empty');
@@ -30,6 +31,7 @@ RSAPublicKey pemToPublicKey(String pem) {
   return rsaPublicKey;
 }
 
+/// Converts a pem string to an rsa private key
 RSAPrivateKey pemToPrivateKey(String pem) {
   if (pem == null) {
     throw ArgumentError('pem must not be null or empty');
@@ -64,6 +66,7 @@ RSAPrivateKey pemToPrivateKey(String pem) {
   return rsaPrivateKey;
 }
 
+/// Converts an rsa public key into a pem string
 String publicKeyToPem(RSAPublicKey publicKey) {
   if (publicKey == null) {
     throw ArgumentError('publicKey must not be null or empty');
@@ -98,6 +101,7 @@ String publicKeyToPem(RSAPublicKey publicKey) {
   return '-----BEGIN PUBLIC KEY-----\r\n$dataBase64\r\n-----END PUBLIC KEY-----';
 }
 
+/// Converts an rsa private key into a pem string
 String privateKeyToPem(RSAPrivateKey privateKey) {
   if (privateKey == null) {
     throw ArgumentError('privateKey must not be null or empty');

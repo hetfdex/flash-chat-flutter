@@ -5,6 +5,7 @@ import 'package:flash_chat_core/views/register/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// The flash chat app
 class FlashChatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

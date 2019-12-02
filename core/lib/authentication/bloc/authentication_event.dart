@@ -2,9 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
+/// The authentication events
 @immutable
 abstract class AuthenticationEvent extends Equatable {}
 
+/// The app started event
 class AppStarted extends AuthenticationEvent {
   @override
   String toString() => 'AppStarted';
@@ -13,9 +15,12 @@ class AppStarted extends AuthenticationEvent {
   List<Object> get props => null;
 }
 
+/// The logged in event
 class LoggedIn extends AuthenticationEvent {
+  /// Constructs the logged in event
   LoggedIn(this.user);
 
+  /// The firebase user
   final FirebaseUser user;
 
   @override
@@ -25,6 +30,7 @@ class LoggedIn extends AuthenticationEvent {
   List<Object> get props => <Object>[user];
 }
 
+/// The logged out event
 class LoggedOut extends AuthenticationEvent {
   @override
   String toString() => 'LoggedOut';

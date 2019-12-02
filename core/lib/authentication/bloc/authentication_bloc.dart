@@ -3,8 +3,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flash_chat_core/authentication/bloc/bloc.dart';
 import 'package:flash_chat_core/repositories/user_repository.dart';
 
+/// The authentication bloc
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
+  /// Constructs the authentication bloc
   AuthenticationBloc(this._userRepository) : assert(_userRepository != null);
 
   final UserRepository _userRepository;

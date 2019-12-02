@@ -5,7 +5,9 @@ import 'package:flash_chat_core/utils/form_validation_utils.dart';
 import 'package:flash_chat_core/views/register/bloc/bloc.dart';
 import 'package:bloc/bloc.dart';
 
+/// The register bloc
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
+  /// Constructs the register bloc
   RegisterBloc(this._userRepository, this._authenticationBloc)
       : assert(_userRepository != null),
         assert(_authenticationBloc != null);

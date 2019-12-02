@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 
+/// The bloc delegate debugger
 class DebuggerBlocDelegate extends BlocDelegate {
   @override
   void onEvent(Bloc<dynamic, dynamic> bloc, Object event) {

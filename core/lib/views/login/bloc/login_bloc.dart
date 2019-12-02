@@ -5,7 +5,9 @@ import 'package:flash_chat_core/utils/form_validation_utils.dart';
 import 'package:flash_chat_core/views/login/bloc/bloc.dart';
 import 'package:bloc/bloc.dart';
 
+/// The login bloc
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  /// Constructs the login bloc
   LoginBloc(this._userRepository, this._authenticationBloc)
       : assert(_userRepository != null),
         assert(_authenticationBloc != null);

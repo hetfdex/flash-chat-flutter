@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 String _email;
 String _password;
 
+/// The login view implementation
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -29,16 +30,16 @@ class Login extends StatelessWidget {
         emailInputFieldOnChanged: (String v) {
           _email = v;
 
-          loginFieldOnChanged(_loginBloc);
+          _loginFieldOnChanged(_loginBloc);
         },
         passwordInputFieldOnChanged: (String v) {
           _password = v;
 
-          loginFieldOnChanged(_loginBloc);
+          _loginFieldOnChanged(_loginBloc);
         });
   }
 
-  void loginFieldOnChanged(LoginBloc _loginBloc) {
+  void _loginFieldOnChanged(LoginBloc _loginBloc) {
     _loginBloc.add(LoginChanged(_email, _password));
   }
 }

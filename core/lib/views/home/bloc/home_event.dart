@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+/// The home events
 @immutable
 abstract class HomeEvent extends Equatable {}
 
+/// The login button pressed event
 class LoginButtonPressed extends HomeEvent {
   @override
   String toString() => 'LoginButtonPressed';
@@ -12,6 +14,7 @@ class LoginButtonPressed extends HomeEvent {
   List<Object> get props => null;
 }
 
+/// The register button pressed event
 class RegisterButtonPressed extends HomeEvent {
   @override
   String toString() => 'RegisterButtonPressed';
@@ -20,6 +23,7 @@ class RegisterButtonPressed extends HomeEvent {
   List<Object> get props => null;
 }
 
+/// The cancel button pressed event
 class CancelButtonPressed extends HomeEvent {
   @override
   String toString() => 'CancelButtonPressed';

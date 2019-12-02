@@ -4,6 +4,7 @@ import 'package:pointycastle/export.dart';
 import 'package:pointycastle/pointycastle.dart';
 import 'package:pointycastle/random/fortuna_random.dart';
 
+/// Encrypts a given message using an rsa private key
 String encryptMessage(String message, RSAPrivateKey privateKey) {
   if (message == null || message == '') {
     throw ArgumentError('message must not be null or empty');
@@ -23,6 +24,7 @@ String encryptMessage(String message, RSAPrivateKey privateKey) {
   return String.fromCharCodes(encryptedMessage);
 }
 
+/// Decrypts a given message using an rsa public key
 String decryptMessage(String message, RSAPublicKey publicKey) {
   if (message == null || message == '') {
     throw ArgumentError('message must not be null or empty');
@@ -42,6 +44,7 @@ String decryptMessage(String message, RSAPublicKey publicKey) {
   return String.fromCharCodes(decryptedMessage);
 }
 
+/// Generates an asymmetric key pair
 AsymmetricKeyPair<PublicKey, PrivateKey> generateKeyPair() {
   return _generateKeyPair(_getSecureRandom());
 }
