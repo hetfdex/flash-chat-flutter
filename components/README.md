@@ -1,1 +1,1 @@
-# flash-chat-flutter-widgets
+# flash-chat-flutter-components
