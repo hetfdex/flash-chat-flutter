@@ -23,6 +23,10 @@ void main() {
     authenticationBloc = AuthenticationBloc(userRepository);
   });
 
+  tearDown(() {
+    authenticationBloc?.close();
+  });
+
   group('constructor', () {
     test('null userRepository throws error', () {
       expect(() => AuthenticationBloc(null), throwsAssertionError);

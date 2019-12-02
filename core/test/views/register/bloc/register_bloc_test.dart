@@ -36,9 +36,14 @@ void main() {
     registerBloc = RegisterBloc(userRepository, authenticationBloc);
   });
 
+  tearDown(() {
+    registerBloc.close();
+  });
+
   group('constructor', () {
     test('null userRepository throws error', () {
-      expect(() => RegisterBloc(null, authenticationBloc), throwsAssertionError);
+      expect(
+          () => RegisterBloc(null, authenticationBloc), throwsAssertionError);
     });
 
     test('null authenticationBloc throws error', () {

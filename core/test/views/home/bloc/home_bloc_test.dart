@@ -9,6 +9,10 @@ void main() {
     homeBloc = HomeBloc();
   });
 
+  tearDown(() {
+    homeBloc?.close();
+  });
+
   test('initial state is correct', () {
     expect(homeBloc.initialState, HomeActive());
   });
