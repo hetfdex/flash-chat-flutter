@@ -3,31 +3,16 @@ import 'package:meta/meta.dart';
 
 /// The authentication states
 @immutable
-abstract class AuthenticationState extends Equatable {}
+abstract class AuthenticationState extends Equatable {
+  @override
+  List<Object> get props => null;
+}
 
 /// The initial event
-class Initial extends AuthenticationState {
-  @override
-  String toString() => 'Initial';
-
-  @override
-  List<Object> get props => null;
-}
+class Initial extends AuthenticationState {}
 
 /// The validate success event
-class ValidateSuccess extends AuthenticationState {
-  @override
-  String toString() => 'ValidateSuccess';
-
-  @override
-  List<Object> get props => null;
-}
+class ValidateSuccess extends AuthenticationState {}
 
 /// The validate failure event
-class ValidateFailure extends AuthenticationState {
-  @override
-  String toString() => 'ValidateFailure';
-
-  @override
-  List<Object> get props => null;
-}
+class ValidateFailure extends AuthenticationState {}

@@ -3,31 +3,16 @@ import 'package:meta/meta.dart';
 
 /// The home states
 @immutable
-abstract class HomeState extends Equatable {}
+abstract class HomeState extends Equatable {
+  @override
+  List<Object> get props => null;
+}
 
 /// The home active state
-class HomeActive extends HomeState {
-  @override
-  String toString() => 'HomeActive';
-
-  @override
-  List<Object> get props => null;
-}
+class HomeActive extends HomeState {}
 
 /// The login active state
-class LoginActive extends HomeState {
-  @override
-  String toString() => 'LoginActive';
-
-  @override
-  List<Object> get props => null;
-}
+class LoginActive extends HomeState {}
 
 /// The register active state
-class RegisterActive extends HomeState {
-  @override
-  String toString() => 'RegisterActive';
-
-  @override
-  List<Object> get props => null;
-}
+class RegisterActive extends HomeState {}

@@ -3,28 +3,19 @@ import 'package:meta/meta.dart';
 
 /// The login states
 @immutable
-abstract class LoginState extends Equatable {}
+abstract class LoginState extends Equatable {
+  @override
+  List<Object> get props => null;
+}
 
 /// The login initial state
-class LoginInitial extends LoginState {
-  @override
-  List<Object> get props => null;
-}
+class LoginInitial extends LoginState {}
 
 /// The login fill success state
-class LoginFillSuccess extends LoginState {
-  @override
-  List<Object> get props => null;
-}
+class LoginFillSuccess extends LoginState {}
 
 /// The login fill in progress state
-class LoginFillInProgress extends LoginState {
-  @override
-  List<Object> get props => null;
-}
+class LoginFillInProgress extends LoginState {}
 
 /// The login validate in progress state
-class LoginValidateInProgress extends LoginState {
-  @override
-  List<Object> get props => null;
-}
+class LoginValidateInProgress extends LoginState {}
