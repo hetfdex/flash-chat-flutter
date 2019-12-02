@@ -32,7 +32,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginChanged event,
   ) async* {
     yield _hasValidInputFields(event.email, event.password)
-        ? LoginFillSuccess()
+        ? LoginFillSuccess(null)
         : LoginFillInProgress();
   }
 
@@ -49,8 +49,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       _authenticationBloc.add(LoggedIn(user));
 
       yield LoginInitial();
-    } on Object catch (_) {
-      rethrow;
+    } on Error catch (e) {
+      yield LoginFillSuccess(e);
     }
   }
 

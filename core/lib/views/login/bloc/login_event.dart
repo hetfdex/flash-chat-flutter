@@ -1,7 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 /// The login events
-abstract class LoginEvent extends Equatable {}
+abstract class LoginEvent extends Equatable {
+  /// Constructs the login event
+  const LoginEvent();
+}
 
 /// The login submitted event
 class LoginSubmitted extends LoginEvent {

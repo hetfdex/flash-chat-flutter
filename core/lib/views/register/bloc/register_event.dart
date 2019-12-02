@@ -1,7 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 /// The register events
-abstract class RegisterEvent extends Equatable {}
+abstract class RegisterEvent extends Equatable {
+  /// Constructs the register event
+  const RegisterEvent();
+}
 
 /// The register submitted event
 class RegisterSubmitted extends RegisterEvent {

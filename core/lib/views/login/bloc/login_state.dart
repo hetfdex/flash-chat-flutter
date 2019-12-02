@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 /// The login states
-@immutable
 abstract class LoginState extends Equatable {
+  /// Constructs the login state
+  const LoginState();
+
   @override
   List<Object> get props => null;
 }
@@ -12,7 +13,16 @@ abstract class LoginState extends Equatable {
 class LoginInitial extends LoginState {}
 
 /// The login fill success state
-class LoginFillSuccess extends LoginState {}
+class LoginFillSuccess extends LoginState {
+  /// The error thrown
+  final Error error;
+
+  /// Constructs the login fill sucess state
+  const LoginFillSuccess(this.error);
+
+  @override
+  List get props => [error];
+}
 
 /// The login fill in progress state
 class LoginFillInProgress extends LoginState {}

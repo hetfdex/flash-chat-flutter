@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 /// The register states
-@immutable
 abstract class RegisterState extends Equatable {
+  /// Constructs the register state
+  const RegisterState();
+
   @override
   List<Object> get props => null;
 }
@@ -12,7 +13,16 @@ abstract class RegisterState extends Equatable {
 class RegisterInitial extends RegisterState {}
 
 /// The register fill success state
-class RegisterFillSuccess extends RegisterState {}
+class RegisterFillSuccess extends RegisterState {
+  /// The error thrown
+  final Error error;
+
+  /// Constructs the register fill sucess state
+  const RegisterFillSuccess(this.error);
+
+  @override
+  List get props => [error];
+}
 
 /// The register fill in progress state
 class RegisterFillInProgress extends RegisterState {}
