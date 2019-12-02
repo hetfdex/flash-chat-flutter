@@ -29,7 +29,7 @@ class AuthenticationBloc
   Stream<AuthenticationState> _mapAppStartedToState(
     AppStarted event,
   ) async* {
-    yield await _has() ? ValidateSuccess() : ValidateFailure();
+    yield await _hasUser() ? ValidateSuccess() : ValidateFailure();
   }
 
   Stream<AuthenticationState> _mapLoggedInToState(
@@ -44,7 +44,7 @@ class AuthenticationBloc
     yield ValidateFailure();
   }
 
-  Future<bool> _has() async {
+  Future<bool> _hasUser() async {
     return await _userRepository.user != null;
   }
 }
