@@ -5,8 +5,7 @@ import 'package:pointycastle/export.dart';
 /// The document repository interface
 abstract class IDocumentRepository {
   /// Returns the messages
-  Stream<QuerySnapshot> getMessageStream(
-      {String collection, String orderBy, bool descending});
+  Stream<QuerySnapshot> getMessageStream();
 
   /// Returns the users public keys
   Future<Map<String, String>> getUsersPublicKeys();
@@ -27,25 +26,9 @@ class DocumentRepository extends IDocumentRepository {
   final Firestore _firestore;
 
   @override
-  Stream<QuerySnapshot> getMessageStream(
-      {String collection, String orderBy, bool descending}) {
-    if (collection == null || collection == '') {
-      throw ArgumentError('collection must not be null or empty');
-    }
-
-    if (orderBy == null || orderBy == '') {
-      throw ArgumentError('orderBy must not be null or empty');
-    }
-
-    if (descending == null) {
-      throw ArgumentError('descending must not be null or empty');
-    }
-
+  Stream<QuerySnapshot> getMessageStream() {
     try {
-      return _firestore
-          .collection(collection)
-          .orderBy(orderBy, descending: descending)
-          .snapshots();
+      return _firestore.collection('messages').snapshots();
     } on dynamic catch (_) {
       rethrow;
     }
