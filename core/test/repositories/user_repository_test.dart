@@ -18,6 +18,8 @@ void main() {
   const password = 'password';
   const exception = 'exception';
 
+  final e = Exception('exception');
+
   FirebaseAuth firebaseAuth;
 
   SecureStorageUtils secureStorageUtils;
@@ -50,7 +52,7 @@ void main() {
 
     when(firebaseAuth.createUserWithEmailAndPassword(
             email: exception, password: anyNamed(password)))
-        .thenThrow(Error());
+        .thenThrow(e);
 
     when(firebaseAuth.signInWithEmailAndPassword(
             email: email, password: anyNamed(password)))
@@ -58,30 +60,17 @@ void main() {
 
     when(firebaseAuth.signInWithEmailAndPassword(
             email: exception, password: anyNamed(password)))
-        .thenThrow(Error());
+        .thenThrow(e);
   });
 
   group('constructor', () {
     test('null firebaseAuth throws error', () {
-      try {
-        UserRepository(null, secureStorageUtils);
-      } on Object catch (error) {
-        assert(error is AssertionError);
-      }
+      expect(
+          () => UserRepository(null, secureStorageUtils), throwsAssertionError);
     });
 
     test('null secureStorageUtils throws error', () {
-      try {
-        UserRepository(firebaseAuth, null);
-      } on Object catch (error) {
-        assert(error is AssertionError);
-      }
-    });
-
-    test('null firebaseAuth throws error', () {
-      final userRepository = UserRepository(firebaseAuth, secureStorageUtils);
-
-      expect(userRepository, isNotNull);
+      expect(() => UserRepository(firebaseAuth, null), throwsAssertionError);
     });
   });
 
@@ -94,6 +83,20 @@ void main() {
   });
 
   group('register', () {
+    test('null email throws error', () async {
+      expect(
+          () async =>
+              await userRepository.register(email: null, password: password),
+          throwsArgumentError);
+    });
+
+    test('null password throws error', () async {
+      expect(
+          () async =>
+              await userRepository.register(email: email, password: null),
+          throwsArgumentError);
+    });
+
     test('returns user', () async {
       final result =
           await userRepository.register(email: email, password: password);
@@ -101,16 +104,28 @@ void main() {
       expect(result, user);
     });
 
-    test('throws error', () async {
-      try {
-        await userRepository.register(email: exception, password: password);
-      } on Object catch (error) {
-        expect(error, startsWith('User Register Failed:'));
-      }
+    test('throws exception', () async {
+      expect(
+          () async => await userRepository.register(
+              email: exception, password: exception),
+          throwsException);
     });
   });
 
   group('login', () {
+    test('null email throws error', () async {
+      expect(
+          () async =>
+              await userRepository.login(email: null, password: password),
+          throwsArgumentError);
+    });
+
+    test('null password throws error', () async {
+      expect(
+          () async => await userRepository.login(email: email, password: null),
+          throwsArgumentError);
+    });
+
     test('returns user', () async {
       final result =
           await userRepository.login(email: email, password: password);
@@ -118,12 +133,11 @@ void main() {
       expect(result, user);
     });
 
-    test('throws error', () async {
-      try {
-        await userRepository.login(email: exception, password: password);
-      } on Object catch (error) {
-        expect(error, startsWith('User Login Failed:'));
-      }
+    test('throws exception', () async {
+      expect(
+          () async =>
+              await userRepository.login(email: exception, password: exception),
+          throwsException);
     });
   });
 
@@ -134,14 +148,10 @@ void main() {
       verify(firebaseAuth.signOut()).called(1);
     });
 
-    test('throws error', () async {
-      when(firebaseAuth.signOut()).thenThrow(Error());
+    test('throws exception', () async {
+      when(firebaseAuth.signOut()).thenThrow(e);
 
-      try {
-        await userRepository.logout();
-      } on Object catch (error) {
-        expect(error, startsWith('User Logout Failed:'));
-      }
+      expect(() async => await userRepository.logout(), throwsException);
     });
   });
 }
