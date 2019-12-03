@@ -15,6 +15,9 @@ class ChatSubmitted extends ChatEvent {
   final String message;
 
   @override
+  String toString() => 'ChatSubmitted';
+
+  @override
   List<Object> get props => <Object>[message];
 }
 
@@ -27,5 +30,17 @@ class ChatChanged extends ChatEvent {
   final String message;
 
   @override
+  String toString() => 'ChatChanged';
+
+  @override
   List<Object> get props => <Object>[message];
+}
+
+/// The close button pressed event
+class CloseButtonPressed extends ChatEvent {
+  @override
+  String toString() => 'CloseButtonPressed';
+
+  @override
+  List<Object> get props => null;
 }
