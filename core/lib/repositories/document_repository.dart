@@ -29,11 +29,11 @@ class DocumentRepository extends IDocumentRepository {
   @override
   Stream<QuerySnapshot> getMessageStream(
       {String collection, String orderBy, bool descending}) {
-    if (collection == null && collection == '') {
+    if (collection == null || collection == '') {
       throw ArgumentError('collection must not be null or empty');
     }
 
-    if (orderBy == null && orderBy == '') {
+    if (orderBy == null || orderBy == '') {
       throw ArgumentError('orderBy must not be null or empty');
     }
 
@@ -46,8 +46,8 @@ class DocumentRepository extends IDocumentRepository {
           .collection(collection)
           .orderBy(orderBy, descending: descending)
           .snapshots();
-    } on Object catch (e) {
-      throw 'Get Message Stream Failed: $e';
+    } on dynamic catch (_) {
+      rethrow;
     }
   }
 
@@ -66,19 +66,19 @@ class DocumentRepository extends IDocumentRepository {
       }
 
       return users;
-    } on Object catch (e) {
-      throw 'Get Users Failed: $e';
+    } on dynamic catch (_) {
+      rethrow;
     }
   }
 
   @override
   Future<void> postMesssage(
       {String message, String senderEmail, RSAPrivateKey privateKey}) async {
-    if (message == null && message == '') {
+    if (message == null || message == '') {
       throw ArgumentError('message must not be null or empty');
     }
 
-    if (senderEmail == null && senderEmail == '') {
+    if (senderEmail == null || senderEmail == '') {
       throw ArgumentError('senderEmail must not be null or empty');
     }
 
@@ -96,18 +96,18 @@ class DocumentRepository extends IDocumentRepository {
       };
 
       await _firestore.collection('messages').add(data);
-    } on Object catch (e) {
-      throw 'Post Message Failed: $e';
+    } on dynamic catch (_) {
+      rethrow;
     }
   }
 
   @override
   Future<void> postUserPublicKey({String email, String publicKeyPem}) async {
-    if (email == null && email == '') {
+    if (email == null || email == '') {
       throw ArgumentError('email must not be null or empty');
     }
 
-    if (publicKeyPem == null && publicKeyPem == '') {
+    if (publicKeyPem == null || publicKeyPem == '') {
       throw ArgumentError('password must not be null or empty');
     }
 
@@ -118,8 +118,8 @@ class DocumentRepository extends IDocumentRepository {
       };
 
       await _firestore.collection('publicKeys').add(data);
-    } on Object catch (e) {
-      throw 'Post User Failed: $e';
+    } on dynamic catch (_) {
+      rethrow;
     }
   }
 }

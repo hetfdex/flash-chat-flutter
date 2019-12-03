@@ -35,11 +35,11 @@ class UserRepository extends IUserRepository {
 
   @override
   Future<FirebaseUser> register({String email, String password}) async {
-    if (email == null && email == '') {
+    if (email == null || email == '') {
       throw ArgumentError('email must not be null or empty');
     }
 
-    if (password == null && password == '') {
+    if (password == null || password == '') {
       throw ArgumentError('password must not be null or empty');
     }
 
@@ -49,24 +49,21 @@ class UserRepository extends IUserRepository {
       final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: encryptedPassword);
 
-      if (authResult != null) {
-        await _setupKeyPair(email);
+      await _setupKeyPair(email);
 
-        return authResult.user;
-      }
-      return null;
-    } on Object catch (e) {
-      throw 'User Register Failed: $e';
+      return authResult.user;
+    } on dynamic catch (_) {
+      rethrow;
     }
   }
 
   @override
   Future<FirebaseUser> login({String email, String password}) async {
-    if (email == null && email == '') {
+    if (email == null || email == '') {
       throw ArgumentError('email must not be null or empty');
     }
 
-    if (password == null && password == '') {
+    if (password == null || password == '') {
       throw ArgumentError('password must not be null or empty');
     }
 
@@ -78,12 +75,9 @@ class UserRepository extends IUserRepository {
       final authResult = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: encryptedPassword);
 
-      if (authResult != null) {
-        return authResult.user;
-      }
-      return null;
-    } on Object catch (e) {
-      throw 'User Login Failed: $e';
+      return authResult.user;
+    } on dynamic catch (_) {
+      rethrow;
     }
   }
 
@@ -91,8 +85,8 @@ class UserRepository extends IUserRepository {
   Future<void> logout() {
     try {
       return _firebaseAuth.signOut();
-    } on Object catch (e) {
-      throw 'User Logout Failed: $e';
+    } on dynamic catch (_) {
+      rethrow;
     }
   }
 
