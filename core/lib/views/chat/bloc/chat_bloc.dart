@@ -32,6 +32,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       yield* _mapChatChangedToState(event);
     } else if (event is ChatSubmitted) {
       yield* _mapChatSubmittedToState(event);
+    } else if (event is CloseButtonPressed) {
+      yield* _mapCloseButtonPressedToState(event);
     }
   }
 
@@ -60,6 +62,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     } on Error catch (e) {
       yield ChatFillSuccess(e);
     }
+  }
+
+  Stream<ChatState> _mapCloseButtonPressedToState(
+    CloseButtonPressed event,
+  ) async* {
+    yield ChatInitial();
   }
 
   bool _hasMessage(String message) {
