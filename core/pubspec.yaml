@@ -28,6 +28,7 @@ dev_dependencies:
     sdk: flutter
   mockito: ^4.1.1
   bloc_test: ^2.2.2
+  cloud_firestore_mocks: ^0.2.1
 
 flutter:
   uses-material-design: true
