@@ -90,10 +90,23 @@ void main() {
           throwsArgumentError);
     });
 
+    test('empty email throws error', () async {
+      expect(
+          () async =>
+              await userRepository.register(email: '', password: password),
+          throwsArgumentError);
+    });
+
     test('null password throws error', () async {
       expect(
           () async =>
               await userRepository.register(email: email, password: null),
+          throwsArgumentError);
+    });
+
+    test('empty password throws error', () async {
+      expect(
+          () async => await userRepository.register(email: email, password: ''),
           throwsArgumentError);
     });
 
@@ -120,9 +133,20 @@ void main() {
           throwsArgumentError);
     });
 
+    test('empty email throws error', () async {
+      expect(
+          () async => await userRepository.login(email: '', password: password),
+          throwsArgumentError);
+    });
+
     test('null password throws error', () async {
       expect(
           () async => await userRepository.login(email: email, password: null),
+          throwsArgumentError);
+    });
+
+    test('empty password throws error', () async {
+      expect(() async => await userRepository.login(email: email, password: ''),
           throwsArgumentError);
     });
 
