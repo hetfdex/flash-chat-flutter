@@ -28,7 +28,7 @@ Future<void> main() async {
 
   final userRepository = UserRepository(firebaseAuth, secureStorageUtils);
 
-  final documentRepository = DocumentRepository(firestore, secureStorageUtils);
+  final documentRepository = DocumentRepository(firestore);
 
   final authenticationBloc = AuthenticationBloc(userRepository);
 
