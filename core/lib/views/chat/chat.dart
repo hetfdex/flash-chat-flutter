@@ -12,7 +12,33 @@ String _message;
 
 /// The chat view implementation
 class Chat extends StatelessWidget {
+  final _firestore = Firestore.instance;
+
   final _textEditingController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    final _chatBloc = BlocProvider.of<ChatBloc>(context);
+
+    return ChatView(
+      closeButtonOnPressed: () {
+        _chatBloc.add(CloseButtonPressed());
+      },
+      messageInputFieldOnChanged: (String v) {
+        _message = v;
+
+        _chatBloc.add(ChatChanged(_message));
+      },
+      sendButtonOnPressed: () {
+        if (_chatBloc.state == ChatFillSuccess) {
+          _chatBloc.add(ChatSubmitted(_message));
+        }
+      },
+      messageStream: _firestore.collection('messages').snapshots(),
+      messageBuilder: _messageBuilder,
+      textEditingController: _textEditingController,
+    );
+  }
 
   _messageBuilder(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
     if (!snapshot.hasData) {
@@ -48,30 +74,6 @@ class Chat extends StatelessWidget {
         children: messageBubbles,
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final _chatBloc = BlocProvider.of<ChatBloc>(context);
-
-    return ChatView(
-      closeButtonOnPressed: () {
-        _chatBloc.add(CloseButtonPressed());
-      },
-      messageInputFieldOnChanged: (String v) {
-        _message = v;
-
-        _chatBloc.add(ChatChanged(_message));
-      },
-      sendButtonOnPressed: () {
-        if (_chatBloc.state == ChatFillSuccess) {
-          _chatBloc.add(ChatSubmitted(_message));
-        }
-      },
-      messageStream: null,
-      messageBuilder: _messageBuilder,
-      textEditingController: _textEditingController,
     );
   }
 }
