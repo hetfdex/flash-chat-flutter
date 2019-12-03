@@ -8,6 +8,8 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
+  components:
+    path: ../components
   views:
     path: ../views
   bloc: ^2.0.0
