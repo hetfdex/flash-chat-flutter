@@ -1,3 +1,4 @@
+import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat_core/repositories/document_repository.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import '../../test_debugger_bloc_delegate.dart';
 
 class ChatWrapper extends StatelessWidget {
   const ChatWrapper();
@@ -28,6 +30,10 @@ class ChatWrapper extends StatelessWidget {
 }
 
 void main() {
+  final testDebuggerBlocDelegate = TestDebuggerBlocDelegate();
+
+  BlocSupervisor.delegate = testDebuggerBlocDelegate;
+
   final firebaseAuth = FirebaseAuth.instance;
 
   final firestore = Firestore.instance;
@@ -48,11 +54,44 @@ void main() {
     );
   }
 
-  testWidgets('builds widget', (WidgetTester tester) async {
+  testWidgets('builds widget with no event or state',
+      (WidgetTester tester) async {
     await tester.pumpWidget(buildChat());
 
     await tester.pump();
 
     expect(find.byType(Chat), findsOneWidget);
+    expect(testDebuggerBlocDelegate.lastEvent, null);
+    expect(testDebuggerBlocDelegate.currentState, null);
+    expect(testDebuggerBlocDelegate.nextState, null);
+  });
+
+  testWidgets('close tap calls event', (WidgetTester tester) async {
+    await tester.pumpWidget(buildChat());
+
+    await tester.pump();
+
+    await tester.tap(find.byType(IconButton));
+
+    await tester.pump();
+
+    expect(testDebuggerBlocDelegate.lastEvent, 'CloseButtonPressed');
+    expect(testDebuggerBlocDelegate.currentState, null);
+    expect(testDebuggerBlocDelegate.nextState, null);
+  });
+
+  testWidgets('message input calls event and changes state',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(buildChat());
+
+    await tester.pump();
+
+    await tester.enterText(find.byType(TextField), 'test');
+
+    await tester.pump();
+
+    expect(testDebuggerBlocDelegate.lastEvent, 'ChatChanged');
+    expect(testDebuggerBlocDelegate.currentState, 'ChatInitial');
+    expect(testDebuggerBlocDelegate.nextState, 'ChatFillSuccess');
   });
 }
