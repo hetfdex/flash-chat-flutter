@@ -40,7 +40,8 @@ class Chat extends StatelessWidget {
     );
   }
 
-  _messageBuilder(BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+  Widget _messageBuilder(
+      BuildContext context, AsyncSnapshot<dynamic> snapshot) {
     if (!snapshot.hasData) {
       return Center(
         child:
