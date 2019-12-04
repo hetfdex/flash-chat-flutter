@@ -8,7 +8,7 @@ abstract class IDocumentRepository {
   Stream<QuerySnapshot> getMessageStream();
 
   /// Returns the users public keys
-  Future<Map<String, String>> getUsersPublicKeys();
+  Future<QuerySnapshot> getUsersPublicKeys();
 
   /// Posts a message
   Future<void> postMesssage(
@@ -35,20 +35,9 @@ class DocumentRepository extends IDocumentRepository {
   }
 
   @override
-  Future<Map<String, String>> getUsersPublicKeys() async {
+  Future<QuerySnapshot> getUsersPublicKeys() async {
     try {
-      Map<String, String> users;
-
-      final querySnapshot =
-          await _firestore.collection('publicKeys').getDocuments();
-
-      if (querySnapshot != null) {
-        for (var document in querySnapshot.documents) {
-          users[document.data['sender']] = document.data['publicKey'];
-        }
-      }
-
-      return users;
+      return await _firestore.collection('publicKeys').getDocuments();
     } on dynamic catch (_) {
       rethrow;
     }
