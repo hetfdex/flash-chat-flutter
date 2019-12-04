@@ -30,7 +30,7 @@ class Chat extends StatelessWidget {
         _chatBloc.add(ChatChanged(_message));
       },
       sendButtonOnPressed: () {
-        if (_chatBloc.state == ChatFillSuccess) {
+        if (_chatBloc.state == ChatFillSuccess(null)) {
           _chatBloc.add(ChatSubmitted(_message));
         }
       },

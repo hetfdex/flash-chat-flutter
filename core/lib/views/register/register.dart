@@ -20,7 +20,7 @@ class Register extends StatelessWidget {
         isLoading: false,
         authenticationButtonText: 'Register',
         authenticationButtonOnPressed: () {
-          if (_registerBloc.state == RegisterFillSuccess) {
+          if (_registerBloc.state == RegisterFillSuccess(null)) {
             _registerBloc.add(RegisterSubmitted(_email, _password));
           }
         },

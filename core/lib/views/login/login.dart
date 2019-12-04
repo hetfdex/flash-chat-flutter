@@ -20,7 +20,7 @@ class Login extends StatelessWidget {
         isLoading: false,
         authenticationButtonText: 'Login',
         authenticationButtonOnPressed: () {
-          if (_loginBloc.state == LoginFillSuccess) {
+          if (_loginBloc.state == LoginFillSuccess(null)) {
             _loginBloc.add(LoginSubmitted(_email, _password));
           }
         },
