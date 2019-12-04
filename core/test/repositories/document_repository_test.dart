@@ -32,13 +32,11 @@ void main() {
   });
 
   group('getMessageStream', () {
-    test('returns stream', () async {
+    test('returns message stream', () async {
       await firestore.collection('messages').add(messageCollection);
 
-      await documentRepository.getMessageStream();
-
       expect(
-          firestore.collection('messages').snapshots(),
+          documentRepository.getMessageStream(),
           emits(QuerySnapshotMatcher(
               [DocumentSnapshotMatcher('z', messageCollection)])));
     });
@@ -50,7 +48,8 @@ void main() {
 
       final result = await documentRepository.getUsersPublicKeys();
 
-      expect(result, publicKeysCollection);
+      expect(result.documents.length, 1);
+      expect(result.documents[0].data, publicKeysCollection);
     });
   });
 
@@ -98,10 +97,13 @@ void main() {
       await documentRepository.postMesssage(
           message: message, senderEmail: email, privateKey: keyPair.privateKey);
 
-      expect(
-          firestore.collection('messages').snapshots(),
-          emits(QuerySnapshotMatcher(
-              [DocumentSnapshotMatcher('z', messageCollection)])));
+      final result = await firestore.collection('messages').getDocuments();
+
+      final encryptedMessage = encryptMessage(message, keyPair.privateKey);
+
+      expect(result.documents.length, 1);
+      expect(result.documents[0].data['message'], encryptedMessage);
+      expect(result.documents[0].data['sender'], email);
     });
   });
 
@@ -138,12 +140,11 @@ void main() {
       await documentRepository.postUserPublicKey(
           email: email, publicKeyPem: publicKeyPEM);
 
-      expect(
-          firestore.collection('messages').snapshots(),
-          emits(QuerySnapshotMatcher([
-            DocumentSnapshotMatcher(
-                'z', {'email': email, 'publicKey': publicKeyPEM})
-          ])));
+      final result = await firestore.collection('publicKeys').getDocuments();
+
+      expect(result.documents.length, 1);
+      expect(result.documents[0].data['sender'], email);
+      expect(result.documents[0].data['publicKey'], publicKeyPEM);
     });
   });
 }
