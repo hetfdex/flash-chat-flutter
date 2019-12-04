@@ -35,15 +35,20 @@ void main() {
     );
   }
 
-  testWidgets('builds widget', (WidgetTester tester) async {
+  testWidgets('builds widget with no event or state',
+      (WidgetTester tester) async {
     await tester.pumpWidget(buildHome());
 
     await tester.pump();
 
     expect(find.byType(Home), findsOneWidget);
+    expect(testDebuggerBlocDelegate.lastEvent, null);
+    expect(testDebuggerBlocDelegate.currentState, null);
+    expect(testDebuggerBlocDelegate.nextState, null);
   });
 
-  testWidgets('login tap calls event', (WidgetTester tester) async {
+  testWidgets('login tap calls event and changes state',
+      (WidgetTester tester) async {
     await tester.pumpWidget(buildHome());
 
     await tester.pump();
@@ -53,9 +58,12 @@ void main() {
     await tester.pump();
 
     expect(testDebuggerBlocDelegate.lastEvent, 'LoginButtonPressed');
+    expect(testDebuggerBlocDelegate.currentState, 'HomeActive');
+    expect(testDebuggerBlocDelegate.nextState, 'LoginActive');
   });
 
-  testWidgets('register tap calls event', (WidgetTester tester) async {
+  testWidgets('register tap calls event and changes state',
+      (WidgetTester tester) async {
     await tester.pumpWidget(buildHome());
 
     await tester.pump();
@@ -65,5 +73,7 @@ void main() {
     await tester.pump();
 
     expect(testDebuggerBlocDelegate.lastEvent, 'RegisterButtonPressed');
+    expect(testDebuggerBlocDelegate.currentState, 'HomeActive');
+    expect(testDebuggerBlocDelegate.nextState, 'RegisterActive');
   });
 }
