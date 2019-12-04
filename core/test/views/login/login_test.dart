@@ -143,13 +143,38 @@ void main() {
 
     await tester.pump();
 
+    expect(testDebuggerBlocDelegate.lastEvent, 'LoginChanged');
+    expect(testDebuggerBlocDelegate.currentState, 'LoginFillInProgress');
+    expect(testDebuggerBlocDelegate.nextState, 'LoginFillSuccess');
+  });
+
+  testWidgets('correct input and tap calls event and changes state',
+      (WidgetTester tester) async {
+    emailInputField(Widget widget) =>
+        widget is InputField && widget.hintText == 'Enter email';
+
+    passwordInputField(Widget widget) =>
+        widget is InputField && widget.hintText == 'Enter password';
+
+    await tester.pumpWidget(buildLogin());
+
+    await tester.pump();
+
+    await tester.enterText(
+        find.byWidgetPredicate(emailInputField), 'test@email.com');
+
+    await tester.enterText(
+        find.byWidgetPredicate(passwordInputField), 'Abcde12345@');
+
+    await tester.pump();
+
     await tester.tap(find.text('Login'));
 
     await tester.pump();
 
-    expect(testDebuggerBlocDelegate.lastEvent, 'LoginChanged');
-    expect(testDebuggerBlocDelegate.currentState, 'LoginFillInProgress');
-    expect(testDebuggerBlocDelegate.nextState, 'LoginFillSuccess');
+    expect(testDebuggerBlocDelegate.lastEvent, 'LoginSubmitted');
+    expect(testDebuggerBlocDelegate.currentState, 'LoginFillSuccess');
+    expect(testDebuggerBlocDelegate.nextState, 'LoginValidateInProgress');
   });
 
   testWidgets('cancel tap calls event and does not change state',

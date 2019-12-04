@@ -94,4 +94,23 @@ void main() {
     expect(testDebuggerBlocDelegate.currentState, 'ChatInitial');
     expect(testDebuggerBlocDelegate.nextState, 'ChatFillSuccess');
   });
+
+  testWidgets('message input and tap calls event and changes state',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(buildChat());
+
+    await tester.pump();
+
+    await tester.enterText(find.byType(TextField), 'test');
+
+    await tester.pump();
+
+    await tester.tap(find.byType(FlatButton));
+
+    await tester.pump();
+
+    expect(testDebuggerBlocDelegate.lastEvent, 'ChatSubmitted');
+    expect(testDebuggerBlocDelegate.currentState, 'ChatFillSuccess');
+    expect(testDebuggerBlocDelegate.nextState, 'ChatEncryptionInProgress');
+  });
 }
