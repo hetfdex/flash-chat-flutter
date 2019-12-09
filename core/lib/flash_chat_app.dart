@@ -11,19 +11,18 @@ class FlashChatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: BlocBuilder<HomeBloc, HomeState>(
-          bloc: BlocProvider.of<HomeBloc>(context),
           builder: (BuildContext context, HomeState state) {
-            if (state is HomeActive) {
-              return Home();
-            }
-            if (state is LoginActive) {
-              return Login();
-            }
-            if (state is RegisterActive) {
-              return Register();
-            }
-            return Scaffold();
-          }),
+        if (state is HomeActive) {
+          return Home();
+        }
+        if (state is LoginActive) {
+          return Login();
+        }
+        if (state is RegisterActive) {
+          return Register();
+        }
+        return Scaffold();
+      }),
     );
   }
 }
