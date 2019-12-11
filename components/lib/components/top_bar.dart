@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 /// A top bar widget
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   /// Constructs the top bar widget
-  const TopBar({@required this.onPressed, @required this.titleText})
-      : assert(onPressed != null),
+  const TopBar({
+    @required this.onPressed,
+    @required this.titleText,
+  })  : assert(onPressed != null),
         assert(titleText != null);
 
   /// The function called when the close button is pressed

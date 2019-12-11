@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 /// The chat view widget
 class ChatView extends StatelessWidget {
   /// Constructs the chat view widget
-  const ChatView(
-      {@required this.closeButtonOnPressed,
-      @required this.messageInputFieldOnChanged,
-      @required this.sendButtonOnPressed,
-      @required this.messageStream,
-      @required this.messageBuilder,
-      @required this.textEditingController})
-      : assert(closeButtonOnPressed != null),
+  const ChatView({
+    @required this.closeButtonOnPressed,
+    @required this.messageInputFieldOnChanged,
+    @required this.sendButtonOnPressed,
+    @required this.messageStream,
+    @required this.messageBuilder,
+    @required this.textEditingController,
+  })  : assert(closeButtonOnPressed != null),
         assert(messageInputFieldOnChanged != null),
         assert(sendButtonOnPressed != null),
         assert(messageStream != null),

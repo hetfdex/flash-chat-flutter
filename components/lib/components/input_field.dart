@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 /// An input field widget
 class InputField extends StatelessWidget {
   /// Contructs the input field widget
-  const InputField(
-      {@required this.keyboardType,
-      @required this.onChanged,
-      @required this.obscureText,
-      this.hintText})
-      : assert(keyboardType != null),
+  const InputField({
+    @required this.keyboardType,
+    @required this.onChanged,
+    @required this.obscureText,
+    this.hintText,
+  })  : assert(keyboardType != null),
         assert(onChanged != null),
         assert(obscureText != null);
 

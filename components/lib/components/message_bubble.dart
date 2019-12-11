@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 /// A message bubble widget
 class MessageBubble extends StatelessWidget {
   /// Constructs the message bubble widget
-  const MessageBubble(
-      {@required this.sender,
-      @required this.message,
-      @required this.isCurrentUser})
-      : assert(sender != null),
+  const MessageBubble({
+    @required this.sender,
+    @required this.message,
+    @required this.isCurrentUser,
+  })  : assert(sender != null),
         assert(message != null),
         assert(isCurrentUser != null);
 

@@ -3,9 +3,11 @@ import 'package:flutter/Material.dart';
 /// A rounded button widget
 class RoundedButton extends StatelessWidget {
   /// Constructs the rounded button widget
-  const RoundedButton(
-      {@required this.onPressed, @required this.text, @required this.color})
-      : assert(onPressed != null),
+  const RoundedButton({
+    @required this.onPressed,
+    @required this.text,
+    @required this.color,
+  })  : assert(onPressed != null),
         assert(text != null),
         assert(color != null);
 

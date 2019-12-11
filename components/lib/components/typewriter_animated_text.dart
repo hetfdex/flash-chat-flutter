@@ -4,9 +4,11 @@ import 'package:flutter/Material.dart';
 /// A wrapper around the TypewriterAnimatedTextKit
 class TypewriterAnimatedText extends StatelessWidget {
   /// Constructs the typewritter animated text widget
-  const TypewriterAnimatedText(
-      {@required this.text, @required this.durationSeconds, this.textStyle})
-      : assert(text != null),
+  const TypewriterAnimatedText({
+    @required this.text,
+    @required this.durationSeconds,
+    this.textStyle,
+  })  : assert(text != null),
         assert(durationSeconds != null);
 
   /// The text to animated as a list

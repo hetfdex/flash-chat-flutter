@@ -7,14 +7,14 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 /// An authentication view widget
 class AuthenticationView extends StatelessWidget {
   /// Constructs the authentication view widget
-  const AuthenticationView(
-      {@required this.isLoading,
-      @required this.authenticationButtonText,
-      @required this.authenticationButtonOnPressed,
-      @required this.cancelButtonOnPressed,
-      @required this.emailInputFieldOnChanged,
-      @required this.passwordInputFieldOnChanged})
-      : assert(isLoading != null),
+  const AuthenticationView({
+    @required this.isLoading,
+    @required this.authenticationButtonText,
+    @required this.authenticationButtonOnPressed,
+    @required this.cancelButtonOnPressed,
+    @required this.emailInputFieldOnChanged,
+    @required this.passwordInputFieldOnChanged,
+  })  : assert(isLoading != null),
         assert(authenticationButtonText != null),
         assert(authenticationButtonOnPressed != null),
         assert(cancelButtonOnPressed != null),
