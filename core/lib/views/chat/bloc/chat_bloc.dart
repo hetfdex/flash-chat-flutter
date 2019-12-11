@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:flash_chat_core/authentication/bloc/bloc.dart';
 import 'package:flash_chat_core/repositories/document_repository.dart';
 import 'package:flash_chat_core/repositories/user_repository.dart';
 import 'package:flash_chat_core/utils/pem_utils.dart';
@@ -11,17 +12,20 @@ import 'package:pointycastle/pointycastle.dart';
 /// The chat bloc
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   /// Constructs the chat bloc
-  ChatBloc(
-      this._secureStorageUtils, this._userRepository, this._documentRepository)
+  ChatBloc(this._secureStorageUtils, this._userRepository,
+      this._documentRepository, this._authenticationBloc)
       : assert(_secureStorageUtils != null),
         assert(_userRepository != null),
-        assert(_documentRepository != null);
+        assert(_documentRepository != null),
+        assert(_authenticationBloc != null);
 
   final SecureStorageUtils _secureStorageUtils;
 
   final UserRepository _userRepository;
 
   final DocumentRepository _documentRepository;
+
+  final AuthenticationBloc _authenticationBloc;
 
   @override
   ChatState get initialState => ChatInitial();
@@ -67,6 +71,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> _mapCloseButtonPressedToState(
     CloseButtonPressed event,
   ) async* {
+    _authenticationBloc.add(LoggedOut());
+
     yield ChatInitial();
   }
 
