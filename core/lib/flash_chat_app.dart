@@ -1,3 +1,7 @@
+import 'package:flash_chat_core/authentication/bloc/bloc.dart';
+import 'package:flash_chat_core/views/chat/bloc/bloc.dart';
+import 'package:flash_chat_core/views/chat/bloc/chat_bloc.dart';
+import 'package:flash_chat_core/views/chat/chat.dart';
 import 'package:flash_chat_core/views/home/bloc/bloc.dart';
 import 'package:flash_chat_core/views/home/home.dart';
 import 'package:flash_chat_core/views/login/login.dart';
@@ -10,18 +14,28 @@ class FlashChatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BlocBuilder<HomeBloc, HomeState>(
-          builder: (BuildContext context, HomeState state) {
-        if (state is HomeActive) {
-          return Home();
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (BuildContext context, AuthenticationState state) {
+        if (state is ValidateSuccess) {
+          return BlocBuilder<ChatBloc, ChatState>(
+              builder: (BuildContext context, ChatState state) {
+            return Chat();
+          });
+        } else {
+          return BlocBuilder<HomeBloc, HomeState>(
+              builder: (BuildContext context, HomeState state) {
+            if (state is HomeActive) {
+              return Home();
+            }
+            if (state is LoginActive) {
+              return Login();
+            }
+            if (state is RegisterActive) {
+              return Register();
+            }
+            return Scaffold();
+          });
         }
-        if (state is LoginActive) {
-          return Login();
-        }
-        if (state is RegisterActive) {
-          return Register();
-        }
-        return Scaffold();
       }),
     );
   }
