@@ -39,8 +39,8 @@ Future<void> main() async {
 
   final registerBloc = RegisterBloc(userRepository, authenticationBloc);
 
-  final chatBloc =
-      ChatBloc(secureStorageUtils, userRepository, documentRepository);
+  final chatBloc = ChatBloc(secureStorageUtils, userRepository,
+      documentRepository, authenticationBloc);
 
   BlocSupervisor.delegate = DebuggerBlocDelegate();
 
