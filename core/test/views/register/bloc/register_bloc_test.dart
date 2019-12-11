@@ -61,8 +61,8 @@ void main() {
       build: () {
         return registerBloc;
       },
-      act: (registerBlock) =>
-          registerBlock.add(RegisterChanged(emptyField, emptyField)),
+      act: (registerBlock) => registerBlock
+          .add(RegisterChanged(email: emptyField, password: emptyField)),
       expect: [
         RegisterInitial(),
         RegisterFillInProgress(),
@@ -74,8 +74,8 @@ void main() {
       build: () {
         return registerBloc;
       },
-      act: (registerBlock) =>
-          registerBlock.add(RegisterChanged(emptyField, invalidPassword)),
+      act: (registerBlock) => registerBlock
+          .add(RegisterChanged(email: emptyField, password: invalidPassword)),
       expect: [
         RegisterInitial(),
         RegisterFillInProgress(),
@@ -87,8 +87,8 @@ void main() {
       build: () {
         return registerBloc;
       },
-      act: (registerBlock) =>
-          registerBlock.add(RegisterChanged(invalidEmail, emptyField)),
+      act: (registerBlock) => registerBlock
+          .add(RegisterChanged(email: invalidEmail, password: emptyField)),
       expect: [
         RegisterInitial(),
         RegisterFillInProgress(),
@@ -100,8 +100,8 @@ void main() {
       build: () {
         return registerBloc;
       },
-      act: (registerBlock) =>
-          registerBlock.add(RegisterChanged(invalidEmail, validPassword)),
+      act: (registerBlock) => registerBlock
+          .add(RegisterChanged(email: invalidEmail, password: validPassword)),
       expect: [
         RegisterInitial(),
         RegisterFillInProgress(),
@@ -113,8 +113,8 @@ void main() {
       build: () {
         return registerBloc;
       },
-      act: (registerBlock) =>
-          registerBlock.add(RegisterChanged(validEmail, invalidPassword)),
+      act: (registerBlock) => registerBlock
+          .add(RegisterChanged(email: validEmail, password: invalidPassword)),
       expect: [
         RegisterInitial(),
         RegisterFillInProgress(),
@@ -126,11 +126,11 @@ void main() {
       build: () {
         return registerBloc;
       },
-      act: (registerBlock) =>
-          registerBlock.add(RegisterChanged(validEmail, validPassword)),
+      act: (registerBlock) => registerBlock
+          .add(RegisterChanged(email: validEmail, password: validPassword)),
       expect: [
         RegisterInitial(),
-        RegisterFillSuccess(null),
+        RegisterFillSuccess(error: null),
       ],
     );
   });
@@ -148,8 +148,8 @@ void main() {
 
         return registerBloc;
       },
-      act: (registerBlock) =>
-          registerBlock.add(RegisterSubmitted(validEmail, validPassword)),
+      act: (registerBlock) => registerBlock
+          .add(RegisterSubmitted(email: validEmail, password: validPassword)),
       expect: [
         RegisterInitial(),
         RegisterValidateInProgress(),
@@ -171,12 +171,12 @@ void main() {
 
         return registerBloc;
       },
-      act: (registerBlock) =>
-          registerBlock.add(RegisterSubmitted(invalidEmail, invalidPassword)),
+      act: (registerBlock) => registerBlock.add(
+          RegisterSubmitted(email: invalidEmail, password: invalidPassword)),
       expect: [
         RegisterInitial(),
         RegisterValidateInProgress(),
-        RegisterFillSuccess(error),
+        RegisterFillSuccess(error: error),
       ],
     );
   });

@@ -9,13 +9,15 @@ void main() {
     test('should return correct string override', () {
       const expectedString = 'RegisterSubmitted';
 
-      final registerSubmitted = RegisterSubmitted(email, password);
+      final registerSubmitted =
+          RegisterSubmitted(email: email, password: password);
 
       expect(registerSubmitted.toString(), expectedString);
     });
 
     test('props returns email and password', () {
-      final registerSubmitted = RegisterSubmitted(email, password);
+      final registerSubmitted =
+          RegisterSubmitted(email: email, password: password);
 
       expect(registerSubmitted.props, <Object>[email, password]);
     });
@@ -25,13 +27,13 @@ void main() {
     test('should return correct string override', () {
       const expectedString = 'RegisterChanged';
 
-      final registerChanged = RegisterChanged(email, password);
+      final registerChanged = RegisterChanged(email: email, password: password);
 
       expect(registerChanged.toString(), expectedString);
     });
 
     test('props returns email and password', () {
-      final registerChanged = RegisterChanged(email, password);
+      final registerChanged = RegisterChanged(email: email, password: password);
 
       expect(registerChanged.props, <Object>[email, password]);
     });

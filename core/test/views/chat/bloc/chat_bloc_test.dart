@@ -72,7 +72,7 @@ void main() {
       build: () {
         return chatBloc;
       },
-      act: (chatBloc) => chatBloc.add(ChatChanged(null)),
+      act: (chatBloc) => chatBloc.add(ChatChanged(message: null)),
       expect: [
         ChatInitial(),
         ChatFillInProgress(),
@@ -84,7 +84,7 @@ void main() {
       build: () {
         return chatBloc;
       },
-      act: (chatBloc) => chatBloc.add(ChatChanged('')),
+      act: (chatBloc) => chatBloc.add(ChatChanged(message: '')),
       expect: [
         ChatInitial(),
         ChatFillInProgress(),
@@ -96,10 +96,10 @@ void main() {
       build: () {
         return chatBloc;
       },
-      act: (chatBloc) => chatBloc.add(ChatChanged(message)),
+      act: (chatBloc) => chatBloc.add(ChatChanged(message: message)),
       expect: [
         ChatInitial(),
-        ChatFillSuccess(null),
+        ChatFillSuccess(error: null),
       ],
     );
   });
@@ -143,7 +143,7 @@ void main() {
       expect: [
         ChatInitial(),
         ChatEncryptionInProgress(),
-        ChatFillSuccess(error),
+        ChatFillSuccess(error: error),
       ],
     );
   });
@@ -155,7 +155,7 @@ void main() {
         return chatBloc;
       },
       act: (chatBloc) {
-        chatBloc.add(ChatChanged(null));
+        chatBloc.add(ChatChanged(message: null));
         chatBloc.add(CloseButtonPressed());
 
         return;

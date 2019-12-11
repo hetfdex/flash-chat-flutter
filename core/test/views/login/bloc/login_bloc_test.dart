@@ -60,7 +60,8 @@ void main() {
       build: () {
         return loginBloc;
       },
-      act: (loginBloc) => loginBloc.add(LoginChanged(emptyField, emptyField)),
+      act: (loginBloc) =>
+          loginBloc.add(LoginChanged(email: emptyField, password: emptyField)),
       expect: [
         LoginInitial(),
         LoginFillInProgress(),
@@ -72,8 +73,8 @@ void main() {
       build: () {
         return loginBloc;
       },
-      act: (loginBloc) =>
-          loginBloc.add(LoginChanged(emptyField, invalidPassword)),
+      act: (loginBloc) => loginBloc
+          .add(LoginChanged(email: emptyField, password: invalidPassword)),
       expect: [
         LoginInitial(),
         LoginFillInProgress(),
@@ -85,7 +86,8 @@ void main() {
       build: () {
         return loginBloc;
       },
-      act: (loginBloc) => loginBloc.add(LoginChanged(invalidEmail, emptyField)),
+      act: (loginBloc) => loginBloc
+          .add(LoginChanged(email: invalidEmail, password: emptyField)),
       expect: [
         LoginInitial(),
         LoginFillInProgress(),
@@ -97,8 +99,8 @@ void main() {
       build: () {
         return loginBloc;
       },
-      act: (loginBloc) =>
-          loginBloc.add(LoginChanged(invalidEmail, validPassword)),
+      act: (loginBloc) => loginBloc
+          .add(LoginChanged(email: invalidEmail, password: validPassword)),
       expect: [
         LoginInitial(),
         LoginFillInProgress(),
@@ -110,8 +112,8 @@ void main() {
       build: () {
         return loginBloc;
       },
-      act: (loginBloc) =>
-          loginBloc.add(LoginChanged(validEmail, invalidPassword)),
+      act: (loginBloc) => loginBloc
+          .add(LoginChanged(email: validEmail, password: invalidPassword)),
       expect: [
         LoginInitial(),
         LoginFillInProgress(),
@@ -123,11 +125,11 @@ void main() {
       build: () {
         return loginBloc;
       },
-      act: (loginBloc) =>
-          loginBloc.add(LoginChanged(validEmail, validPassword)),
+      act: (loginBloc) => loginBloc
+          .add(LoginChanged(email: validEmail, password: validPassword)),
       expect: [
         LoginInitial(),
-        LoginFillSuccess(null),
+        LoginFillSuccess(error: null),
       ],
     );
   });
@@ -145,8 +147,8 @@ void main() {
 
         return loginBloc;
       },
-      act: (loginBloc) =>
-          loginBloc.add(LoginSubmitted(validEmail, validPassword)),
+      act: (loginBloc) => loginBloc
+          .add(LoginSubmitted(email: validEmail, password: validPassword)),
       expect: [
         LoginInitial(),
         LoginValidateInProgress(),
@@ -168,12 +170,12 @@ void main() {
 
         return loginBloc;
       },
-      act: (loginBlock) =>
-          loginBlock.add(LoginSubmitted(invalidEmail, invalidPassword)),
+      act: (loginBlock) => loginBlock
+          .add(LoginSubmitted(email: invalidEmail, password: invalidPassword)),
       expect: [
         LoginInitial(),
         LoginValidateInProgress(),
-        LoginFillSuccess(error),
+        LoginFillSuccess(error: error),
       ],
     );
   });

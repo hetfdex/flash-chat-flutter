@@ -24,7 +24,7 @@ void main() {
     test('should return correct string override', () {
       const expectedString = 'ChatChanged';
 
-      final chatChanged = ChatChanged(null);
+      final chatChanged = ChatChanged(message: null);
 
       expect(chatChanged.toString(), expectedString);
     });
@@ -32,7 +32,7 @@ void main() {
     test('props returns message', () {
       const message = 'message';
 
-      final chatChanged = ChatChanged(message);
+      final chatChanged = ChatChanged(message: message);
 
       expect(chatChanged.props, [message]);
     });

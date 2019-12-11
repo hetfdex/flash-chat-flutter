@@ -28,13 +28,13 @@ void main() {
     test('should return correct string override', () {
       final expectedString = 'LoggedIn: $user';
 
-      final loggedIn = LoggedIn(user);
+      final loggedIn = LoggedIn(user: user);
 
       expect(loggedIn.toString(), expectedString);
     });
 
     test('props returns user', () {
-      final loginChanged = LoggedIn(user);
+      final loginChanged = LoggedIn(user: user);
 
       expect(loginChanged.props, <Object>[user]);
     });

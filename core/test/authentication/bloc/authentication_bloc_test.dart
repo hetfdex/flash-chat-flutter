@@ -74,7 +74,7 @@ void main() {
             .thenAnswer((_) => Future<FirebaseUser>.value(user));
         return authenticationBloc;
       },
-      act: (authenticationBloc) => authenticationBloc.add(LoggedIn(user)),
+      act: (authenticationBloc) => authenticationBloc.add(LoggedIn(user: user)),
       expect: [
         Initial(),
         ValidateSuccess(),
