@@ -1,3 +1,5 @@
+import 'package:flash_chat_core/utils/form_validation_utils.dart';
+import 'package:flash_chat_core/views/dialogs/invalid_field_dialog.dart';
 import 'package:flash_chat_core/views/home/bloc/home_bloc.dart';
 import 'package:flash_chat_core/views/home/bloc/home_event.dart';
 import 'package:flash_chat_core/views/login/bloc/bloc.dart';
@@ -17,11 +19,17 @@ class Login extends StatelessWidget {
     final _homeBloc = BlocProvider.of<HomeBloc>(context);
 
     return AuthenticationView(
-        isLoading: false,
+        isLoading: _loginBloc.state is LoginValidateInProgress,
         authenticationButtonText: 'Login',
         authenticationButtonOnPressed: () {
           if (_loginBloc.state == LoginFillSuccess(error: null)) {
             _loginBloc.add(LoginSubmitted(email: _email, password: _password));
+          } else {
+            if (!isValidEmail(_email)) {
+              showInvalidFieldDialog(context, InvalidField.email);
+            } else if (!isValidPassword(_password)) {
+              showInvalidFieldDialog(context, InvalidField.pasword);
+            }
           }
         },
         cancelButtonOnPressed: () {
