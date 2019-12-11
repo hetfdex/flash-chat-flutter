@@ -9,7 +9,7 @@ abstract class RegisterEvent extends Equatable {
 /// The register submitted event
 class RegisterSubmitted extends RegisterEvent {
   /// Constructs the register submitted event
-  RegisterSubmitted(this.email, this.password);
+  RegisterSubmitted({this.email, this.password});
 
   /// The email for registration
   final String email;
@@ -24,7 +24,7 @@ class RegisterSubmitted extends RegisterEvent {
 /// The register changed event
 class RegisterChanged extends RegisterEvent {
   /// Constructs the register changed event
-  RegisterChanged(this.email, this.password);
+  RegisterChanged({this.email, this.password});
 
   /// The email for registration
   final String email;

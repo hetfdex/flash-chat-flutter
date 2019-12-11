@@ -19,7 +19,7 @@ class AppStarted extends AuthenticationEvent {
 /// The logged in event
 class LoggedIn extends AuthenticationEvent {
   /// Constructs the logged in event
-  LoggedIn(this.user);
+  LoggedIn({this.user});
 
   /// The firebase user
   final FirebaseUser user;

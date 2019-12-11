@@ -41,7 +41,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ChatChanged event,
   ) async* {
     yield _hasMessage(event.message)
-        ? ChatFillSuccess(null)
+        ? ChatFillSuccess(error: null)
         : ChatFillInProgress();
   }
 
@@ -60,7 +60,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       yield ChatInitial();
     } on Error catch (e) {
-      yield ChatFillSuccess(e);
+      yield ChatFillSuccess(error: e);
     }
   }
 

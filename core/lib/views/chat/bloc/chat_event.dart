@@ -24,7 +24,7 @@ class ChatSubmitted extends ChatEvent {
 /// The chat changed event
 class ChatChanged extends ChatEvent {
   /// Constructs the chat changed event
-  ChatChanged(this.message);
+  ChatChanged({this.message});
 
   /// The changed message
   final String message;

@@ -32,7 +32,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterChanged event,
   ) async* {
     yield _hasValidInputFields(event.email, event.password)
-        ? RegisterFillSuccess(null)
+        ? RegisterFillSuccess(error: null)
         : RegisterFillInProgress();
   }
 
@@ -46,11 +46,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         password: event.password,
       );
 
-      _authenticationBloc.add(LoggedIn(user));
+      _authenticationBloc.add(LoggedIn(user: user));
 
       yield RegisterInitial();
     } on Error catch (e) {
-      yield RegisterFillSuccess(e);
+      yield RegisterFillSuccess(error: e);
     }
   }
 

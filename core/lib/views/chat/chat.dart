@@ -27,10 +27,10 @@ class Chat extends StatelessWidget {
       messageInputFieldOnChanged: (String v) {
         _message = v;
 
-        _chatBloc.add(ChatChanged(_message));
+        _chatBloc.add(ChatChanged(message: _message));
       },
       sendButtonOnPressed: () {
-        if (_chatBloc.state == ChatFillSuccess(null)) {
+        if (_chatBloc.state == ChatFillSuccess(error: null)) {
           _chatBloc.add(ChatSubmitted(_message));
         }
       },

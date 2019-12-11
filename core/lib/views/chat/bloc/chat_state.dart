@@ -18,7 +18,7 @@ class ChatFillSuccess extends ChatState {
   final Error error;
 
   /// Constructs the chat fill sucess state
-  const ChatFillSuccess(this.error);
+  const ChatFillSuccess({this.error});
 
   @override
   List get props => [error];

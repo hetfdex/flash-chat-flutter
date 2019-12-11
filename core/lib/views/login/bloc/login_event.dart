@@ -9,7 +9,7 @@ abstract class LoginEvent extends Equatable {
 /// The login submitted event
 class LoginSubmitted extends LoginEvent {
   /// Constructs the login submitted event
-  LoginSubmitted(this.email, this.password);
+  LoginSubmitted({this.email, this.password});
 
   /// The registered email
   final String email;
@@ -24,7 +24,7 @@ class LoginSubmitted extends LoginEvent {
 /// The login changed event
 class LoginChanged extends LoginEvent {
   /// Constructs the login changed event
-  LoginChanged(this.email, this.password);
+  LoginChanged({this.email, this.password});
 
   /// The registered email
   final String email;

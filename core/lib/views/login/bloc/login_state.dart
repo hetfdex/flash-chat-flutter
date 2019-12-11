@@ -18,7 +18,7 @@ class LoginFillSuccess extends LoginState {
   final Error error;
 
   /// Constructs the login fill sucess state
-  const LoginFillSuccess(this.error);
+  const LoginFillSuccess({this.error});
 
   @override
   List get props => [error];

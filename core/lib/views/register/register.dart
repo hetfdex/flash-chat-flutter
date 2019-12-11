@@ -20,8 +20,9 @@ class Register extends StatelessWidget {
         isLoading: false,
         authenticationButtonText: 'Register',
         authenticationButtonOnPressed: () {
-          if (_registerBloc.state == RegisterFillSuccess(null)) {
-            _registerBloc.add(RegisterSubmitted(_email, _password));
+          if (_registerBloc.state == RegisterFillSuccess(error: null)) {
+            _registerBloc
+                .add(RegisterSubmitted(email: _email, password: _password));
           }
         },
         cancelButtonOnPressed: () {
@@ -40,6 +41,6 @@ class Register extends StatelessWidget {
   }
 
   void _registerFieldOnChanged(RegisterBloc _registerBloc) {
-    _registerBloc.add(RegisterChanged(_email, _password));
+    _registerBloc.add(RegisterChanged(email: _email, password: _password));
   }
 }

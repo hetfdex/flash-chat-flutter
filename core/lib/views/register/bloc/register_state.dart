@@ -18,7 +18,7 @@ class RegisterFillSuccess extends RegisterState {
   final Error error;
 
   /// Constructs the register fill sucess state
-  const RegisterFillSuccess(this.error);
+  const RegisterFillSuccess({this.error});
 
   @override
   List get props => [error];

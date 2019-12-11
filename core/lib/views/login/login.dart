@@ -20,8 +20,8 @@ class Login extends StatelessWidget {
         isLoading: false,
         authenticationButtonText: 'Login',
         authenticationButtonOnPressed: () {
-          if (_loginBloc.state == LoginFillSuccess(null)) {
-            _loginBloc.add(LoginSubmitted(_email, _password));
+          if (_loginBloc.state == LoginFillSuccess(error: null)) {
+            _loginBloc.add(LoginSubmitted(email: _email, password: _password));
           }
         },
         cancelButtonOnPressed: () {
@@ -40,6 +40,6 @@ class Login extends StatelessWidget {
   }
 
   void _loginFieldOnChanged(LoginBloc _loginBloc) {
-    _loginBloc.add(LoginChanged(_email, _password));
+    _loginBloc.add(LoginChanged(email: _email, password: _password));
   }
 }
