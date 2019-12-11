@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flash_chat_core/authentication/bloc/authentication_bloc.dart';
 import 'package:flash_chat_core/flash_chat_app.dart';
 import 'package:flash_chat_core/helpers/debugger_bloc_delegate.dart';
 import 'package:flash_chat_core/repositories/document_repository.dart';
@@ -16,9 +15,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-Future<void> main() async {
-  BlocSupervisor.delegate = DebuggerBlocDelegate();
+import 'authentication/bloc/bloc.dart';
 
+Future<void> main() async {
   const flutterSecureStorage = FlutterSecureStorage();
 
   final firebaseAuth = FirebaseAuth.instance;
@@ -31,7 +30,8 @@ Future<void> main() async {
 
   final documentRepository = DocumentRepository(firestore);
 
-  final authenticationBloc = AuthenticationBloc(userRepository);
+  final authenticationBloc = AuthenticationBloc(userRepository)
+    ..add(AppStarted());
 
   final homeBloc = HomeBloc();
 
@@ -41,6 +41,8 @@ Future<void> main() async {
 
   final chatBloc =
       ChatBloc(secureStorageUtils, userRepository, documentRepository);
+
+  BlocSupervisor.delegate = DebuggerBlocDelegate();
 
   await SystemChrome.setPreferredOrientations(
       <DeviceOrientation>[DeviceOrientation.portraitUp]);
