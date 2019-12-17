@@ -49,3 +49,16 @@ const Color primaryColor = Colors.lightBlueAccent;
 
 /// Color for secondary elements
 const Color secondaryColor = Colors.blueAccent;
+
+/// Text for invalid email field title
+const emailTitleText = 'Invalid email';
+
+/// Text for invalid password field title
+const passwordTitleText = 'Invalid password';
+
+/// Text for invalid email field content
+const emailContentText = 'A valid email address is required';
+
+/// Text for invalid password field content
+const passwordContentText =
+    'Passwords must be at least 8 characters, with at least 1 capital letter,\n1 number and 1 symbol';
