@@ -12,6 +12,10 @@ enum InvalidField {
 
 /// Shows an alert dialog with information about the invalid field
 void showInvalidFieldDialog(BuildContext context, InvalidField invalidField) {
+  if (invalidField == null) {
+    throw ArgumentError('invalidField must not be null');
+  }
+
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -30,7 +34,7 @@ void showInvalidFieldDialog(BuildContext context, InvalidField invalidField) {
               borderRadius: BorderRadius.circular(20.0),
             ),
             child: Text(
-              "OK",
+              'OK',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
@@ -44,49 +48,37 @@ void showInvalidFieldDialog(BuildContext context, InvalidField invalidField) {
 }
 
 Text _titleTextSelector(InvalidField invalidField) {
-  final _invalidEmailTitle = Text(
-    'Invalid email address',
-    style: TextStyle(
-      color: primaryColor,
-    ),
-  );
-  final _invalidPasswordTitle = Text(
-    'Invalid password',
-    style: TextStyle(
-      color: primaryColor,
-    ),
-  );
-
   if (invalidField == InvalidField.email) {
-    return _invalidEmailTitle;
+    return Text(
+      emailTitleText,
+      style: TextStyle(
+        color: primaryColor,
+      ),
+    );
   }
 
-  if (invalidField == InvalidField.pasword) {
-    return _invalidPasswordTitle;
-  }
-  return Text('');
+  return Text(
+    passwordTitleText,
+    style: TextStyle(
+      color: primaryColor,
+    ),
+  );
 }
 
 Text _contentTextSelector(InvalidField invalidField) {
-  final _invalidEmailContent = Text(
-    'A valid email address is required',
-    style: TextStyle(
-      color: Colors.black,
-    ),
-  );
-  final _invalidPasswordContent = Text(
-    'Passwords must be at least 8 characters, with at least 1 capital letter,\n1 number and 1 symbol',
-    style: TextStyle(
-      color: Colors.black,
-    ),
-  );
-
   if (invalidField == InvalidField.email) {
-    return _invalidEmailContent;
+    return Text(
+      emailContentText,
+      style: TextStyle(
+        color: Colors.black,
+      ),
+    );
   }
 
-  if (invalidField == InvalidField.pasword) {
-    return _invalidPasswordContent;
-  }
-  return Text('');
+  return Text(
+    passwordContentText,
+    style: TextStyle(
+      color: Colors.black,
+    ),
+  );
 }
