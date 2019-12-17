@@ -1,5 +1,5 @@
+import 'package:components/components/invalid_field_dialog.dart';
 import 'package:flash_chat_core/utils/form_validation_utils.dart';
-import 'package:flash_chat_core/views/dialogs/invalid_field_dialog.dart';
 import 'package:flash_chat_core/views/home/bloc/home_bloc.dart';
 import 'package:flash_chat_core/views/home/bloc/home_event.dart';
 import 'package:flash_chat_core/views/register/bloc/bloc.dart';
