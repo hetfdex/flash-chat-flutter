@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat_core/authentication/bloc/bloc.dart';
 import 'package:flash_chat_core/repositories/document_repository.dart';
 import 'package:flash_chat_core/repositories/user_repository.dart';
 import 'package:flash_chat_core/utils/secure_storage_utils.dart';
@@ -12,6 +13,8 @@ class SecureStorageUtilsMock extends Mock implements SecureStorageUtils {}
 class UserRepositoryMock extends Mock implements UserRepository {}
 
 class DocumentRepositoryMock extends Mock implements DocumentRepository {}
+
+class AuthenticationBlocMock extends Mock implements AuthenticationBloc {}
 
 class FirebaseUserMock extends Mock implements FirebaseUser {
   @override
@@ -29,6 +32,8 @@ void main() {
 
   DocumentRepository documentRepository;
 
+  AuthenticationBloc authenticationBloc;
+
   ChatBloc chatBloc;
 
   setUp(() {
@@ -38,7 +43,10 @@ void main() {
 
     documentRepository = DocumentRepositoryMock();
 
-    chatBloc = ChatBloc(secureStorageUtils, userRepository, documentRepository);
+    authenticationBloc = AuthenticationBlocMock();
+
+    chatBloc = ChatBloc(secureStorageUtils, userRepository, documentRepository,
+        authenticationBloc);
   });
 
   tearDown(() {
@@ -47,17 +55,30 @@ void main() {
 
   group('constructor', () {
     test('null secureStorageUtils throws error', () {
-      expect(() => ChatBloc(null, userRepository, documentRepository),
+      expect(
+          () => ChatBloc(
+              null, userRepository, documentRepository, authenticationBloc),
           throwsAssertionError);
     });
 
     test('null userRepository throws error', () {
-      expect(() => ChatBloc(secureStorageUtils, null, documentRepository),
+      expect(
+          () => ChatBloc(
+              secureStorageUtils, null, documentRepository, authenticationBloc),
           throwsAssertionError);
     });
 
     test('null documentRepository throws error', () {
-      expect(() => ChatBloc(secureStorageUtils, userRepository, null),
+      expect(
+          () => ChatBloc(
+              secureStorageUtils, userRepository, null, authenticationBloc),
+          throwsAssertionError);
+    });
+
+    test('null authenticationBloc throws error', () {
+      expect(
+          () => ChatBloc(
+              secureStorageUtils, userRepository, documentRepository, null),
           throwsAssertionError);
     });
   });

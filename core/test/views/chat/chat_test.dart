@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat_core/authentication/bloc/bloc.dart';
 import 'package:flash_chat_core/repositories/document_repository.dart';
 import 'package:flash_chat_core/repositories/user_repository.dart';
 import 'package:flash_chat_core/utils/secure_storage_utils.dart';
@@ -46,10 +47,12 @@ void main() {
 
   final documentRepository = DocumentRepository(firestore);
 
+  final authenticationBloc = AuthenticationBloc(userRepository);
+
   Widget buildChat() {
     return BlocProvider<ChatBloc>(
-      create: (BuildContext context) =>
-          ChatBloc(secureStorageUtils, userRepository, documentRepository),
+      create: (BuildContext context) => ChatBloc(secureStorageUtils,
+          userRepository, documentRepository, authenticationBloc),
       child: ChatWrapper(),
     );
   }
@@ -75,7 +78,7 @@ void main() {
 
     await tester.pump();
 
-    expect(testDebuggerBlocDelegate.lastEvent, 'CloseButtonPressed');
+    expect(testDebuggerBlocDelegate.lastEvent, 'LoggedOut');
     expect(testDebuggerBlocDelegate.currentState, null);
     expect(testDebuggerBlocDelegate.nextState, null);
   });
