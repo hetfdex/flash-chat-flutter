@@ -2,18 +2,24 @@ import 'package:components/helpers/constants.dart';
 import 'package:flutter/material.dart';
 
 /// List of invalid fields
-enum InvalidField {
-  /// Email field
-  email,
+enum Warnings {
+  /// Invalid email
+  invalidEmail,
 
-  /// Password field
-  pasword,
+  /// Invalid password
+  invalidPassword,
+
+  /// Unknown user
+  unknownUser,
+
+  /// Wrong password
+  wrongPassword,
 }
 
 /// Shows an alert dialog with information about the invalid field
-void showInvalidFieldDialog(BuildContext context, InvalidField invalidField) {
-  if (invalidField == null) {
-    throw ArgumentError('invalidField must not be null');
+void showWarningDialog(BuildContext context, Warnings warnings) {
+  if (warnings == null) {
+    throw ArgumentError('warnings must not be null');
   }
 
   showDialog(
@@ -25,8 +31,8 @@ void showInvalidFieldDialog(BuildContext context, InvalidField invalidField) {
           borderRadius: BorderRadius.circular(20.0),
         ),
         backgroundColor: Colors.white,
-        title: _titleTextSelector(invalidField),
-        content: _contentTextSelector(invalidField),
+        title: _titleTextSelector(warnings),
+        content: _contentTextSelector(warnings),
         actions: <Widget>[
           FlatButton(
             color: secondaryColor,
@@ -47,38 +53,66 @@ void showInvalidFieldDialog(BuildContext context, InvalidField invalidField) {
   );
 }
 
-Text _titleTextSelector(InvalidField invalidField) {
-  if (invalidField == InvalidField.email) {
+Text _titleTextSelector(Warnings warnings) {
+  if (warnings == Warnings.invalidEmail) {
     return Text(
-      emailTitleText,
+      invalidEmailTitle,
+      style: TextStyle(
+        color: primaryColor,
+      ),
+    );
+  } else if (warnings == Warnings.invalidPassword) {
+    return Text(
+      invalidPasswordTitle,
+      style: TextStyle(
+        color: primaryColor,
+      ),
+    );
+  } else if (warnings == Warnings.unknownUser) {
+    return Text(
+      unknownUserTitle,
+      style: TextStyle(
+        color: primaryColor,
+      ),
+    );
+  } else {
+    return Text(
+      wrongPasswordTitle,
       style: TextStyle(
         color: primaryColor,
       ),
     );
   }
-
-  return Text(
-    passwordTitleText,
-    style: TextStyle(
-      color: primaryColor,
-    ),
-  );
 }
 
-Text _contentTextSelector(InvalidField invalidField) {
-  if (invalidField == InvalidField.email) {
+Text _contentTextSelector(Warnings warnings) {
+  if (warnings == Warnings.invalidEmail) {
     return Text(
-      emailContentText,
+      invalidEmailContent,
+      style: TextStyle(
+        color: Colors.black,
+      ),
+    );
+  } else if (warnings == Warnings.invalidPassword) {
+    return Text(
+      invalidPasswordContent,
+      style: TextStyle(
+        color: Colors.black,
+      ),
+    );
+  } else if (warnings == Warnings.unknownUser) {
+    return Text(
+      unknownUserContent,
+      style: TextStyle(
+        color: Colors.black,
+      ),
+    );
+  } else {
+    return Text(
+      wrongPasswordContent,
       style: TextStyle(
         color: Colors.black,
       ),
     );
   }
-
-  return Text(
-    passwordContentText,
-    style: TextStyle(
-      color: Colors.black,
-    ),
-  );
 }
