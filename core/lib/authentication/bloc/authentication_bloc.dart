@@ -12,7 +12,7 @@ class AuthenticationBloc
   final UserRepository _userRepository;
 
   @override
-  AuthenticationState get initialState => Initial();
+  AuthenticationState get initialState => AuthenticationInitial();
 
   @override
   Stream<AuthenticationState> mapEventToState(
@@ -41,7 +41,9 @@ class AuthenticationBloc
   Stream<AuthenticationState> _mapUserLoggedOutToState(
     UserLoggedOut event,
   ) async* {
-    yield AuthenticationFailure();
+    await _userRepository.logout();
+
+    yield AuthenticationInitial();
   }
 
   Future<bool> _hasUser() async {

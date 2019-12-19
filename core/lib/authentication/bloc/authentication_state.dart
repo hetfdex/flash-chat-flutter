@@ -10,7 +10,7 @@ abstract class AuthenticationState extends Equatable {
 }
 
 /// The initial event
-class Initial extends AuthenticationState {}
+class AuthenticationInitial extends AuthenticationState {}
 
 /// The authentication success event
 class AuthenticationSuccess extends AuthenticationState {}
