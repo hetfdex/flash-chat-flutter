@@ -16,7 +16,7 @@ class FlashChatApp extends StatelessWidget {
     return MaterialApp(
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (BuildContext context, AuthenticationState state) {
-        if (state is ValidateSuccess) {
+        if (state is AuthenticationSuccess) {
           return BlocBuilder<ChatBloc, ChatState>(
               builder: (BuildContext context, ChatState state) {
             return Chat();

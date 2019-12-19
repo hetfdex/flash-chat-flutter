@@ -19,29 +19,29 @@ class AuthenticationBloc
       AuthenticationEvent event) async* {
     if (event is AppStarted) {
       yield* _mapAppStartedToState(event);
-    } else if (event is LoggedIn) {
-      yield* _mapLoggedInToState(event);
-    } else if (event is LoggedOut) {
-      yield* _mapLoggedOutToState(event);
+    } else if (event is UserLoggedIn) {
+      yield* _mapUserLoggedInToState(event);
+    } else if (event is UserLoggedOut) {
+      yield* _mapUserLoggedOutToState(event);
     }
   }
 
   Stream<AuthenticationState> _mapAppStartedToState(
     AppStarted event,
   ) async* {
-    yield await _hasUser() ? ValidateSuccess() : ValidateFailure();
+    yield await _hasUser() ? AuthenticationSuccess() : AuthenticationFailure();
   }
 
-  Stream<AuthenticationState> _mapLoggedInToState(
-    LoggedIn event,
+  Stream<AuthenticationState> _mapUserLoggedInToState(
+    UserLoggedIn event,
   ) async* {
-    yield ValidateSuccess();
+    yield AuthenticationSuccess();
   }
 
-  Stream<AuthenticationState> _mapLoggedOutToState(
-    LoggedOut event,
+  Stream<AuthenticationState> _mapUserLoggedOutToState(
+    UserLoggedOut event,
   ) async* {
-    yield ValidateFailure();
+    yield AuthenticationFailure();
   }
 
   Future<bool> _hasUser() async {

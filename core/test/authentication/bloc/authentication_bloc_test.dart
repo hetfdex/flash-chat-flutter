@@ -39,7 +39,7 @@ void main() {
 
   group('AppStarted', () {
     blocTest(
-      'emits [Initial, ValidateSuccess] when userRepository returns valid user',
+      'emits [Initial, AuthenticationSuccess] when userRepository returns valid user',
       build: () {
         when(userRepository.user)
             .thenAnswer((_) => Future<FirebaseUser>.value(user));
@@ -48,11 +48,11 @@ void main() {
       act: (authenticationBloc) => authenticationBloc.add(AppStarted()),
       expect: [
         Initial(),
-        ValidateSuccess(),
+        AuthenticationSuccess(),
       ],
     );
     blocTest(
-      'emits [Initial, ValidateFailure] when userRepository returns null user',
+      'emits [Initial, AuthenticationFailure] when userRepository returns null user',
       build: () {
         when(userRepository.user)
             .thenAnswer((_) => Future<FirebaseUser>.value(null));
@@ -61,39 +61,40 @@ void main() {
       act: (authenticationBloc) => authenticationBloc.add(AppStarted()),
       expect: [
         Initial(),
-        ValidateFailure(),
+        AuthenticationFailure(),
       ],
     );
   });
 
-  group('LoggedIn', () {
+  group('UserLoggedIn', () {
     blocTest(
-      'emits [Initial, ValidateSuccess] when userRepository returns user',
+      'emits [Initial, AuthenticationSuccess] when userRepository returns user',
       build: () {
         when(userRepository.user)
             .thenAnswer((_) => Future<FirebaseUser>.value(user));
         return authenticationBloc;
       },
-      act: (authenticationBloc) => authenticationBloc.add(LoggedIn(user: user)),
+      act: (authenticationBloc) =>
+          authenticationBloc.add(UserLoggedIn(user: user)),
       expect: [
         Initial(),
-        ValidateSuccess(),
+        AuthenticationSuccess(),
       ],
     );
   });
 
-  group('LoggedOut', () {
+  group('UserLoggedOut', () {
     blocTest(
-      'emits [Initial, ValidateSuccess] when userRepository returns user',
+      'emits [Initial, AuthenticationSuccess] when userRepository returns user',
       build: () {
         when(userRepository.user)
             .thenAnswer((_) => Future<FirebaseUser>.value(user));
         return authenticationBloc;
       },
-      act: (authenticationBloc) => authenticationBloc.add(LoggedOut()),
+      act: (authenticationBloc) => authenticationBloc.add(UserLoggedOut()),
       expect: [
         Initial(),
-        ValidateFailure(),
+        AuthenticationFailure(),
       ],
     );
   });

@@ -24,34 +24,34 @@ void main() {
     });
   });
 
-  group('LoggedIn', () {
+  group('UserLoggedIn', () {
     test('should return correct string override', () {
-      final expectedString = 'LoggedIn: $user';
+      final expectedString = 'UserLoggedIn: $user';
 
-      final loggedIn = LoggedIn(user: user);
+      final userloggedIn = UserLoggedIn(user: user);
 
-      expect(loggedIn.toString(), expectedString);
+      expect(userloggedIn.toString(), expectedString);
     });
 
     test('props returns user', () {
-      final loginChanged = LoggedIn(user: user);
+      final loginChanged = UserLoggedIn(user: user);
 
       expect(loginChanged.props, <Object>[user]);
     });
 
-    group('LoggedOut', () {
+    group('UserLoggedOut', () {
       test('should return correct string override', () {
-        const expectedString = 'LoggedOut';
+        const expectedString = 'UserLoggedOut';
 
-        final loggedOut = LoggedOut();
+        final userloggedOut = UserLoggedOut();
 
-        expect(loggedOut.toString(), expectedString);
+        expect(userloggedOut.toString(), expectedString);
       });
 
       test('props returns null', () {
-        final loggedOut = LoggedOut();
+        final userloggedOut = UserLoggedOut();
 
-        expect(loggedOut.props, null);
+        expect(userloggedOut.props, null);
       });
     });
   });

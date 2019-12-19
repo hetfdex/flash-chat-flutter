@@ -78,7 +78,7 @@ void main() {
 
     await tester.pump();
 
-    expect(testDebuggerBlocDelegate.lastEvent, 'LoggedOut');
+    expect(testDebuggerBlocDelegate.lastEvent, 'UserLoggedOut');
     expect(testDebuggerBlocDelegate.currentState, null);
     expect(testDebuggerBlocDelegate.nextState, null);
   });

@@ -12,8 +12,8 @@ abstract class AuthenticationState extends Equatable {
 /// The initial event
 class Initial extends AuthenticationState {}
 
-/// The validate success event
-class ValidateSuccess extends AuthenticationState {}
+/// The authentication success event
+class AuthenticationSuccess extends AuthenticationState {}
 
-/// The validate failure event
-class ValidateFailure extends AuthenticationState {}
+/// The authentication failure event
+class AuthenticationFailure extends AuthenticationState {}

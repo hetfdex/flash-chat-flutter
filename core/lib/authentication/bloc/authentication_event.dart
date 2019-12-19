@@ -16,25 +16,25 @@ class AppStarted extends AuthenticationEvent {
   List<Object> get props => null;
 }
 
-/// The logged in event
-class LoggedIn extends AuthenticationEvent {
+/// The user logged in event
+class UserLoggedIn extends AuthenticationEvent {
   /// Constructs the logged in event
-  LoggedIn({this.user});
+  UserLoggedIn({this.user});
 
   /// The firebase user
   final FirebaseUser user;
 
   @override
-  String toString() => 'LoggedIn: $user';
+  String toString() => 'UserLoggedIn: $user';
 
   @override
   List<Object> get props => <Object>[user];
 }
 
-/// The logged out event
-class LoggedOut extends AuthenticationEvent {
+/// The user logged out event
+class UserLoggedOut extends AuthenticationEvent {
   @override
-  String toString() => 'LoggedOut';
+  String toString() => 'UserLoggedOut';
 
   @override
   List<Object> get props => null;

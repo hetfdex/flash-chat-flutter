@@ -71,7 +71,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> _mapCloseButtonPressedToState(
     CloseButtonPressed event,
   ) async* {
-    _authenticationBloc.add(LoggedOut());
+    _authenticationBloc.add(UserLoggedOut());
 
     yield ChatInitial();
   }
