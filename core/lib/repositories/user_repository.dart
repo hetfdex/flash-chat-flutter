@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat_core/helpers/firebase_error.dart';
 import 'package:flash_chat_core/utils/hash_utils.dart';
 import 'package:flash_chat_core/utils/pem_utils.dart';
 import 'package:flash_chat_core/utils/rsa_utils.dart';
 import 'package:flash_chat_core/utils/secure_storage_utils.dart';
+import 'package:flutter/services.dart';
 
 /// The user repository interface
 abstract class IUserRepository {
@@ -52,8 +54,12 @@ class UserRepository extends IUserRepository {
       await _setupKeyPair(email);
 
       return authResult.user;
-    } on dynamic catch (_) {
-      rethrow;
+    } on dynamic catch (e) {
+      if (e is PlatformException && e.code != null) {
+        throw FirebaseError(e.code);
+      } else {
+        rethrow;
+      }
     }
   }
 
@@ -76,8 +82,12 @@ class UserRepository extends IUserRepository {
           email: email, password: encryptedPassword);
 
       return authResult.user;
-    } on dynamic catch (_) {
-      rethrow;
+    } on dynamic catch (e) {
+      if (e is PlatformException && e.code != null) {
+        throw FirebaseError(e.code);
+      } else {
+        rethrow;
+      }
     }
   }
 
