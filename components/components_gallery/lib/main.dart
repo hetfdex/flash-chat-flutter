@@ -4,6 +4,8 @@ import 'package:components/components/message_writer.dart';
 import 'package:components/components/rounded_button.dart';
 import 'package:components/components/top_bar.dart';
 import 'package:components/components/typewriter_animated_text.dart';
+import 'package:components/components/warning_dialog.dart';
+import 'package:components/helpers/constants.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(ComponentsGallery());
@@ -31,30 +33,11 @@ class Gallery extends StatelessWidget {
     //InputField
     const keyboardType = TextInputType.text;
 
-    const hintText = 'hintText';
-
     //MessageBubble
-    const sender = 'sender';
-
     const message = 'message';
 
     //MessageWriter
     final textEditingController = TextEditingController();
-
-    //RoundedButton
-    const text = 'text';
-
-    const color = Colors.green;
-
-    //TypewriterAnimatedText
-    const textList = <String>['textList'];
-
-    const durationSeconds = 10;
-
-    const textStyle = TextStyle(color: Colors.red);
-
-    //TopBar
-    const titleText = 'titleText';
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -67,27 +50,59 @@ class Gallery extends StatelessWidget {
                     keyboardType: keyboardType,
                     onChanged: onChanged,
                     obscureText: true,
-                    hintText: hintText),
+                    hintText: 'hintText'),
                 InputField(
                     keyboardType: keyboardType,
                     onChanged: onChanged,
                     obscureText: false),
                 const MessageBubble(
-                    sender: sender, message: message, isCurrentUser: true),
+                    sender: 'currentUser',
+                    message: message,
+                    isCurrentUser: true),
                 const MessageBubble(
-                    sender: sender, message: message, isCurrentUser: false),
+                    sender: 'otherUser',
+                    message: message,
+                    isCurrentUser: false),
                 MessageWriter(
-                    textEditingController: textEditingController,
-                    onChanged: onChanged,
-                    onPressed: onPressed),
-                RoundedButton(onPressed: onPressed, text: text, color: color),
-                TopBar(onPressed: onPressed, titleText: titleText),
+                  textEditingController: textEditingController,
+                  onChanged: onChanged,
+                  onPressed: textEditingController.clear,
+                ),
+                TopBar(
+                  onPressed: onPressed,
+                  titleText: 'titleText',
+                ),
                 const TypewriterAnimatedText(
-                    text: textList, durationSeconds: durationSeconds),
-                const TypewriterAnimatedText(
-                    text: textList,
-                    durationSeconds: durationSeconds,
-                    textStyle: textStyle)
+                  text: ['textList'],
+                  durationSeconds: 10,
+                  textStyle: TextStyle(
+                    color: secondaryColor,
+                  ),
+                ),
+                RoundedButton(
+                  color: primaryColor,
+                  text: 'Invalid Email Warning Dialog',
+                  onPressed: () =>
+                      showWarningDialog(context, Warnings.invalidEmail),
+                ),
+                RoundedButton(
+                  color: secondaryColor,
+                  text: 'Invalid Password Warning Dialog',
+                  onPressed: () =>
+                      showWarningDialog(context, Warnings.invalidPassword),
+                ),
+                RoundedButton(
+                  color: primaryColor,
+                  text: 'Unkown User Warning Dialog',
+                  onPressed: () =>
+                      showWarningDialog(context, Warnings.unknownUser),
+                ),
+                RoundedButton(
+                  color: secondaryColor,
+                  text: 'Wrong Password Warning Dialog',
+                  onPressed: () =>
+                      showWarningDialog(context, Warnings.wrongPassword),
+                ),
               ],
             ),
           ),
