@@ -50,11 +50,11 @@ const Color primaryColor = Colors.lightBlueAccent;
 /// Color for secondary elements
 const Color secondaryColor = Colors.blueAccent;
 
-/// Text for invalid email field title
-const invalidEmailFieldTitle = 'Invalid email';
+/// Text for invalid email title
+const invalidEmailTitle = 'Invalid email';
 
-/// Text for invalid password field title
-const invalidPasswordFieldTitle = 'Invalid password';
+/// Text for invalid password title
+const invalidPasswordTitle = 'Invalid password';
 
 /// Text for unknown user title
 const unknownUserTitle = 'Unknown user';
@@ -62,11 +62,11 @@ const unknownUserTitle = 'Unknown user';
 /// Text for wrong password title
 const wrongPasswordTitle = 'Wrong password';
 
-/// Text for invalid email field content
-const invalidEmailFieldContent = 'A valid email address is required';
+/// Text for invalid email content
+const invalidEmailContent = 'A valid email address is required';
 
-/// Text for invalid password field content
-const invalidPasswordFieldContent =
+/// Text for invalid password content
+const invalidPasswordContent =
     'Passwords must be at least 8 characters, with at least 1 capital letter,\n1 number and 1 symbol';
 
 /// Text for unknown user content
