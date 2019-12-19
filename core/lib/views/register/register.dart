@@ -21,21 +21,9 @@ class Register extends StatelessWidget {
     return AuthenticationView(
         isLoading: _registerBloc.state is RegisterValidateInProgress,
         authenticationButtonText: 'Register',
-        authenticationButtonOnPressed: () {
-          if (_registerBloc.state == RegisterFillSuccess(error: null)) {
-            _registerBloc
-                .add(RegisterSubmitted(email: _email, password: _password));
-          } else {
-            if (!isValidEmail(_email)) {
-              showWarningDialog(context, Warnings.invalidEmail);
-            } else if (!isValidPassword(_password)) {
-              showWarningDialog(context, Warnings.invalidPassword);
-            }
-          }
-        },
-        cancelButtonOnPressed: () {
-          _homeBloc.add(CancelButtonPressed());
-        },
+        authenticationButtonOnPressed: () =>
+            _registerButtonOnPressed(context, _registerBloc),
+        cancelButtonOnPressed: () => _homeBloc.add(CancelButtonPressed()),
         emailInputFieldOnChanged: (String v) {
           _email = v;
 
@@ -48,7 +36,18 @@ class Register extends StatelessWidget {
         });
   }
 
-  void _registerFieldOnChanged(RegisterBloc _registerBloc) {
-    _registerBloc.add(RegisterChanged(email: _email, password: _password));
+  void _registerFieldOnChanged(RegisterBloc registerBloc) {
+    registerBloc.add(RegisterChanged(email: _email, password: _password));
+  }
+
+  void _registerButtonOnPressed(
+      BuildContext context, RegisterBloc registerBloc) {
+    if (!isValidEmail(_email)) {
+      showWarningDialog(context, Warnings.invalidEmail);
+    } else if (!isValidPassword(_password)) {
+      showWarningDialog(context, Warnings.invalidPassword);
+    } else if (registerBloc.state == RegisterFillSuccess(error: null)) {
+      registerBloc.add(RegisterSubmitted(email: _email, password: _password));
+    }
   }
 }

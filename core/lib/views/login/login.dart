@@ -21,33 +21,32 @@ class Login extends StatelessWidget {
     return AuthenticationView(
         isLoading: _loginBloc.state is LoginValidateInProgress,
         authenticationButtonText: 'Login',
-        authenticationButtonOnPressed: () {
-          if (_loginBloc.state == LoginFillSuccess(error: null)) {
-            _loginBloc.add(LoginSubmitted(email: _email, password: _password));
-          } else {
-            if (!isValidEmail(_email)) {
-              showWarningDialog(context, Warnings.invalidEmail);
-            } else if (!isValidPassword(_password)) {
-              showWarningDialog(context, Warnings.invalidPassword);
-            }
-          }
-        },
-        cancelButtonOnPressed: () {
-          _homeBloc.add(CancelButtonPressed());
-        },
+        authenticationButtonOnPressed: () =>
+            _loginButtonOnPressed(context, _loginBloc),
+        cancelButtonOnPressed: () => _homeBloc.add(CancelButtonPressed()),
         emailInputFieldOnChanged: (String v) {
           _email = v;
 
-          _loginFieldOnChanged(_loginBloc);
+          _loginFieldsOnChanged(_loginBloc);
         },
         passwordInputFieldOnChanged: (String v) {
           _password = v;
 
-          _loginFieldOnChanged(_loginBloc);
+          _loginFieldsOnChanged(_loginBloc);
         });
   }
 
-  void _loginFieldOnChanged(LoginBloc _loginBloc) {
-    _loginBloc.add(LoginChanged(email: _email, password: _password));
+  void _loginFieldsOnChanged(LoginBloc loginBloc) {
+    loginBloc.add(LoginChanged(email: _email, password: _password));
+  }
+
+  void _loginButtonOnPressed(BuildContext context, LoginBloc loginBloc) {
+    if (!isValidEmail(_email)) {
+      showWarningDialog(context, Warnings.invalidEmail);
+    } else if (!isValidPassword(_password)) {
+      showWarningDialog(context, Warnings.invalidPassword);
+    } else if (loginBloc.state == LoginFillSuccess(error: null)) {
+      loginBloc.add(LoginSubmitted(email: _email, password: _password));
+    }
   }
 }
