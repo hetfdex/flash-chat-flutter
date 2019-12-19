@@ -1,21 +1,21 @@
-import 'package:components/components/invalid_field_dialog.dart';
+import 'package:components/components/warning_dialog.dart';
 import 'package:components/helpers/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class InvalidFieldDialogWrapper extends StatelessWidget {
-  const InvalidFieldDialogWrapper({this.invalidField});
+class WarningDialogWrapper extends StatelessWidget {
+  const WarningDialogWrapper({this.warnings});
 
-  final InvalidField invalidField;
+  final Warnings warnings;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'InvalidFieldDialogTest',
+      title: 'WarningDialogTest',
       home: Builder(
         builder: (BuildContext context) => FlatButton(
-          child: Text('showInvalidFieldDialog'),
-          onPressed: () => showInvalidFieldDialog(context, invalidField),
+          child: Text('showWarningDialog'),
+          onPressed: () => showWarningDialog(context, warnings),
         ),
       ),
     );
@@ -23,12 +23,11 @@ class InvalidFieldDialogWrapper extends StatelessWidget {
 }
 
 void main() {
-  Widget buildInvalidFieldDialog({InvalidField invalidField}) =>
-      InvalidFieldDialogWrapper(invalidField: invalidField);
+  Widget buildWarningDialog({Warnings warnings}) =>
+      WarningDialogWrapper(warnings: warnings);
 
-  testWidgets('null invalid input field throws error',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(buildInvalidFieldDialog(invalidField: null));
+  testWidgets('null warnings throws error', (WidgetTester tester) async {
+    await tester.pumpWidget(buildWarningDialog(warnings: null));
 
     await tester.pump();
 
@@ -39,10 +38,10 @@ void main() {
     expect(tester.takeException(), isArgumentError);
   });
 
-  testWidgets('builds widget with email invalid input field',
+  testWidgets('builds widget with invalid email warning',
       (WidgetTester tester) async {
     await tester
-        .pumpWidget(buildInvalidFieldDialog(invalidField: InvalidField.email));
+        .pumpWidget(buildWarningDialog(warnings: Warnings.invalidEmail));
 
     await tester.pump();
 
@@ -53,14 +52,14 @@ void main() {
     await tester.pump();
 
     expect(find.byType(AlertDialog), findsOneWidget);
-    expect(find.text(emailTitleText), findsOneWidget);
-    expect(find.text(emailContentText), findsOneWidget);
+    expect(find.text(invalidEmailTitle), findsOneWidget);
+    expect(find.text(invalidEmailContent), findsOneWidget);
   });
 
-  testWidgets('builds widget with password invalid input field',
+  testWidgets('builds widget with invalid password warning',
       (WidgetTester tester) async {
-    await tester.pumpWidget(
-        buildInvalidFieldDialog(invalidField: InvalidField.pasword));
+    await tester
+        .pumpWidget(buildWarningDialog(warnings: Warnings.invalidPassword));
 
     await tester.pump();
 
@@ -71,13 +70,48 @@ void main() {
     await tester.pump();
 
     expect(find.byType(AlertDialog), findsOneWidget);
-    expect(find.text(passwordTitleText), findsOneWidget);
-    expect(find.text(passwordContentText), findsOneWidget);
+    expect(find.text(invalidPasswordTitle), findsOneWidget);
+    expect(find.text(invalidPasswordContent), findsOneWidget);
+  });
+
+  testWidgets('builds widget with unknown user warning',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(buildWarningDialog(warnings: Warnings.unknownUser));
+
+    await tester.pump();
+
+    expect(find.byType(FlatButton), findsOneWidget);
+
+    await tester.tap(find.byType(FlatButton));
+
+    await tester.pump();
+
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(find.text(unknownUserTitle), findsOneWidget);
+    expect(find.text(unknownUserContent), findsOneWidget);
+  });
+
+  testWidgets('builds widget with wrong password warning',
+      (WidgetTester tester) async {
+    await tester
+        .pumpWidget(buildWarningDialog(warnings: Warnings.wrongPassword));
+
+    await tester.pump();
+
+    expect(find.byType(FlatButton), findsOneWidget);
+
+    await tester.tap(find.byType(FlatButton));
+
+    await tester.pump();
+
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(find.text(wrongPasswordTitle), findsOneWidget);
+    expect(find.text(wrongPasswordContent), findsOneWidget);
   });
 
   testWidgets('tap dismisses widget', (WidgetTester tester) async {
     await tester
-        .pumpWidget(buildInvalidFieldDialog(invalidField: InvalidField.email));
+        .pumpWidget(buildWarningDialog(warnings: Warnings.invalidEmail));
 
     await tester.pump();
 
