@@ -14,39 +14,39 @@ void main() {
   });
 
   test('initial state is correct', () {
-    expect(homeBloc.initialState, HomeActive());
+    expect(homeBloc.initialState, HomeViewActive());
   });
 
   group('LoginButtonPressed', () {
     blocTest(
-      'emits [HomeActive, LoginActive]',
+      'emits [HomeViewActive, LoginViewActive]',
       build: () {
         return homeBloc;
       },
       act: (homeBloc) => homeBloc.add(LoginButtonPressed()),
       expect: [
-        HomeActive(),
-        LoginActive(),
+        HomeViewActive(),
+        LoginViewActive(),
       ],
     );
   });
 
   group('RegisterButtonPressed', () {
     blocTest(
-      'emits [HomeActive, RegisterActive]',
+      'emits [HomeViewActive, RegisterViewActive]',
       build: () {
         return homeBloc;
       },
       act: (homeBloc) => homeBloc.add(RegisterButtonPressed()),
       expect: [
-        HomeActive(),
-        RegisterActive(),
+        HomeViewActive(),
+        RegisterViewActive(),
       ],
     );
   });
   group('CancelButtonPressed', () {
     blocTest(
-      'emits [HomeActive, LoginActive, HomeActive]',
+      'emits [HomeViewActive, LoginViewActive, HomeViewActive]',
       build: () {
         return homeBloc;
       },
@@ -57,14 +57,14 @@ void main() {
         return;
       },
       expect: [
-        HomeActive(),
-        LoginActive(),
-        HomeActive(),
+        HomeViewActive(),
+        LoginViewActive(),
+        HomeViewActive(),
       ],
     );
 
     blocTest(
-      'emits [HomeActive, RegisterActive, HomeActive]',
+      'emits [HomeViewActive, RegisterViewActive, HomeViewActive]',
       build: () {
         return homeBloc;
       },
@@ -75,9 +75,9 @@ void main() {
         return;
       },
       expect: [
-        HomeActive(),
-        RegisterActive(),
-        HomeActive(),
+        HomeViewActive(),
+        RegisterViewActive(),
+        HomeViewActive(),
       ],
     );
   });

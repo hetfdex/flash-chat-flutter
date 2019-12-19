@@ -24,13 +24,13 @@ class FlashChatApp extends StatelessWidget {
         } else {
           return BlocBuilder<HomeBloc, HomeState>(
               builder: (BuildContext context, HomeState state) {
-            if (state is HomeActive) {
+            if (state is HomeViewActive) {
               return Home();
             }
-            if (state is LoginActive) {
+            if (state is LoginViewActive) {
               return Login();
             }
-            if (state is RegisterActive) {
+            if (state is RegisterViewActive) {
               return Register();
             }
             return Scaffold();

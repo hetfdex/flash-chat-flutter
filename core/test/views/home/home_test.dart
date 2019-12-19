@@ -58,8 +58,8 @@ void main() {
     await tester.pump();
 
     expect(testDebuggerBlocDelegate.lastEvent, 'LoginButtonPressed');
-    expect(testDebuggerBlocDelegate.currentState, 'HomeActive');
-    expect(testDebuggerBlocDelegate.nextState, 'LoginActive');
+    expect(testDebuggerBlocDelegate.currentState, 'HomeViewActive');
+    expect(testDebuggerBlocDelegate.nextState, 'LoginViewActive');
   });
 
   testWidgets('register tap calls event and changes state',
@@ -73,7 +73,7 @@ void main() {
     await tester.pump();
 
     expect(testDebuggerBlocDelegate.lastEvent, 'RegisterButtonPressed');
-    expect(testDebuggerBlocDelegate.currentState, 'HomeActive');
-    expect(testDebuggerBlocDelegate.nextState, 'RegisterActive');
+    expect(testDebuggerBlocDelegate.currentState, 'HomeViewActive');
+    expect(testDebuggerBlocDelegate.nextState, 'RegisterViewActive');
   });
 }
