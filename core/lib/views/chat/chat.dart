@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:components/components/message_bubble.dart';
+import 'package:components/helpers/constants.dart';
 import 'package:flash_chat_core/utils/rsa_utils.dart';
 import 'package:flash_chat_core/views/chat/bloc/bloc.dart';
 import 'package:flash_chat_core/views/chat/bloc/chat_bloc.dart';
@@ -32,6 +33,8 @@ class Chat extends StatelessWidget {
       sendButtonOnPressed: () {
         if (_chatBloc.state == ChatFillSuccess(error: null)) {
           _chatBloc.add(ChatSubmitted(_message));
+
+          _textEditingController.clear();
         }
       },
       messageStream: _firestore.collection('messages').snapshots(),
@@ -44,8 +47,7 @@ class Chat extends StatelessWidget {
       BuildContext context, AsyncSnapshot<dynamic> snapshot) {
     if (!snapshot.hasData) {
       return Center(
-        child:
-            CircularProgressIndicator(backgroundColor: Colors.lightBlueAccent),
+        child: CircularProgressIndicator(backgroundColor: primaryColor),
       );
     }
 
