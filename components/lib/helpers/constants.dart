@@ -67,7 +67,7 @@ const invalidEmailContent = 'A valid email address is required';
 
 /// Text for invalid password content
 const invalidPasswordContent =
-    'Passwords must be at least 8 characters, with at least 1 capital letter,\n1 number and 1 symbol';
+    'Passwords must be at least 8 characters, with at least 1 capital letter, 1 number and 1 symbol';
 
 /// Text for unknown user content
 const unknownUserContent =
