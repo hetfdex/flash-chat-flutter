@@ -1,4 +1,4 @@
-import 'package:components/components/invalid_field_dialog.dart';
+import 'package:components/components/warning_dialog.dart';
 import 'package:flash_chat_core/utils/form_validation_utils.dart';
 import 'package:flash_chat_core/views/home/bloc/home_bloc.dart';
 import 'package:flash_chat_core/views/home/bloc/home_event.dart';
@@ -27,9 +27,9 @@ class Register extends StatelessWidget {
                 .add(RegisterSubmitted(email: _email, password: _password));
           } else {
             if (!isValidEmail(_email)) {
-              showInvalidFieldDialog(context, InvalidField.email);
+              showWarningDialog(context, Warnings.invalidEmail);
             } else if (!isValidPassword(_password)) {
-              showInvalidFieldDialog(context, InvalidField.pasword);
+              showWarningDialog(context, Warnings.invalidPassword);
             }
           }
         },
