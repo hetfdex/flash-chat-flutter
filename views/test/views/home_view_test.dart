@@ -36,11 +36,9 @@ void main() {
     registerButtonWasPressed = true;
   }
 
-  Widget buildHomeView(
-          {Function loginButtonOnPressed, Function registerButtonOnPressed}) =>
-      HomeViewWrapper(
-          loginButtonOnPressed: loginButtonOnPressed,
-          registerButtonOnPressed: registerButtonOnPressed);
+  Widget buildHomeView() => HomeViewWrapper(
+      loginButtonOnPressed: loginButtonOnPressed,
+      registerButtonOnPressed: registerButtonOnPressed);
 
   group('constructor', () {
     test('null loginButtonOnPressed throws error', () {
@@ -62,11 +60,8 @@ void main() {
     });
   });
 
-  testWidgets('builds view widget', (WidgetTester tester) async {
-    await tester.pumpWidget(buildHomeView(
-      loginButtonOnPressed: loginButtonOnPressed,
-      registerButtonOnPressed: registerButtonOnPressed,
-    ));
+  testWidgets('builds widget', (WidgetTester tester) async {
+    await tester.pumpWidget(buildHomeView());
 
     await tester.pump();
 
@@ -76,10 +71,7 @@ void main() {
   });
 
   testWidgets('login tap calls onPressed', (WidgetTester tester) async {
-    await tester.pumpWidget(buildHomeView(
-      loginButtonOnPressed: loginButtonOnPressed,
-      registerButtonOnPressed: registerButtonOnPressed,
-    ));
+    await tester.pumpWidget(buildHomeView());
 
     await tester.pump();
 
@@ -91,10 +83,7 @@ void main() {
   });
 
   testWidgets('register tap calls onPressed', (WidgetTester tester) async {
-    await tester.pumpWidget(buildHomeView(
-      loginButtonOnPressed: loginButtonOnPressed,
-      registerButtonOnPressed: registerButtonOnPressed,
-    ));
+    await tester.pumpWidget(buildHomeView());
 
     await tester.pump();
 

@@ -69,20 +69,13 @@ void main() {
     sendButtonWasPressed = true;
   }
 
-  Widget buildChatView(
-          {Function closeButtonOnPressed,
-          Function messageInputFieldOnChanged,
-          Function sendButtonOnPressed,
-          Stream<dynamic> messageStream,
-          Function(BuildContext, AsyncSnapshot<dynamic>) messageBuilder,
-          TextEditingController textEditingController}) =>
-      ChatViewWrapper(
-          closeButtonOnPressed: closeButtonOnPressed,
-          messageInputFieldOnChanged: messageInputFieldOnChanged,
-          sendButtonOnPressed: sendButtonOnPressed,
-          messageStream: messageStream,
-          messageBuilder: messageBuilder,
-          textEditingController: textEditingController);
+  Widget buildChatView() => ChatViewWrapper(
+      closeButtonOnPressed: closeButtonOnPressed,
+      messageInputFieldOnChanged: messageInputFieldOnChanged,
+      sendButtonOnPressed: sendButtonOnPressed,
+      messageStream: messageStream,
+      messageBuilder: messageBuilder,
+      textEditingController: textEditingController);
 
   group('constructor', () {
     test('null closeButtonOnPressed throws error', () {
@@ -154,14 +147,8 @@ void main() {
     });
   });
 
-  testWidgets('builds view widget', (WidgetTester tester) async {
-    await tester.pumpWidget(buildChatView(
-        closeButtonOnPressed: closeButtonOnPressed,
-        messageInputFieldOnChanged: messageInputFieldOnChanged,
-        sendButtonOnPressed: sendButtonOnPressed,
-        messageStream: messageStream,
-        messageBuilder: messageBuilder,
-        textEditingController: textEditingController));
+  testWidgets('builds widget', (WidgetTester tester) async {
+    await tester.pumpWidget(buildChatView());
 
     await tester.pump();
 
@@ -172,13 +159,7 @@ void main() {
   });
 
   testWidgets('close tap calls onPressed', (WidgetTester tester) async {
-    await tester.pumpWidget(buildChatView(
-        closeButtonOnPressed: closeButtonOnPressed,
-        messageInputFieldOnChanged: messageInputFieldOnChanged,
-        sendButtonOnPressed: sendButtonOnPressed,
-        messageStream: messageStream,
-        messageBuilder: messageBuilder,
-        textEditingController: textEditingController));
+    await tester.pumpWidget(buildChatView());
 
     await tester.pump();
 
@@ -190,13 +171,7 @@ void main() {
   });
 
   testWidgets('send tap calls onPressed', (WidgetTester tester) async {
-    await tester.pumpWidget(buildChatView(
-        closeButtonOnPressed: closeButtonOnPressed,
-        messageInputFieldOnChanged: messageInputFieldOnChanged,
-        sendButtonOnPressed: sendButtonOnPressed,
-        messageStream: messageStream,
-        messageBuilder: messageBuilder,
-        textEditingController: textEditingController));
+    await tester.pumpWidget(buildChatView());
 
     await tester.pump();
 
@@ -210,13 +185,7 @@ void main() {
   testWidgets('message input calls onChanged', (WidgetTester tester) async {
     const messageInputTest = 'messageInputTest';
 
-    await tester.pumpWidget(buildChatView(
-        closeButtonOnPressed: closeButtonOnPressed,
-        messageInputFieldOnChanged: messageInputFieldOnChanged,
-        sendButtonOnPressed: sendButtonOnPressed,
-        messageStream: messageStream,
-        messageBuilder: messageBuilder,
-        textEditingController: textEditingController));
+    await tester.pumpWidget(buildChatView());
 
     await tester.pump();
 
