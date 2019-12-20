@@ -7,9 +7,10 @@ class TypewriterAnimatedText extends StatelessWidget {
   const TypewriterAnimatedText({
     @required this.text,
     @required this.durationSeconds,
-    this.textStyle,
+    @required this.textStyle,
   })  : assert(text != null),
-        assert(durationSeconds != null);
+        assert(durationSeconds != null),
+        assert(textStyle != null);
 
   /// The text to animated as a list
   final List<String> text;
