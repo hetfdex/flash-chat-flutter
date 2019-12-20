@@ -30,14 +30,13 @@ class Gallery extends StatelessWidget {
 
     onPressed() {}
 
+    final textEditingController = TextEditingController();
+
     //InputField
     const keyboardType = TextInputType.text;
 
     //MessageBubble
     const message = 'message';
-
-    //MessageWriter
-    final textEditingController = TextEditingController();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -50,11 +49,15 @@ class Gallery extends StatelessWidget {
                     keyboardType: keyboardType,
                     onChanged: onChanged,
                     obscureText: true,
+                    textEditingController: textEditingController,
                     hintText: 'hintText'),
                 InputField(
-                    keyboardType: keyboardType,
-                    onChanged: onChanged,
-                    obscureText: false),
+                  keyboardType: keyboardType,
+                  onChanged: onChanged,
+                  textEditingController: textEditingController,
+                  obscureText: false,
+                  hintText: '',
+                ),
                 const MessageBubble(
                     sender: 'currentUser',
                     message: message,
