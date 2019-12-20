@@ -47,18 +47,13 @@ void main() {
 
   onChanged(String v) => wasChanged = v;
 
-  Widget buildInputField(
-          {TextInputType keyboardType,
-          Function onChanged,
-          bool obscureText,
-          TextEditingController textEditingController,
-          String hintText}) =>
-      InputFieldWrapper(
-          keyboardType: keyboardType,
-          onChanged: onChanged,
-          obscureText: obscureText,
-          textEditingController: textEditingController,
-          hintText: hintText);
+  Widget buildInputField({bool obscureText}) => InputFieldWrapper(
+        keyboardType: keyboardType,
+        onChanged: onChanged,
+        obscureText: obscureText,
+        textEditingController: textEditingController,
+        hintText: hintText,
+      );
 
   textIsObscured(Widget widget) => widget is TextField && widget.obscureText;
 
@@ -127,15 +122,9 @@ void main() {
     });
   });
 
-  testWidgets(
-      'builds widget with keyboardType, onChanged, false obscureText and hintText',
+  testWidgets('builds widget with false obscureText',
       (WidgetTester tester) async {
-    await tester.pumpWidget(buildInputField(
-        keyboardType: keyboardType,
-        onChanged: onChanged,
-        obscureText: false,
-        textEditingController: textEditingController,
-        hintText: hintText));
+    await tester.pumpWidget(buildInputField(obscureText: false));
 
     await tester.pump();
 
@@ -146,31 +135,22 @@ void main() {
     expect(find.text(hintText), findsOneWidget);
   });
 
-  testWidgets(
-      'builds widget with keyboardType, onChanged, true obscureText and hintText',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(buildInputField(
-        keyboardType: TextInputType.phone,
-        onChanged: onChanged,
-        obscureText: true,
-        textEditingController: textEditingController,
-        hintText: hintText));
+  testWidgets('builds widget true obscureText', (WidgetTester tester) async {
+    await tester.pumpWidget(buildInputField(obscureText: true));
 
     await tester.pump();
 
-    expect(find.byWidgetPredicate(textInputTypeIsText), findsNothing);
+    expect(find.byType(InputField), findsOneWidget);
+    expect(find.byType(TextField), findsOneWidget);
+    expect(find.byWidgetPredicate(textInputTypeIsText), findsOneWidget);
     expect(find.byWidgetPredicate(textIsObscured), findsOneWidget);
+    expect(find.text(hintText), findsOneWidget);
   });
 
   testWidgets('text input calls onChanged', (WidgetTester tester) async {
     const testInput = 'testInput';
 
-    await tester.pumpWidget(buildInputField(
-        keyboardType: keyboardType,
-        onChanged: onChanged,
-        obscureText: true,
-        textEditingController: textEditingController,
-        hintText: hintText));
+    await tester.pumpWidget(buildInputField(obscureText: true));
 
     await tester.pump();
 
