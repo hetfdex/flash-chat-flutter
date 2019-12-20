@@ -12,7 +12,7 @@ class MessageWriter extends StatelessWidget {
         assert(onChanged != null),
         assert(onPressed != null);
 
-  /// The controller for the text being edited.
+  /// The text editing controller
   final TextEditingController textEditingController;
 
   /// The function called when the text field's value changes
