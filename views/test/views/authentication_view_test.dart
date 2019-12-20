@@ -12,7 +12,9 @@ class AuthenticationViewWrapper extends StatelessWidget {
       this.authenticationButtonOnPressed,
       this.cancelButtonOnPressed,
       this.emailInputFieldOnChanged,
-      this.passwordInputFieldOnChanged});
+      this.passwordInputFieldOnChanged,
+      this.emailInputFieldTextEditingController,
+      this.passwordInputFieldTextEditingController});
 
   final bool isLoading;
 
@@ -26,23 +28,36 @@ class AuthenticationViewWrapper extends StatelessWidget {
 
   final Function passwordInputFieldOnChanged;
 
+  final TextEditingController emailInputFieldTextEditingController;
+
+  final TextEditingController passwordInputFieldTextEditingController;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AuthenticationViewTest',
       home: AuthenticationView(
-          isLoading: isLoading,
-          authenticationButtonText: authenticationButtonText,
-          authenticationButtonOnPressed: authenticationButtonOnPressed,
-          cancelButtonOnPressed: cancelButtonOnPressed,
-          emailInputFieldOnChanged: emailInputFieldOnChanged,
-          passwordInputFieldOnChanged: passwordInputFieldOnChanged),
+        isLoading: isLoading,
+        authenticationButtonText: authenticationButtonText,
+        authenticationButtonOnPressed: authenticationButtonOnPressed,
+        cancelButtonOnPressed: cancelButtonOnPressed,
+        emailInputFieldOnChanged: emailInputFieldOnChanged,
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+        emailInputFieldfTextEditingController:
+            emailInputFieldTextEditingController,
+        passwordInputFieldTextEditingController:
+            passwordInputFieldTextEditingController,
+      ),
     );
   }
 }
 
 void main() {
   const authenticationButtonText = 'authenticationButtonText';
+
+  final emailInputFieldTextEditingController = TextEditingController();
+
+  final passwordInputFieldTextEditingController = TextEditingController();
 
   String emailInput;
   String passwordInput;
@@ -69,31 +84,44 @@ void main() {
   loadingAnimationIsActive(Widget widget) =>
       widget is ModalProgressHUD && widget.inAsyncCall;
 
-  Widget buildAuthenticationView(
-          {bool isLoading,
-          String authenticationButtonText,
-          Function authenticationButtonOnPressed,
-          Function cancelButtonOnPressed,
-          Function emailInputFieldOnChanged,
-          Function passwordInputFieldOnChanged}) =>
+  Widget buildAuthenticationView({
+    bool isLoading,
+    String authenticationButtonText,
+    Function authenticationButtonOnPressed,
+    Function cancelButtonOnPressed,
+    Function emailInputFieldOnChanged,
+    Function passwordInputFieldOnChanged,
+    TextEditingController emailInputFieldTextEditingController,
+    TextEditingController passwordInputFieldTextEditingController,
+  }) =>
       AuthenticationViewWrapper(
-          isLoading: isLoading,
-          authenticationButtonText: authenticationButtonText,
-          authenticationButtonOnPressed: authenticationButtonOnPressed,
-          cancelButtonOnPressed: cancelButtonOnPressed,
-          emailInputFieldOnChanged: emailInputFieldOnChanged,
-          passwordInputFieldOnChanged: passwordInputFieldOnChanged);
+        isLoading: isLoading,
+        authenticationButtonText: authenticationButtonText,
+        authenticationButtonOnPressed: authenticationButtonOnPressed,
+        cancelButtonOnPressed: cancelButtonOnPressed,
+        emailInputFieldOnChanged: emailInputFieldOnChanged,
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+        emailInputFieldTextEditingController:
+            emailInputFieldTextEditingController,
+        passwordInputFieldTextEditingController:
+            passwordInputFieldTextEditingController,
+      );
 
   group('constructor', () {
     test('null isLoading throws error', () {
       expect(
           () => AuthenticationView(
-              isLoading: null,
-              authenticationButtonText: authenticationButtonText,
-              authenticationButtonOnPressed: authenticationButtonOnPressed,
-              cancelButtonOnPressed: cancelButtonOnPressed,
-              emailInputFieldOnChanged: emailInputFieldOnChanged,
-              passwordInputFieldOnChanged: passwordInputFieldOnChanged),
+                isLoading: null,
+                authenticationButtonText: authenticationButtonText,
+                authenticationButtonOnPressed: authenticationButtonOnPressed,
+                cancelButtonOnPressed: cancelButtonOnPressed,
+                emailInputFieldOnChanged: emailInputFieldOnChanged,
+                passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+                emailInputFieldfTextEditingController:
+                    emailInputFieldTextEditingController,
+                passwordInputFieldTextEditingController:
+                    passwordInputFieldTextEditingController,
+              ),
           throwsAssertionError);
     });
     test('null authenticationButtonText throws error', () {
@@ -104,7 +132,11 @@ void main() {
               authenticationButtonOnPressed: authenticationButtonOnPressed,
               cancelButtonOnPressed: cancelButtonOnPressed,
               emailInputFieldOnChanged: emailInputFieldOnChanged,
-              passwordInputFieldOnChanged: passwordInputFieldOnChanged),
+              passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+              emailInputFieldfTextEditingController:
+                  emailInputFieldTextEditingController,
+              passwordInputFieldTextEditingController:
+                  passwordInputFieldTextEditingController),
           throwsAssertionError);
     });
 
@@ -116,7 +148,11 @@ void main() {
               authenticationButtonOnPressed: null,
               cancelButtonOnPressed: cancelButtonOnPressed,
               emailInputFieldOnChanged: emailInputFieldOnChanged,
-              passwordInputFieldOnChanged: passwordInputFieldOnChanged),
+              passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+              emailInputFieldfTextEditingController:
+                  emailInputFieldTextEditingController,
+              passwordInputFieldTextEditingController:
+                  passwordInputFieldTextEditingController),
           throwsAssertionError);
     });
     test('null cancelButtonOnPressed throws error', () {
@@ -127,7 +163,11 @@ void main() {
               authenticationButtonOnPressed: authenticationButtonOnPressed,
               cancelButtonOnPressed: null,
               emailInputFieldOnChanged: emailInputFieldOnChanged,
-              passwordInputFieldOnChanged: passwordInputFieldOnChanged),
+              passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+              emailInputFieldfTextEditingController:
+                  emailInputFieldTextEditingController,
+              passwordInputFieldTextEditingController:
+                  passwordInputFieldTextEditingController),
           throwsAssertionError);
     });
     test('null emailInputFieldOnChanged throws error', () {
@@ -138,7 +178,11 @@ void main() {
               authenticationButtonOnPressed: authenticationButtonOnPressed,
               cancelButtonOnPressed: cancelButtonOnPressed,
               emailInputFieldOnChanged: null,
-              passwordInputFieldOnChanged: passwordInputFieldOnChanged),
+              passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+              emailInputFieldfTextEditingController:
+                  emailInputFieldTextEditingController,
+              passwordInputFieldTextEditingController:
+                  passwordInputFieldTextEditingController),
           throwsAssertionError);
     });
 
@@ -150,7 +194,41 @@ void main() {
               authenticationButtonOnPressed: authenticationButtonOnPressed,
               cancelButtonOnPressed: cancelButtonOnPressed,
               emailInputFieldOnChanged: emailInputFieldOnChanged,
-              passwordInputFieldOnChanged: null),
+              passwordInputFieldOnChanged: null,
+              emailInputFieldfTextEditingController:
+                  emailInputFieldTextEditingController,
+              passwordInputFieldTextEditingController:
+                  passwordInputFieldTextEditingController),
+          throwsAssertionError);
+    });
+
+    test('null emailInputFieldfTextEditingController throws error', () {
+      expect(
+          () => AuthenticationView(
+              isLoading: false,
+              authenticationButtonText: authenticationButtonText,
+              authenticationButtonOnPressed: authenticationButtonOnPressed,
+              cancelButtonOnPressed: cancelButtonOnPressed,
+              emailInputFieldOnChanged: emailInputFieldOnChanged,
+              passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+              emailInputFieldfTextEditingController: null,
+              passwordInputFieldTextEditingController:
+                  passwordInputFieldTextEditingController),
+          throwsAssertionError);
+    });
+
+    test('null passwordInputFieldTextEditingController throws error', () {
+      expect(
+          () => AuthenticationView(
+              isLoading: false,
+              authenticationButtonText: authenticationButtonText,
+              authenticationButtonOnPressed: authenticationButtonOnPressed,
+              cancelButtonOnPressed: cancelButtonOnPressed,
+              emailInputFieldOnChanged: emailInputFieldOnChanged,
+              passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+              emailInputFieldfTextEditingController:
+                  emailInputFieldTextEditingController,
+              passwordInputFieldTextEditingController: null),
           throwsAssertionError);
     });
   });
@@ -162,7 +240,11 @@ void main() {
         authenticationButtonOnPressed: authenticationButtonOnPressed,
         cancelButtonOnPressed: cancelButtonOnPressed,
         emailInputFieldOnChanged: emailInputFieldOnChanged,
-        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+        emailInputFieldTextEditingController:
+            emailInputFieldTextEditingController,
+        passwordInputFieldTextEditingController:
+            passwordInputFieldTextEditingController));
 
     await tester.pump();
 
@@ -181,7 +263,11 @@ void main() {
         authenticationButtonOnPressed: authenticationButtonOnPressed,
         cancelButtonOnPressed: cancelButtonOnPressed,
         emailInputFieldOnChanged: emailInputFieldOnChanged,
-        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+        emailInputFieldTextEditingController:
+            emailInputFieldTextEditingController,
+        passwordInputFieldTextEditingController:
+            passwordInputFieldTextEditingController));
 
     await tester.pump();
 
@@ -199,7 +285,11 @@ void main() {
         authenticationButtonOnPressed: authenticationButtonOnPressed,
         cancelButtonOnPressed: cancelButtonOnPressed,
         emailInputFieldOnChanged: emailInputFieldOnChanged,
-        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+        emailInputFieldTextEditingController:
+            emailInputFieldTextEditingController,
+        passwordInputFieldTextEditingController:
+            passwordInputFieldTextEditingController));
 
     await tester.pump();
 
@@ -222,7 +312,11 @@ void main() {
         authenticationButtonOnPressed: authenticationButtonOnPressed,
         cancelButtonOnPressed: cancelButtonOnPressed,
         emailInputFieldOnChanged: emailInputFieldOnChanged,
-        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+        emailInputFieldTextEditingController:
+            emailInputFieldTextEditingController,
+        passwordInputFieldTextEditingController:
+            passwordInputFieldTextEditingController));
 
     await tester.pump();
 
@@ -246,7 +340,11 @@ void main() {
         authenticationButtonOnPressed: authenticationButtonOnPressed,
         cancelButtonOnPressed: cancelButtonOnPressed,
         emailInputFieldOnChanged: emailInputFieldOnChanged,
-        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+        emailInputFieldTextEditingController:
+            emailInputFieldTextEditingController,
+        passwordInputFieldTextEditingController:
+            passwordInputFieldTextEditingController));
 
     await tester.pump();
 
@@ -265,7 +363,11 @@ void main() {
         authenticationButtonOnPressed: authenticationButtonOnPressed,
         cancelButtonOnPressed: cancelButtonOnPressed,
         emailInputFieldOnChanged: emailInputFieldOnChanged,
-        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+        emailInputFieldTextEditingController:
+            emailInputFieldTextEditingController,
+        passwordInputFieldTextEditingController:
+            passwordInputFieldTextEditingController));
 
     await tester.pump();
 
@@ -279,7 +381,11 @@ void main() {
         authenticationButtonOnPressed: authenticationButtonOnPressed,
         cancelButtonOnPressed: cancelButtonOnPressed,
         emailInputFieldOnChanged: emailInputFieldOnChanged,
-        passwordInputFieldOnChanged: passwordInputFieldOnChanged));
+        passwordInputFieldOnChanged: passwordInputFieldOnChanged,
+        emailInputFieldTextEditingController:
+            emailInputFieldTextEditingController,
+        passwordInputFieldTextEditingController:
+            passwordInputFieldTextEditingController));
 
     await tester.pump();
 

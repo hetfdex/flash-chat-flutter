@@ -14,12 +14,16 @@ class AuthenticationView extends StatelessWidget {
     @required this.cancelButtonOnPressed,
     @required this.emailInputFieldOnChanged,
     @required this.passwordInputFieldOnChanged,
+    @required this.emailInputFieldfTextEditingController,
+    @required this.passwordInputFieldTextEditingController,
   })  : assert(isLoading != null),
         assert(authenticationButtonText != null),
         assert(authenticationButtonOnPressed != null),
         assert(cancelButtonOnPressed != null),
         assert(emailInputFieldOnChanged != null),
-        assert(passwordInputFieldOnChanged != null);
+        assert(passwordInputFieldOnChanged != null),
+        assert(emailInputFieldfTextEditingController != null),
+        assert(passwordInputFieldTextEditingController != null);
 
   /// Whether to show the loading animation
   final bool isLoading;
@@ -38,6 +42,12 @@ class AuthenticationView extends StatelessWidget {
 
   /// The function called when the password button is changed
   final Function passwordInputFieldOnChanged;
+
+  /// The text editing controller for the email input field
+  final TextEditingController emailInputFieldfTextEditingController;
+
+  /// The text editing controller for the password input field
+  final TextEditingController passwordInputFieldTextEditingController;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +76,7 @@ class AuthenticationView extends StatelessWidget {
                 keyboardType: TextInputType.emailAddress,
                 onChanged: emailInputFieldOnChanged,
                 obscureText: false,
+                textEditingController: emailInputFieldfTextEditingController,
                 hintText: 'Enter email',
               ),
               const SizedBox(
@@ -75,6 +86,7 @@ class AuthenticationView extends StatelessWidget {
                 keyboardType: TextInputType.text,
                 onChanged: passwordInputFieldOnChanged,
                 obscureText: true,
+                textEditingController: passwordInputFieldTextEditingController,
                 hintText: 'Enter password',
               ),
               const SizedBox(
