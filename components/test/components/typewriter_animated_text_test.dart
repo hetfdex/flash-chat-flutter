@@ -36,10 +36,8 @@ void main() {
   isCorrectTextStyle(Widget widget) =>
       widget is Text && widget.style == textStyle;
 
-  Widget buildTypewriterAnimatedText(
-          {List<String> text, int durationSeconds, TextStyle textStyle}) =>
-      TypewriterAnimatedTextWrapper(
-          text: text, durationSeconds: durationSeconds, textStyle: textStyle);
+  Widget buildTypewriterAnimatedText() => TypewriterAnimatedTextWrapper(
+      text: text, durationSeconds: durationSeconds, textStyle: textStyle);
 
   group('constructor', () {
     test('null text throws error', () {
@@ -57,10 +55,16 @@ void main() {
               text: text, durationSeconds: null, textStyle: textStyle),
           throwsAssertionError);
     });
+
+    test('null textStyle throws error', () {
+      expect(
+          () => TypewriterAnimatedText(
+              text: text, durationSeconds: durationSeconds, textStyle: null),
+          throwsAssertionError);
+    });
   });
 
-  testWidgets('builds widget with text and durationSeconds',
-      (WidgetTester tester) async {
+  testWidgets('builds widget', (WidgetTester tester) async {
     isCorrectDurationSeconds(Widget widget) =>
         widget is TypewriterAnimatedTextKit &&
         widget.duration == Duration(seconds: durationSeconds);
@@ -68,23 +72,13 @@ void main() {
     isCorrectText(Widget widget) =>
         widget is TypewriterAnimatedTextKit && widget.text == text;
 
-    await tester.pumpWidget(buildTypewriterAnimatedText(
-        text: text, durationSeconds: durationSeconds));
+    await tester.pumpWidget(buildTypewriterAnimatedText());
 
     await tester.pump();
 
     expect(find.byType(TypewriterAnimatedText), findsOneWidget);
     expect(find.byWidgetPredicate(isCorrectText), findsOneWidget);
     expect(find.byWidgetPredicate(isCorrectDurationSeconds), findsOneWidget);
-    expect(find.byWidgetPredicate(isCorrectTextStyle), findsNothing);
-  });
-
-  testWidgets('builds widget with textStyle', (WidgetTester tester) async {
-    await tester.pumpWidget(buildTypewriterAnimatedText(
-        text: text, durationSeconds: durationSeconds, textStyle: textStyle));
-
-    await tester.pump();
-
     expect(find.byWidgetPredicate(isCorrectTextStyle), findsOneWidget);
   });
 }

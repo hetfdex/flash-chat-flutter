@@ -37,14 +37,10 @@ void main() {
 
   onPressed() => wasPressed = true;
 
-  Widget buildMessageWriter(
-          {TextEditingController textEditingController,
-          Function onChanged,
-          Function onPressed}) =>
-      MessageWriterWrapper(
-          textEditingController: textEditingController,
-          onChanged: onChanged,
-          onPressed: onPressed);
+  Widget buildMessageWriter() => MessageWriterWrapper(
+      textEditingController: textEditingController,
+      onChanged: onChanged,
+      onPressed: onPressed);
 
   group('constructor', () {
     test('null textEditingController throws error', () {
@@ -77,13 +73,8 @@ void main() {
           throwsAssertionError);
     });
 
-    testWidgets(
-        'builds widget with textEditingController, onChanged and onPressed',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(buildMessageWriter(
-          textEditingController: textEditingController,
-          onChanged: onChanged,
-          onPressed: onPressed));
+    testWidgets('builds widget', (WidgetTester tester) async {
+      await tester.pumpWidget(buildMessageWriter());
 
       await tester.pump();
 
@@ -93,10 +84,7 @@ void main() {
     });
 
     testWidgets('button tap calls onPressed', (WidgetTester tester) async {
-      await tester.pumpWidget(buildMessageWriter(
-          textEditingController: textEditingController,
-          onChanged: onChanged,
-          onPressed: onPressed));
+      await tester.pumpWidget(buildMessageWriter());
 
       await tester.pump();
 
@@ -110,10 +98,7 @@ void main() {
     testWidgets('text input calls onChanged', (WidgetTester tester) async {
       const testInput = 'testInput';
 
-      await tester.pumpWidget(buildMessageWriter(
-          textEditingController: textEditingController,
-          onChanged: onChanged,
-          onPressed: onPressed));
+      await tester.pumpWidget(buildMessageWriter());
 
       await tester.pump();
 

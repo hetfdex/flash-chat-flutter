@@ -29,7 +29,7 @@ void main() {
 
   onPressed() => wasPressed = true;
 
-  Widget buildRoundedButton({Function onPressed, String text, Color color}) =>
+  Widget buildRoundedButton() =>
       RoundedButtonWrapper(onPressed: onPressed, text: text, color: color);
 
   group('constructor', () {
@@ -50,13 +50,11 @@ void main() {
     });
   });
 
-  testWidgets('builds widget with onPressed, text and color',
-      (WidgetTester tester) async {
+  testWidgets('builds widget', (WidgetTester tester) async {
     isCorrectColor(Widget widget) =>
         widget is Material && widget.color == color;
 
-    await tester.pumpWidget(
-        buildRoundedButton(onPressed: onPressed, text: text, color: color));
+    await tester.pumpWidget(buildRoundedButton());
 
     await tester.pump();
 
@@ -66,8 +64,7 @@ void main() {
   });
 
   testWidgets('button tap calls onPressed', (WidgetTester tester) async {
-    await tester.pumpWidget(
-        buildRoundedButton(onPressed: onPressed, text: text, color: color));
+    await tester.pumpWidget(buildRoundedButton());
 
     await tester.pump();
 

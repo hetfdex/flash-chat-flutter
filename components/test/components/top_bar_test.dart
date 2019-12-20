@@ -25,7 +25,7 @@ void main() {
 
   onPressed() => wasPressed = true;
 
-  Widget buildTopBar({Function onPressed, String titleText}) =>
+  Widget buildTopBar() =>
       TopBarWrapper(onPressed: onPressed, titleText: titleText);
 
   group('constructor', () {
@@ -48,10 +48,8 @@ void main() {
     });
   });
 
-  testWidgets('builds widget with onPressed and titleText',
-      (WidgetTester tester) async {
-    await tester
-        .pumpWidget(buildTopBar(onPressed: onPressed, titleText: titleText));
+  testWidgets('builds widget', (WidgetTester tester) async {
+    await tester.pumpWidget(buildTopBar());
 
     await tester.pump();
 
@@ -62,8 +60,7 @@ void main() {
   });
 
   testWidgets('button tap calls onPressed', (WidgetTester tester) async {
-    await tester
-        .pumpWidget(buildTopBar(onPressed: onPressed, titleText: titleText));
+    await tester.pumpWidget(buildTopBar());
 
     await tester.pump();
 
