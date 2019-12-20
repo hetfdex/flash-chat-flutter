@@ -8,10 +8,13 @@ class InputField extends StatelessWidget {
     @required this.keyboardType,
     @required this.onChanged,
     @required this.obscureText,
-    this.hintText,
+    @required this.textEditingController,
+    @required this.hintText,
   })  : assert(keyboardType != null),
         assert(onChanged != null),
-        assert(obscureText != null);
+        assert(obscureText != null),
+        assert(textEditingController != null),
+        assert(hintText != null);
 
   /// The type of keyboard to display
   final TextInputType keyboardType;
@@ -21,6 +24,9 @@ class InputField extends StatelessWidget {
 
   /// Whether to hide the text being edited
   final bool obscureText;
+
+  /// The text editing controller
+  final TextEditingController textEditingController;
 
   /// Hint of the type of input expected
   final String hintText;
@@ -32,6 +38,7 @@ class InputField extends StatelessWidget {
       keyboardType: keyboardType,
       onChanged: onChanged,
       obscureText: obscureText,
+      controller: textEditingController,
       decoration: authenticationInputFieldDecoration.copyWith(
         hintText: hintText,
       ),

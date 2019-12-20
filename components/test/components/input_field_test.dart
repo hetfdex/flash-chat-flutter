@@ -4,13 +4,19 @@ import 'package:flutter_test/flutter_test.dart';
 
 class InputFieldWrapper extends StatelessWidget {
   const InputFieldWrapper(
-      {this.keyboardType, this.onChanged, this.obscureText, this.hintText});
+      {this.keyboardType,
+      this.onChanged,
+      this.obscureText,
+      this.textEditingController,
+      this.hintText});
 
   final TextInputType keyboardType;
 
   final Function onChanged;
 
   final bool obscureText;
+
+  final TextEditingController textEditingController;
 
   final String hintText;
 
@@ -23,6 +29,7 @@ class InputFieldWrapper extends StatelessWidget {
             keyboardType: keyboardType,
             onChanged: onChanged,
             obscureText: obscureText,
+            textEditingController: textEditingController,
             hintText: hintText),
       ),
     );
@@ -34,6 +41,8 @@ void main() {
 
   const hintText = 'hintText';
 
+  final textEditingController = TextEditingController();
+
   String wasChanged;
 
   onChanged(String v) => wasChanged = v;
@@ -42,11 +51,13 @@ void main() {
           {TextInputType keyboardType,
           Function onChanged,
           bool obscureText,
+          TextEditingController textEditingController,
           String hintText}) =>
       InputFieldWrapper(
           keyboardType: keyboardType,
           onChanged: onChanged,
           obscureText: obscureText,
+          textEditingController: textEditingController,
           hintText: hintText);
 
   textIsObscured(Widget widget) => widget is TextField && widget.obscureText;
@@ -61,6 +72,7 @@ void main() {
                 keyboardType: null,
                 onChanged: onChanged,
                 obscureText: true,
+                textEditingController: textEditingController,
                 hintText: hintText,
               ),
           throwsAssertionError);
@@ -72,6 +84,7 @@ void main() {
                 keyboardType: keyboardType,
                 onChanged: null,
                 obscureText: true,
+                textEditingController: textEditingController,
                 hintText: hintText,
               ),
           throwsAssertionError);
@@ -83,7 +96,32 @@ void main() {
                 keyboardType: keyboardType,
                 onChanged: onChanged,
                 obscureText: null,
+                textEditingController: textEditingController,
                 hintText: hintText,
+              ),
+          throwsAssertionError);
+    });
+
+    test('null textEditingController throws error', () {
+      expect(
+          () => InputField(
+                keyboardType: keyboardType,
+                onChanged: onChanged,
+                obscureText: true,
+                textEditingController: null,
+                hintText: hintText,
+              ),
+          throwsAssertionError);
+    });
+
+    test('null hintText throws error', () {
+      expect(
+          () => InputField(
+                keyboardType: keyboardType,
+                onChanged: onChanged,
+                obscureText: true,
+                textEditingController: textEditingController,
+                hintText: null,
               ),
           throwsAssertionError);
     });
@@ -96,6 +134,7 @@ void main() {
         keyboardType: keyboardType,
         onChanged: onChanged,
         obscureText: false,
+        textEditingController: textEditingController,
         hintText: hintText));
 
     await tester.pump();
@@ -114,25 +153,13 @@ void main() {
         keyboardType: TextInputType.phone,
         onChanged: onChanged,
         obscureText: true,
+        textEditingController: textEditingController,
         hintText: hintText));
 
     await tester.pump();
 
     expect(find.byWidgetPredicate(textInputTypeIsText), findsNothing);
     expect(find.byWidgetPredicate(textIsObscured), findsOneWidget);
-  });
-
-  testWidgets('builds widget with keyboardType, onChanged, true obscureText',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(buildInputField(
-        keyboardType: keyboardType,
-        onChanged: onChanged,
-        obscureText: true,
-        hintText: null));
-
-    await tester.pump();
-
-    expect(find.text(hintText), findsNothing);
   });
 
   testWidgets('text input calls onChanged', (WidgetTester tester) async {
@@ -142,6 +169,7 @@ void main() {
         keyboardType: keyboardType,
         onChanged: onChanged,
         obscureText: true,
+        textEditingController: textEditingController,
         hintText: hintText));
 
     await tester.pump();
