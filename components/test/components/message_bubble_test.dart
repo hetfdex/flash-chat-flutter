@@ -28,10 +28,8 @@ void main() {
   isCurrentUser(Widget widget) =>
       widget is Material && widget.color == Colors.lightBlueAccent;
 
-  Widget buildMessageBubble(
-          {String message, String sender, bool isCurrentUser}) =>
-      MessageBubbleWrapper(
-          message: message, sender: sender, isCurrentUser: isCurrentUser);
+  Widget buildMessageBubble({bool isCurrentUser}) => MessageBubbleWrapper(
+      message: message, sender: sender, isCurrentUser: isCurrentUser);
 
   group('constructor', () {
     test('null sender throws error', () {
@@ -67,8 +65,7 @@ void main() {
 
   testWidgets('builds widget with message, sender and the current user',
       (WidgetTester tester) async {
-    await tester.pumpWidget(buildMessageBubble(
-        message: message, sender: sender, isCurrentUser: true));
+    await tester.pumpWidget(buildMessageBubble(isCurrentUser: true));
 
     await tester.pump();
 
@@ -79,8 +76,7 @@ void main() {
 
   testWidgets('builds widget with message, sender and not the current user',
       (WidgetTester tester) async {
-    await tester.pumpWidget(buildMessageBubble(
-        message: message, sender: sender, isCurrentUser: false));
+    await tester.pumpWidget(buildMessageBubble(isCurrentUser: false));
 
     await tester.pump();
 
