@@ -24,25 +24,33 @@ class Gallery extends StatelessWidget {
     const view =
         3; //0 == Homeview, 1 == LoginView, 2 == RegisterView, 3 == ChatView
 
+    final textEditingController = TextEditingController();
+
     if (view == 0) {
       return HomeView(
           loginButtonOnPressed: () {}, registerButtonOnPressed: () {});
     } else if (view == 1) {
       return AuthenticationView(
-          isLoading: false,
-          authenticationButtonText: 'Login',
-          authenticationButtonOnPressed: () {},
-          cancelButtonOnPressed: () {},
-          emailInputFieldOnChanged: (String v) {},
-          passwordInputFieldOnChanged: (String v) {});
+        isLoading: false,
+        authenticationButtonText: 'Login',
+        authenticationButtonOnPressed: () {},
+        cancelButtonOnPressed: () {},
+        emailInputFieldOnChanged: (String v) {},
+        passwordInputFieldOnChanged: (String v) {},
+        emailInputFieldfTextEditingController: textEditingController,
+        passwordInputFieldTextEditingController: textEditingController,
+      );
     } else if (view == 2) {
       return AuthenticationView(
-          isLoading: true,
-          authenticationButtonText: 'Register',
-          authenticationButtonOnPressed: () {},
-          cancelButtonOnPressed: () {},
-          emailInputFieldOnChanged: (String v) {},
-          passwordInputFieldOnChanged: (String v) {});
+        isLoading: true,
+        authenticationButtonText: 'Register',
+        authenticationButtonOnPressed: () {},
+        cancelButtonOnPressed: () {},
+        emailInputFieldOnChanged: (String v) {},
+        passwordInputFieldOnChanged: (String v) {},
+        emailInputFieldfTextEditingController: textEditingController,
+        passwordInputFieldTextEditingController: textEditingController,
+      );
     } else if (view == 3) {
       final streamController = StreamController<String>();
 
