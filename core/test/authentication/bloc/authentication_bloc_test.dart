@@ -85,17 +85,12 @@ void main() {
 
   group('UserLoggedOut', () {
     blocTest(
-      'emits [AuthenticationInitial, AuthenticationSuccess] when userRepository returns user',
+      'emits [AuthenticationInitial] when userRepository returns user',
       build: () {
-        when(userRepository.user)
-            .thenAnswer((_) => Future<FirebaseUser>.value(user));
         return authenticationBloc;
       },
       act: (authenticationBloc) => authenticationBloc.add(UserLoggedOut()),
-      expect: [
-        AuthenticationInitial(),
-        AuthenticationFailure(),
-      ],
+      expect: [AuthenticationInitial()],
     );
   });
 }
