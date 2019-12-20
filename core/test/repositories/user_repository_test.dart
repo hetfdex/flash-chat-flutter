@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat_core/helpers/firebase_error.dart';
 import 'package:flash_chat_core/repositories/user_repository.dart';
 import 'package:flash_chat_core/utils/secure_storage_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:flutter/services.dart';
+import 'package:matcher/matcher.dart';
 
 class FirebaseAuthMock extends Mock implements FirebaseAuth {}
 
@@ -17,8 +20,11 @@ void main() {
   const email = 'email';
   const password = 'password';
   const exception = 'exception';
+  const platformException = 'platformException';
 
   final e = Exception('exception');
+
+  final platformE = PlatformException(code: 'code');
 
   FirebaseAuth firebaseAuth;
 
@@ -54,6 +60,10 @@ void main() {
             email: exception, password: anyNamed(password)))
         .thenThrow(e);
 
+    when(firebaseAuth.createUserWithEmailAndPassword(
+            email: platformException, password: anyNamed(password)))
+        .thenThrow(platformE);
+
     when(firebaseAuth.signInWithEmailAndPassword(
             email: email, password: anyNamed(password)))
         .thenAnswer((_) => Future<AuthResult>.value(authResult));
@@ -61,6 +71,10 @@ void main() {
     when(firebaseAuth.signInWithEmailAndPassword(
             email: exception, password: anyNamed(password)))
         .thenThrow(e);
+
+    when(firebaseAuth.signInWithEmailAndPassword(
+            email: platformException, password: anyNamed(password)))
+        .thenThrow(platformE);
   });
 
   group('constructor', () {
@@ -123,6 +137,13 @@ void main() {
               email: exception, password: exception),
           throwsException);
     });
+
+    test('throws FirebaseError for PlatformExeption', () async {
+      expect(
+          () async => await userRepository.register(
+              email: platformException, password: platformException),
+          throwsA(TypeMatcher<FirebaseError>()));
+    });
   });
 
   group('login', () {
@@ -162,6 +183,13 @@ void main() {
           () async =>
               await userRepository.login(email: exception, password: exception),
           throwsException);
+    });
+
+    test('throws FirebaseError for PlatformExeption', () async {
+      expect(
+          () async => await userRepository.login(
+              email: platformException, password: platformException),
+          throwsA(TypeMatcher<FirebaseError>()));
     });
   });
 
