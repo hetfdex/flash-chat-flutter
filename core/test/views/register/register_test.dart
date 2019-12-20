@@ -123,6 +123,31 @@ void main() {
     expect(testDebuggerBlocDelegate.nextState, 'RegisterFillInProgress');
   });
 
+  testWidgets(
+      'correct email and incorrect password calls event and changes state',
+      (WidgetTester tester) async {
+    emailInputField(Widget widget) =>
+        widget is InputField && widget.hintText == 'Enter email';
+
+    passwordInputField(Widget widget) =>
+        widget is InputField && widget.hintText == 'Enter password';
+
+    await tester.pumpWidget(buildRegister());
+
+    await tester.pump();
+
+    await tester.enterText(
+        find.byWidgetPredicate(emailInputField), 'test@email.com');
+
+    await tester.enterText(find.byWidgetPredicate(passwordInputField), 'test');
+
+    await tester.pump();
+
+    expect(testDebuggerBlocDelegate.lastEvent, 'RegisterChanged');
+    expect(testDebuggerBlocDelegate.currentState, 'RegisterInitial');
+    expect(testDebuggerBlocDelegate.nextState, 'RegisterFillInProgress');
+  });
+
   testWidgets('correct input calls event and changes state',
       (WidgetTester tester) async {
     emailInputField(Widget widget) =>
