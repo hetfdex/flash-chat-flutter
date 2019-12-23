@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:views/views/chat_view.dart';
 
-String _message;
-
 /// The chat view implementation
 class Chat extends StatelessWidget {
   final _firestore = Firestore.instance;
@@ -26,13 +24,11 @@ class Chat extends StatelessWidget {
         _chatBloc.add(CloseButtonPressed());
       },
       messageInputFieldOnChanged: (String v) {
-        _message = v;
-
-        _chatBloc.add(ChatChanged(message: _message));
+        _chatBloc.add(ChatChanged(message: _textEditingController.text));
       },
       sendButtonOnPressed: () {
         if (_chatBloc.state == ChatFillSuccess(error: null)) {
-          _chatBloc.add(ChatSubmitted(_message));
+          _chatBloc.add(ChatSubmitted(_textEditingController.text));
 
           _textEditingController.clear();
         }
@@ -65,7 +61,7 @@ class Chat extends StatelessWidget {
         final messageBubble = MessageBubble(
           message: message,
           sender: sender,
-          isCurrentUser: sender == 'bla',
+          isCurrentUser: sender == 'userEmail',
         );
 
         messageBubbles.add(messageBubble);
