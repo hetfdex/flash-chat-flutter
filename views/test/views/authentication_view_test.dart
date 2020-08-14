@@ -1,9 +1,9 @@
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:views/views/authentication_view.dart';
 import 'package:components/components/input_field.dart';
 import 'package:components/components/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:views/views/authentication_view.dart';
 
 class AuthenticationViewWrapper extends StatelessWidget {
   const AuthenticationViewWrapper(
@@ -223,8 +223,7 @@ void main() {
     });
   });
 
-  testWidgets('builds widget with false isLoading',
-      (WidgetTester tester) async {
+  testWidgets('builds widget with false isLoading', (tester) async {
     await tester.pumpWidget(buildAuthenticationView(isLoading: false));
 
     await tester.pump();
@@ -237,7 +236,7 @@ void main() {
     expect(find.byWidgetPredicate(loadingAnimationIsActive), findsNothing);
   });
 
-  testWidgets('builds widget with true isLoading', (WidgetTester tester) async {
+  testWidgets('builds widget with true isLoading', (tester) async {
     await tester.pumpWidget(buildAuthenticationView(isLoading: true));
 
     await tester.pump();
@@ -250,8 +249,7 @@ void main() {
     expect(find.byWidgetPredicate(loadingAnimationIsActive), findsOneWidget);
   });
 
-  testWidgets('authenticationButton tap calls onPressed',
-      (WidgetTester tester) async {
+  testWidgets('authenticationButton tap calls onPressed', (tester) async {
     await tester.pumpWidget(buildAuthenticationView(isLoading: false));
 
     await tester.pump();
@@ -263,7 +261,7 @@ void main() {
     expect(authenticationButtonWasPressed, true);
   });
 
-  testWidgets('cancelButton tap calls onPressed', (WidgetTester tester) async {
+  testWidgets('cancelButton tap calls onPressed', (tester) async {
     await tester.pumpWidget(buildAuthenticationView(isLoading: false));
 
     await tester.pump();
@@ -275,7 +273,7 @@ void main() {
     expect(cancelButtonWasPressed, true);
   });
 
-  testWidgets('email input calls onChanged', (WidgetTester tester) async {
+  testWidgets('email input calls onChanged', (tester) async {
     emailInputField(Widget widget) =>
         widget is InputField && widget.hintText == 'Enter email';
 
@@ -293,7 +291,7 @@ void main() {
     expect(emailInput, emailInputText);
   });
 
-  testWidgets('password input calls onChanged', (WidgetTester tester) async {
+  testWidgets('password input calls onChanged', (tester) async {
     passwordInputField(Widget widget) =>
         widget is InputField && widget.hintText == 'Enter password';
 

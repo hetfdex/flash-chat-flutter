@@ -1,8 +1,8 @@
-import 'package:views/views/home_view.dart';
 import 'package:components/components/rounded_button.dart';
 import 'package:components/components/typewriter_animated_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:views/views/home_view.dart';
 
 class HomeViewWrapper extends StatelessWidget {
   const HomeViewWrapper(
@@ -60,7 +60,7 @@ void main() {
     });
   });
 
-  testWidgets('builds widget', (WidgetTester tester) async {
+  testWidgets('builds widget', (tester) async {
     await tester.pumpWidget(buildHomeView());
 
     await tester.pump();
@@ -70,7 +70,7 @@ void main() {
     expect(find.byType(TypewriterAnimatedText), findsOneWidget);
   });
 
-  testWidgets('login tap calls onPressed', (WidgetTester tester) async {
+  testWidgets('login tap calls onPressed', (tester) async {
     await tester.pumpWidget(buildHomeView());
 
     await tester.pump();
@@ -82,7 +82,7 @@ void main() {
     expect(loginButtonWasPressed, true);
   });
 
-  testWidgets('register tap calls onPressed', (WidgetTester tester) async {
+  testWidgets('register tap calls onPressed', (tester) async {
     await tester.pumpWidget(buildHomeView());
 
     await tester.pump();

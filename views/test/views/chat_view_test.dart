@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:views/views/chat_view.dart';
+
 import 'package:components/components/message_writer.dart';
 import 'package:components/components/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:views/views/chat_view.dart';
 
 class ChatViewWrapper extends StatelessWidget {
   const ChatViewWrapper(
@@ -147,7 +148,7 @@ void main() {
     });
   });
 
-  testWidgets('builds widget', (WidgetTester tester) async {
+  testWidgets('builds widget', (tester) async {
     await tester.pumpWidget(buildChatView());
 
     await tester.pump();
@@ -158,7 +159,7 @@ void main() {
     expect(find.byType(MessageWriter), findsOneWidget);
   });
 
-  testWidgets('close tap calls onPressed', (WidgetTester tester) async {
+  testWidgets('close tap calls onPressed', (tester) async {
     await tester.pumpWidget(buildChatView());
 
     await tester.pump();
@@ -170,7 +171,7 @@ void main() {
     expect(closeButtonWasPressed, true);
   });
 
-  testWidgets('send tap calls onPressed', (WidgetTester tester) async {
+  testWidgets('send tap calls onPressed', (tester) async {
     await tester.pumpWidget(buildChatView());
 
     await tester.pump();
@@ -182,7 +183,7 @@ void main() {
     expect(sendButtonWasPressed, true);
   });
 
-  testWidgets('message input calls onChanged', (WidgetTester tester) async {
+  testWidgets('message input calls onChanged', (tester) async {
     const messageInputTest = 'messageInputTest';
 
     await tester.pumpWidget(buildChatView());
