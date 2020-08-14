@@ -13,7 +13,7 @@ class WarningDialogWrapper extends StatelessWidget {
     return MaterialApp(
       title: 'WarningDialogTest',
       home: Builder(
-        builder: (BuildContext context) => FlatButton(
+        builder: (context) => FlatButton(
           child: Text('showWarningDialog'),
           onPressed: () => showWarningDialog(context, warnings),
         ),
@@ -26,7 +26,7 @@ void main() {
   Widget buildWarningDialog({Warnings warnings}) =>
       WarningDialogWrapper(warnings: warnings);
 
-  testWidgets('null warnings throws error', (WidgetTester tester) async {
+  testWidgets('null warnings throws error', (tester) async {
     await tester.pumpWidget(buildWarningDialog(warnings: null));
 
     await tester.pump();
@@ -38,8 +38,7 @@ void main() {
     expect(tester.takeException(), isArgumentError);
   });
 
-  testWidgets('builds widget with invalid email warning',
-      (WidgetTester tester) async {
+  testWidgets('builds widget with invalid email warning', (tester) async {
     await tester
         .pumpWidget(buildWarningDialog(warnings: Warnings.invalidEmail));
 
@@ -56,8 +55,7 @@ void main() {
     expect(find.text(invalidEmailContent), findsOneWidget);
   });
 
-  testWidgets('builds widget with invalid password warning',
-      (WidgetTester tester) async {
+  testWidgets('builds widget with invalid password warning', (tester) async {
     await tester
         .pumpWidget(buildWarningDialog(warnings: Warnings.invalidPassword));
 
@@ -74,8 +72,7 @@ void main() {
     expect(find.text(invalidPasswordContent), findsOneWidget);
   });
 
-  testWidgets('builds widget with unknown user warning',
-      (WidgetTester tester) async {
+  testWidgets('builds widget with unknown user warning', (tester) async {
     await tester.pumpWidget(buildWarningDialog(warnings: Warnings.unknownUser));
 
     await tester.pump();
@@ -91,8 +88,7 @@ void main() {
     expect(find.text(unknownUserContent), findsOneWidget);
   });
 
-  testWidgets('builds widget with wrong password warning',
-      (WidgetTester tester) async {
+  testWidgets('builds widget with wrong password warning', (tester) async {
     await tester
         .pumpWidget(buildWarningDialog(warnings: Warnings.wrongPassword));
 
@@ -109,7 +105,7 @@ void main() {
     expect(find.text(wrongPasswordContent), findsOneWidget);
   });
 
-  testWidgets('tap dismisses widget', (WidgetTester tester) async {
+  testWidgets('tap dismisses widget', (tester) async {
     await tester
         .pumpWidget(buildWarningDialog(warnings: Warnings.invalidEmail));
 

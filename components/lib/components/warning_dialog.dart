@@ -1,5 +1,6 @@
-import 'package:components/helpers/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../helpers/constants.dart';
 
 /// List of invalid fields
 enum Warnings {
@@ -25,7 +26,7 @@ void showWarningDialog(BuildContext context, Warnings warnings) {
   showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (BuildContext context) {
+    builder: (context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),

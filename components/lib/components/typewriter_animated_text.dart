@@ -25,7 +25,7 @@ class TypewriterAnimatedText extends StatelessWidget {
   Widget build(BuildContext context) {
     return TypewriterAnimatedTextKit(
       text: text,
-      duration: Duration(seconds: durationSeconds),
+      speed: Duration(seconds: durationSeconds),
       textStyle: textStyle,
     );
   }

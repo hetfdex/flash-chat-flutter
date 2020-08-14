@@ -50,7 +50,7 @@ void main() {
     });
   });
 
-  testWidgets('builds widget', (WidgetTester tester) async {
+  testWidgets('builds widget', (tester) async {
     isCorrectColor(Widget widget) =>
         widget is Material && widget.color == color;
 
@@ -63,7 +63,7 @@ void main() {
     expect(find.byWidgetPredicate(isCorrectColor), findsOneWidget);
   });
 
-  testWidgets('button tap calls onPressed', (WidgetTester tester) async {
+  testWidgets('button tap calls onPressed', (tester) async {
     await tester.pumpWidget(buildRoundedButton());
 
     await tester.pump();

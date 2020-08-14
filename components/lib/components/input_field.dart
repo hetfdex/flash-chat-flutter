@@ -1,5 +1,6 @@
-import 'package:components/helpers/constants.dart';
 import 'package:flutter/material.dart';
+
+import '../helpers/constants.dart';
 
 /// An input field widget
 class InputField extends StatelessWidget {

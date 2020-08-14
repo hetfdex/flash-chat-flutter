@@ -122,8 +122,7 @@ void main() {
     });
   });
 
-  testWidgets('builds widget with false obscureText',
-      (WidgetTester tester) async {
+  testWidgets('builds widget with false obscureText', (tester) async {
     await tester.pumpWidget(buildInputField(obscureText: false));
 
     await tester.pump();
@@ -135,7 +134,7 @@ void main() {
     expect(find.text(hintText), findsOneWidget);
   });
 
-  testWidgets('builds widget true obscureText', (WidgetTester tester) async {
+  testWidgets('builds widget true obscureText', (tester) async {
     await tester.pumpWidget(buildInputField(obscureText: true));
 
     await tester.pump();
@@ -147,7 +146,7 @@ void main() {
     expect(find.text(hintText), findsOneWidget);
   });
 
-  testWidgets('text input calls onChanged', (WidgetTester tester) async {
+  testWidgets('text input calls onChanged', (tester) async {
     const testInput = 'testInput';
 
     await tester.pumpWidget(buildInputField(obscureText: true));

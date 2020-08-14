@@ -48,7 +48,7 @@ void main() {
     });
   });
 
-  testWidgets('builds widget', (WidgetTester tester) async {
+  testWidgets('builds widget', (tester) async {
     await tester.pumpWidget(buildTopBar());
 
     await tester.pump();
@@ -59,7 +59,7 @@ void main() {
     expect(find.text(titleText), findsOneWidget);
   });
 
-  testWidgets('button tap calls onPressed', (WidgetTester tester) async {
+  testWidgets('button tap calls onPressed', (tester) async {
     await tester.pumpWidget(buildTopBar());
 
     await tester.pump();

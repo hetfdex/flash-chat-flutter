@@ -64,10 +64,10 @@ void main() {
     });
   });
 
-  testWidgets('builds widget', (WidgetTester tester) async {
+  testWidgets('builds widget', (tester) async {
     isCorrectDurationSeconds(Widget widget) =>
         widget is TypewriterAnimatedTextKit &&
-        widget.duration == Duration(seconds: durationSeconds);
+        widget.speed == Duration(seconds: durationSeconds);
 
     isCorrectText(Widget widget) =>
         widget is TypewriterAnimatedTextKit && widget.text == text;

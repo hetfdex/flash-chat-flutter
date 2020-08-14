@@ -63,7 +63,7 @@ void main() {
     });
   });
 
-  testWidgets('builds widget true current user', (WidgetTester tester) async {
+  testWidgets('builds widget true current user', (tester) async {
     await tester.pumpWidget(buildMessageBubble(isCurrentUser: true));
 
     await tester.pump();
@@ -73,8 +73,7 @@ void main() {
     expect(find.byWidgetPredicate(isCurrentUser), findsOneWidget);
   });
 
-  testWidgets('builds widget with false current user',
-      (WidgetTester tester) async {
+  testWidgets('builds widget with false current user', (tester) async {
     await tester.pumpWidget(buildMessageBubble(isCurrentUser: false));
 
     await tester.pump();
