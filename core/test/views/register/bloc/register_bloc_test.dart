@@ -57,79 +57,73 @@ void main() {
 
   group('RegisterChanged', () {
     blocTest(
-      'emits [RegisterInitial, RegisterFillInProgress] when email and password are empty',
+      'emits [RegisterFillInProgress] when email and password are empty',
       build: () {
         return registerBloc;
       },
       act: (registerBlock) => registerBlock
           .add(RegisterChanged(email: emptyField, password: emptyField)),
       expect: [
-        RegisterInitial(),
         RegisterFillInProgress(),
       ],
     );
 
     blocTest(
-      'emits [RegisterInitial, RegisterFillInProgress] when email is empty',
+      'emits [RegisterFillInProgress] when email is empty',
       build: () {
         return registerBloc;
       },
       act: (registerBlock) => registerBlock
           .add(RegisterChanged(email: emptyField, password: invalidPassword)),
       expect: [
-        RegisterInitial(),
         RegisterFillInProgress(),
       ],
     );
 
     blocTest(
-      'emits [RegisterInitial, RegisterFillInProgress] when password is empty',
+      'emits [RegisterFillInProgress] when password is empty',
       build: () {
         return registerBloc;
       },
       act: (registerBlock) => registerBlock
           .add(RegisterChanged(email: invalidEmail, password: emptyField)),
       expect: [
-        RegisterInitial(),
         RegisterFillInProgress(),
       ],
     );
 
     blocTest(
-      'emits [RegisterInitial, RegisterFillInProgress] when email is invalid',
+      'emits [RegisterFillInProgress] when email is invalid',
       build: () {
         return registerBloc;
       },
       act: (registerBlock) => registerBlock
           .add(RegisterChanged(email: invalidEmail, password: validPassword)),
       expect: [
-        RegisterInitial(),
         RegisterFillInProgress(),
       ],
     );
 
     blocTest(
-      'emits [RegisterInitial, RegisterFillInProgress] when password is invalid',
+      'emits [RegisterFillInProgress] when password is invalid',
       build: () {
         return registerBloc;
       },
       act: (registerBlock) => registerBlock
           .add(RegisterChanged(email: validEmail, password: invalidPassword)),
       expect: [
-        RegisterInitial(),
         RegisterFillInProgress(),
       ],
     );
 
     blocTest(
-      'emits [RegisterInitial, RegisterFillSuccess] when email and password are valid',
+      'emits [RegisterFillSuccess] when email and password are valid',
       build: () {
         return registerBloc;
       },
       act: (registerBlock) => registerBlock
           .add(RegisterChanged(email: validEmail, password: validPassword)),
       expect: [
-        RegisterInitial(),
         RegisterFillSuccess(error: null),
       ],
     );
@@ -137,7 +131,7 @@ void main() {
 
   group('RegisterSubmitted', () {
     blocTest(
-      'emits [RegisterInitial, RegisterValidateInProgress, RegisterInitial] when email and password are valid',
+      'emits [RegisterValidateInProgress, RegisterInitial] when email and password are valid',
       build: () {
         when(
           userRepository.login(
@@ -151,7 +145,6 @@ void main() {
       act: (registerBlock) => registerBlock
           .add(RegisterSubmitted(email: validEmail, password: validPassword)),
       expect: [
-        RegisterInitial(),
         RegisterValidateInProgress(),
         RegisterInitial(),
       ],
@@ -160,7 +153,7 @@ void main() {
     final error = Error();
 
     blocTest(
-      'emits [RegisterInitial, RegisterValidateInProgress, LoginFormFillSuccess] on caught error',
+      'emits [RegisterValidateInProgress, LoginFormFillSuccess] on caught error',
       build: () {
         when(
           userRepository.register(
@@ -174,7 +167,6 @@ void main() {
       act: (registerBlock) => registerBlock.add(
           RegisterSubmitted(email: invalidEmail, password: invalidPassword)),
       expect: [
-        RegisterInitial(),
         RegisterValidateInProgress(),
         RegisterFillSuccess(error: error),
       ],

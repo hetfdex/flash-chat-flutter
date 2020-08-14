@@ -56,79 +56,73 @@ void main() {
 
   group('LoginChanged', () {
     blocTest(
-      'emits [LoginInitial, LoginFillInProgress] when email and password are empty',
+      'emits [LoginFillInProgress] when email and password are empty',
       build: () {
         return loginBloc;
       },
       act: (loginBloc) =>
           loginBloc.add(LoginChanged(email: emptyField, password: emptyField)),
       expect: [
-        LoginInitial(),
         LoginFillInProgress(),
       ],
     );
 
     blocTest(
-      'emits [LoginInitial, LoginFillInProgress] when email is empty',
+      'emits [LoginFillInProgress] when email is empty',
       build: () {
         return loginBloc;
       },
       act: (loginBloc) => loginBloc
           .add(LoginChanged(email: emptyField, password: invalidPassword)),
       expect: [
-        LoginInitial(),
         LoginFillInProgress(),
       ],
     );
 
     blocTest(
-      'emits [LoginInitial, LoginFillInProgress] when password is empty',
+      'emits [LoginFillInProgress] when password is empty',
       build: () {
         return loginBloc;
       },
       act: (loginBloc) => loginBloc
           .add(LoginChanged(email: invalidEmail, password: emptyField)),
       expect: [
-        LoginInitial(),
         LoginFillInProgress(),
       ],
     );
 
     blocTest(
-      'emits [LoginInitial, LoginFillInProgress] when email is invalid',
+      'emits [LoginFillInProgress] when email is invalid',
       build: () {
         return loginBloc;
       },
       act: (loginBloc) => loginBloc
           .add(LoginChanged(email: invalidEmail, password: validPassword)),
       expect: [
-        LoginInitial(),
         LoginFillInProgress(),
       ],
     );
 
     blocTest(
-      'emits [LoginInitial, LoginFillInProgress] when password is invalid',
+      'emits [LoginFillInProgress] when password is invalid',
       build: () {
         return loginBloc;
       },
       act: (loginBloc) => loginBloc
           .add(LoginChanged(email: validEmail, password: invalidPassword)),
       expect: [
-        LoginInitial(),
         LoginFillInProgress(),
       ],
     );
 
     blocTest(
-      'emits [LoginInitial, LoginFillSuccess] when email and password are valid',
+      'emits [LoginFillSuccess] when email and password are valid',
       build: () {
         return loginBloc;
       },
       act: (loginBloc) => loginBloc
           .add(LoginChanged(email: validEmail, password: validPassword)),
       expect: [
-        LoginInitial(),
         LoginFillSuccess(error: null),
       ],
     );
@@ -136,7 +130,7 @@ void main() {
 
   group('LoginSubmitted', () {
     blocTest(
-      'emits [LoginInitial, LoginValidateInProgress, LoginInitial] when email and password are valid',
+      'emits [LoginValidateInProgress, LoginInitial] when email and password are valid',
       build: () {
         when(
           userRepository.login(
@@ -150,7 +144,6 @@ void main() {
       act: (loginBloc) => loginBloc
           .add(LoginSubmitted(email: validEmail, password: validPassword)),
       expect: [
-        LoginInitial(),
         LoginValidateInProgress(),
         LoginInitial(),
       ],
@@ -159,7 +152,7 @@ void main() {
     final error = Error();
 
     blocTest(
-      'emits [LoginInitial, LoginValidateInProgress, LoginFormFillSuccess] on caught error',
+      'emits [LoginValidateInProgress, LoginFormFillSuccess] on caught error',
       build: () {
         when(
           userRepository.login(
@@ -173,7 +166,6 @@ void main() {
       act: (loginBlock) => loginBlock
           .add(LoginSubmitted(email: invalidEmail, password: invalidPassword)),
       expect: [
-        LoginInitial(),
         LoginValidateInProgress(),
         LoginFillSuccess(error: error),
       ],

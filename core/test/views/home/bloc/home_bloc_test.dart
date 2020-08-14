@@ -19,13 +19,12 @@ void main() {
 
   group('LoginButtonPressed', () {
     blocTest(
-      'emits [HomeViewActive, LoginViewActive]',
+      'emits [LoginViewActive]',
       build: () {
         return homeBloc;
       },
       act: (homeBloc) => homeBloc.add(LoginButtonPressed()),
       expect: [
-        HomeViewActive(),
         LoginViewActive(),
       ],
     );
@@ -33,20 +32,19 @@ void main() {
 
   group('RegisterButtonPressed', () {
     blocTest(
-      'emits [HomeViewActive, RegisterViewActive]',
+      'emits [RegisterViewActive]',
       build: () {
         return homeBloc;
       },
       act: (homeBloc) => homeBloc.add(RegisterButtonPressed()),
       expect: [
-        HomeViewActive(),
         RegisterViewActive(),
       ],
     );
   });
   group('CancelButtonPressed', () {
     blocTest(
-      'emits [HomeViewActive, LoginViewActive, HomeViewActive]',
+      'emits [LoginViewActive, HomeViewActive]',
       build: () {
         return homeBloc;
       },
@@ -57,14 +55,13 @@ void main() {
         return;
       },
       expect: [
-        HomeViewActive(),
         LoginViewActive(),
         HomeViewActive(),
       ],
     );
 
     blocTest(
-      'emits [HomeViewActive, RegisterViewActive, HomeViewActive]',
+      'emits [RegisterViewActive, HomeViewActive]',
       build: () {
         return homeBloc;
       },
@@ -75,7 +72,6 @@ void main() {
         return;
       },
       expect: [
-        HomeViewActive(),
         RegisterViewActive(),
         HomeViewActive(),
       ],
