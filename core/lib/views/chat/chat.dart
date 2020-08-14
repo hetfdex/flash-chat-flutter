@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:components/components/message_bubble.dart';
 import 'package:components/helpers/constants.dart';
-import 'package:flash_chat_core/utils/rsa_utils.dart';
-import 'package:flash_chat_core/views/chat/bloc/bloc.dart';
-import 'package:flash_chat_core/views/chat/bloc/chat_bloc.dart';
-import 'package:flash_chat_core/views/chat/bloc/chat_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:views/views/chat_view.dart';
+
+import '../../utils/utils.dart';
+import '../../views/views.dart';
 
 /// The chat view implementation
 class Chat extends StatelessWidget {
@@ -23,7 +22,7 @@ class Chat extends StatelessWidget {
       closeButtonOnPressed: () {
         _chatBloc.add(CloseButtonPressed());
       },
-      messageInputFieldOnChanged: (String v) {
+      messageInputFieldOnChanged: (v) {
         _chatBloc.add(ChatChanged(message: _textEditingController.text));
       },
       sendButtonOnPressed: () {

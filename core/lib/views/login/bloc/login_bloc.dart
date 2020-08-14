@@ -1,23 +1,23 @@
 import 'dart:async';
-import 'package:flash_chat_core/authentication/bloc/bloc.dart';
-import 'package:flash_chat_core/repositories/user_repository.dart';
-import 'package:flash_chat_core/utils/form_validation_utils.dart';
-import 'package:flash_chat_core/views/login/bloc/bloc.dart';
+
 import 'package:bloc/bloc.dart';
+
+import '../../../authentication/authentication.dart';
+import '../../../repositories/repositories.dart';
+import '../../../utils/utils.dart';
+import 'bloc.dart';
 
 /// The login bloc
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   /// Constructs the login bloc
   LoginBloc(this._userRepository, this._authenticationBloc)
       : assert(_userRepository != null),
-        assert(_authenticationBloc != null);
+        assert(_authenticationBloc != null),
+        super(LoginInitial());
 
   final UserRepository _userRepository;
 
   final AuthenticationBloc _authenticationBloc;
-
-  @override
-  LoginState get initialState => LoginInitial();
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
@@ -49,7 +49,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       _authenticationBloc.add(UserLoggedIn(user: user));
 
       yield LoginInitial();
-    } on Error catch (e) {
+    } on Object catch (e) {
       yield LoginFillSuccess(error: e);
     }
   }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flash_chat_core/utils/rsa_utils.dart';
 import 'package:pointycastle/export.dart';
+
+import '../utils/utils.dart';
 
 /// The document repository interface
 abstract class IDocumentRepository {

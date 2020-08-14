@@ -1,13 +1,12 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
-import 'package:flash_chat_core/authentication/bloc/bloc.dart';
-import 'package:flash_chat_core/repositories/document_repository.dart';
-import 'package:flash_chat_core/repositories/user_repository.dart';
-import 'package:flash_chat_core/utils/pem_utils.dart';
-import 'package:flash_chat_core/utils/rsa_utils.dart';
-import 'package:flash_chat_core/utils/secure_storage_utils.dart';
-import 'package:flash_chat_core/views/chat/bloc/bloc.dart';
 import 'package:pointycastle/pointycastle.dart';
+
+import '../../../authentication/authentication.dart';
+import '../../../repositories/repositories.dart';
+import '../../../utils/utils.dart';
+import 'bloc.dart';
 
 /// The chat bloc
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
@@ -17,7 +16,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       : assert(_secureStorageUtils != null),
         assert(_userRepository != null),
         assert(_documentRepository != null),
-        assert(_authenticationBloc != null);
+        assert(_authenticationBloc != null),
+        super(ChatInitial());
 
   final SecureStorageUtils _secureStorageUtils;
 
@@ -26,9 +26,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final DocumentRepository _documentRepository;
 
   final AuthenticationBloc _authenticationBloc;
-
-  @override
-  ChatState get initialState => ChatInitial();
 
   @override
   Stream<ChatState> mapEventToState(ChatEvent event) async* {
@@ -63,7 +60,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       _documentRepository.postMesssage(message: encryptedMessage);
 
       yield ChatInitial();
-    } on Error catch (e) {
+    } on Object catch (e) {
       yield ChatFillSuccess(error: e);
     }
   }

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 
-class TestDebuggerBlocDelegate extends BlocDelegate {
+class TestDebuggerBlocDelegate extends BlocObserver {
   String lastEvent;
   String currentState;
   String nextState;

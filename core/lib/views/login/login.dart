@@ -1,11 +1,10 @@
 import 'package:components/components/warning_dialog.dart';
-import 'package:flash_chat_core/utils/form_validation_utils.dart';
-import 'package:flash_chat_core/views/home/bloc/home_bloc.dart';
-import 'package:flash_chat_core/views/home/bloc/home_event.dart';
-import 'package:flash_chat_core/views/login/bloc/bloc.dart';
-import 'package:views/views/authentication_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:views/views/authentication_view.dart';
+
+import '../../utils/utils.dart';
+import '../../views/views.dart';
 
 /// The login view implementation
 class Login extends StatelessWidget {
@@ -25,10 +24,10 @@ class Login extends StatelessWidget {
       authenticationButtonOnPressed: () =>
           _loginButtonOnPressed(context, _loginBloc),
       cancelButtonOnPressed: () => _homeBloc.add(CancelButtonPressed()),
-      emailInputFieldOnChanged: (String v) {
+      emailInputFieldOnChanged: (v) {
         _loginFieldsOnChanged(_loginBloc);
       },
-      passwordInputFieldOnChanged: (String v) {
+      passwordInputFieldOnChanged: (v) {
         _loginFieldsOnChanged(_loginBloc);
       },
       emailInputFieldfTextEditingController:

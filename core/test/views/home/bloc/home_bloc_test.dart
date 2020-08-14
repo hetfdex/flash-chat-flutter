@@ -14,7 +14,7 @@ void main() {
   });
 
   test('initial state is correct', () {
-    expect(homeBloc.initialState, HomeViewActive());
+    expect(homeBloc.state, HomeViewActive());
   });
 
   group('LoginButtonPressed', () {

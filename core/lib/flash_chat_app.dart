@@ -1,13 +1,8 @@
-import 'package:flash_chat_core/authentication/bloc/bloc.dart';
-import 'package:flash_chat_core/views/chat/bloc/bloc.dart';
-import 'package:flash_chat_core/views/chat/bloc/chat_bloc.dart';
-import 'package:flash_chat_core/views/chat/chat.dart';
-import 'package:flash_chat_core/views/home/bloc/bloc.dart';
-import 'package:flash_chat_core/views/home/home.dart';
-import 'package:flash_chat_core/views/login/login.dart';
-import 'package:flash_chat_core/views/register/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'authentication/authentication.dart';
+import 'views/views.dart';
 
 /// The flash chat app
 class FlashChatApp extends StatelessWidget {
@@ -15,15 +10,13 @@ class FlashChatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (BuildContext context, AuthenticationState state) {
+          builder: (context, state) {
         if (state is AuthenticationSuccess) {
-          return BlocBuilder<ChatBloc, ChatState>(
-              builder: (BuildContext context, ChatState state) {
+          return BlocBuilder<ChatBloc, ChatState>(builder: (context, state) {
             return Chat();
           });
         } else {
-          return BlocBuilder<HomeBloc, HomeState>(
-              builder: (BuildContext context, HomeState state) {
+          return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
             if (state is HomeViewActive) {
               return Home();
             }

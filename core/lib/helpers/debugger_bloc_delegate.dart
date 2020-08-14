@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 
 /// The bloc delegate debugger
-class DebuggerBlocDelegate extends BlocDelegate {
+class DebuggerBlocDelegate extends BlocObserver {
   @override
   void onEvent(Bloc<dynamic, dynamic> bloc, Object event) {
     super.onEvent(bloc, event);
@@ -16,9 +16,8 @@ class DebuggerBlocDelegate extends BlocDelegate {
   }
 
   @override
-  void onError(
-      Bloc<dynamic, dynamic> bloc, Object error, StackTrace stacktrace) {
-    super.onError(bloc, error, stacktrace);
+  void onError(Cubit cubit, Object error, StackTrace stacktrace) {
+    super.onError(cubit, error, stacktrace);
     print('$error, $stacktrace');
   }
 }

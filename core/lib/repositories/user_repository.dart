@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flash_chat_core/helpers/firebase_error.dart';
-import 'package:flash_chat_core/utils/hash_utils.dart';
-import 'package:flash_chat_core/utils/pem_utils.dart';
-import 'package:flash_chat_core/utils/rsa_utils.dart';
-import 'package:flash_chat_core/utils/secure_storage_utils.dart';
 import 'package:flutter/services.dart';
+
+import '../helpers/helpers.dart';
+import '../utils/utils.dart';
 
 /// The user repository interface
 abstract class IUserRepository {

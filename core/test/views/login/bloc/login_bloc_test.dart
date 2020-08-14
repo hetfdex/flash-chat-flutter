@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flash_chat_core/authentication/bloc/bloc.dart';
 import 'package:flash_chat_core/authentication/bloc/authentication_bloc.dart';
+import 'package:flash_chat_core/authentication/bloc/bloc.dart';
 import 'package:flash_chat_core/repositories/user_repository.dart';
 import 'package:flash_chat_core/views/login/bloc/bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -51,7 +51,7 @@ void main() {
   });
 
   test('initial state is correct', () {
-    expect(loginBloc.initialState, LoginInitial());
+    expect(loginBloc.state, LoginInitial());
   });
 
   group('LoginChanged', () {

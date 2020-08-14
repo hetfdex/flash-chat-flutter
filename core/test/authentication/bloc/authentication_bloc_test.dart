@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat_core/authentication/bloc/bloc.dart';
@@ -34,7 +35,7 @@ void main() {
   });
 
   test('AuthenticationInitial state is correct', () {
-    expect(authenticationBloc.initialState, AuthenticationInitial());
+    expect(authenticationBloc.state, AuthenticationInitial());
   });
 
   group('AppStarted', () {

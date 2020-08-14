@@ -84,7 +84,7 @@ void main() {
   });
 
   test('initial state is correct', () {
-    expect(chatBloc.initialState, ChatInitial());
+    expect(chatBloc.state, ChatInitial());
   });
 
   group('ChatChanged', () {

@@ -1,18 +1,19 @@
 import 'dart:async';
+
 import 'package:bloc/bloc.dart';
-import 'package:flash_chat_core/authentication/bloc/bloc.dart';
-import 'package:flash_chat_core/repositories/user_repository.dart';
+
+import '../../repositories/repositories.dart';
+import 'bloc.dart';
 
 /// The authentication bloc
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   /// Constructs the authentication bloc
-  AuthenticationBloc(this._userRepository) : assert(_userRepository != null);
+  AuthenticationBloc(this._userRepository)
+      : assert(_userRepository != null),
+        super(AuthenticationInitial());
 
   final UserRepository _userRepository;
-
-  @override
-  AuthenticationState get initialState => AuthenticationInitial();
 
   @override
   Stream<AuthenticationState> mapEventToState(
