@@ -8,6 +8,7 @@ void main() {
   const message = 'message';
   const email = 'email';
   const publicKeyPEM = 'publicKeyPEM';
+  const uid = 'uid';
 
   final messageCollection = {'1': 'one', '2': 'two'};
 
@@ -33,12 +34,24 @@ void main() {
 
   group('getMessageStream', () {
     test('returns message stream', () async {
-      await firestore.collection('messages').add(messageCollection);
+      await firestore
+          .collection('messages')
+          .document(uid)
+          .setData(messageCollection);
 
       expect(
-          documentRepository.getMessageStream(),
-          emits(QuerySnapshotMatcher(
-              [DocumentSnapshotMatcher('z', messageCollection)])));
+        documentRepository.getMessageStream(),
+        emits(
+          QuerySnapshotMatcher(
+            [
+              DocumentSnapshotMatcher(
+                uid,
+                messageCollection,
+              ),
+            ],
+          ),
+        ),
+      );
     });
   });
 
