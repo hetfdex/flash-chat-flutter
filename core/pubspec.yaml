@@ -31,6 +31,12 @@ dev_dependencies:
   bloc_test: ^7.0.0
   cloud_firestore_mocks: ^0.4.6+1
   effective_dart: ^1.2.0
+  flutter_launcher_icons: ^0.7.5
+  
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/launcher/logo.png"
 
 
 flutter:
