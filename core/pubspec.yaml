@@ -4,34 +4,36 @@ version: 1.0.0
 author: Jose Pereira
 homepage: www.github.com/hetfdex
 
+publish_to: 'none'
+
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   components:
     path: ../components
   views:
     path: ../views
-  bloc: ^2.0.0
-  flutter_bloc: ^2.1.1
-  equatable: ^1.0.1
-  firebase_auth: ^0.15.0+1
-  cloud_firestore: ^0.12.10+2
+  bloc: ^6.0.1
+  flutter_bloc: ^6.0.1
+  equatable: ^1.2.3
+  firebase_auth: ^0.16.1
+  cloud_firestore: ^0.13.7
   dbcrypt: ^1.0.0
-  flutter_secure_storage: ^3.3.1+1
+  flutter_secure_storage: ^3.3.3
   pointycastle: ^1.0.2
-  asn1lib: ^0.5.14
-  effective_dart: ^1.1.1
+  asn1lib: ^0.6.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^4.1.1
-  bloc_test: ^2.2.2
-  cloud_firestore_mocks: ^0.2.1
+  bloc_test: ^7.0.0
+  cloud_firestore_mocks: ^0.4.6+1
+  effective_dart: ^1.2.0
+
 
 flutter:
   uses-material-design: true
   assets:
   - ../views/images/
-  
