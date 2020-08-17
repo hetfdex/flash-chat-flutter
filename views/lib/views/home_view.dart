@@ -36,11 +36,11 @@ class HomeView extends StatelessWidget {
                 ),
                 TypewriterAnimatedText(
                   text: <String>['Flash Chat'],
-                  durationSeconds: 10,
                   textStyle: TextStyle(
-                    fontSize: 45.0,
+                    fontSize: 40.0,
                     fontWeight: FontWeight.w900,
                   ),
+                  durationSeconds: 1,
                 ),
               ],
             ),

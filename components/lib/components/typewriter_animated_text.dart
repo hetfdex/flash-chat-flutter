@@ -15,7 +15,7 @@ class TypewriterAnimatedText extends StatelessWidget {
   /// The text to animated as a list
   final List<String> text;
 
-  /// The duration of the animation
+  /// The delay between the apparition of each character in seconds
   final int durationSeconds;
 
   /// The style of the text
@@ -25,8 +25,10 @@ class TypewriterAnimatedText extends StatelessWidget {
   Widget build(BuildContext context) {
     return TypewriterAnimatedTextKit(
       text: text,
-      speed: Duration(seconds: durationSeconds),
       textStyle: textStyle,
+      speed: Duration(seconds: durationSeconds),
+      pause: Duration(seconds: 0),
+      repeatForever: true,
     );
   }
 }
