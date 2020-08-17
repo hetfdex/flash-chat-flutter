@@ -14,6 +14,8 @@ import 'utils/utils.dart';
 import 'views/views.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   const flutterSecureStorage = FlutterSecureStorage();
 
   final firebaseAuth = FirebaseAuth.instance;
@@ -41,36 +43,41 @@ Future<void> main() async {
   Bloc.observer = DebuggerBlocDelegate();
 
   await SystemChrome.setPreferredOrientations(
-      <DeviceOrientation>[DeviceOrientation.portraitUp]);
-
-  runApp(MultiRepositoryProvider(
-    providers: <RepositoryProvider<dynamic>>[
-      RepositoryProvider<UserRepository>.value(
-        value: userRepository,
-      ),
-      RepositoryProvider<DocumentRepository>.value(
-        value: documentRepository,
-      ),
+    <DeviceOrientation>[
+      DeviceOrientation.portraitUp,
     ],
-    child: MultiBlocProvider(
-      providers: <BlocProvider<Bloc<dynamic, dynamic>>>[
-        BlocProvider<AuthenticationBloc>(
-          create: (context) => authenticationBloc,
+  );
+
+  runApp(
+    MultiRepositoryProvider(
+      providers: <RepositoryProvider<dynamic>>[
+        RepositoryProvider<UserRepository>.value(
+          value: userRepository,
         ),
-        BlocProvider<HomeBloc>(
-          create: (context) => homeBloc,
-        ),
-        BlocProvider<LoginBloc>(
-          create: (context) => loginBloc,
-        ),
-        BlocProvider<RegisterBloc>(
-          create: (context) => registerBloc,
-        ),
-        BlocProvider<ChatBloc>(
-          create: (context) => chatBloc,
+        RepositoryProvider<DocumentRepository>.value(
+          value: documentRepository,
         ),
       ],
-      child: FlashChatApp(),
+      child: MultiBlocProvider(
+        providers: <BlocProvider<Bloc<dynamic, dynamic>>>[
+          BlocProvider<AuthenticationBloc>(
+            create: (context) => authenticationBloc,
+          ),
+          BlocProvider<HomeBloc>(
+            create: (context) => homeBloc,
+          ),
+          BlocProvider<LoginBloc>(
+            create: (context) => loginBloc,
+          ),
+          BlocProvider<RegisterBloc>(
+            create: (context) => registerBloc,
+          ),
+          BlocProvider<ChatBloc>(
+            create: (context) => chatBloc,
+          ),
+        ],
+        child: FlashChatApp(),
+      ),
     ),
-  ));
+  );
 }
