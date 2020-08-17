@@ -1,4 +1,4 @@
-package com.example.core
+package com.hetfdex.flashchat
 
 import io.flutter.embedding.android.FlutterActivity
 
